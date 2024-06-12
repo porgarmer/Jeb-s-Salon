@@ -1,2 +1,10 @@
 /*This is where I'll write the CSS because writing CSS in QT's editor is a pain the fucking ass.*/
 
+#main_screen{
+    background-color: #20262E;
+}
+
+#side_bar_menu{
+    background-color: #5A2E74;
+}
+

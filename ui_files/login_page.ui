@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1154</width>
-    <height>713</height>
+    <width>1516</width>
+    <height>851</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,26 +15,35 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#centralwidget{
-	background-color: rgb(251, 255, 244);
+	background-color: #2C2C3B;
 }
 
+#header{
+	color: #E9E8E8;
+}
 #login_pane{
 	border-radius: 35.98px;
-	background-color: rgb(238, 245, 225);
+	background-color: #5A2E74;
 }
-
+#user_name, #user_password{
+	background-color:  #E2CFEA;
+}
 #user_name, #user_password, #login_button{
 	border-radius: 14.39px;
 }
 
+QLineEdit{
+	padding-left: 5px;
+	padding-right: 5px;
+}
 #login_button{
-	background-color: rgb(118, 171, 174);
+	color: #20262E;
+	background-color: #E2CFEA;
 }
 
 #login_button:hover, #login_button:clicked{
 		
-	
-	background-color: rgb(153, 173, 174);
+	background-color: #918596
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -42,7 +51,7 @@
     <string notr="true"/>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="2" column="2">
+    <item row="3" column="2">
      <spacer name="horizontalSpacer_4">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -55,8 +64,47 @@
       </property>
      </spacer>
     </item>
+    <item row="0" column="1">
+     <spacer name="verticalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="0">
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="4" column="1">
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
     <item row="1" column="1">
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="header">
       <property name="font">
        <font>
         <family>JetBrains Mono</family>
@@ -66,14 +114,14 @@
        </font>
       </property>
       <property name="text">
-       <string>ADMIN LOG IN</string>
+       <string>JEB'S SALON</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
+    <item row="3" column="1">
      <widget class="QWidget" name="login_pane" native="true">
       <property name="minimumSize">
        <size>
@@ -250,45 +298,6 @@
        </item>
       </layout>
      </widget>
-    </item>
-    <item row="2" column="0">
-     <spacer name="horizontalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="1">
-     <spacer name="verticalSpacer_4">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="3" column="1">
-     <spacer name="verticalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
     </item>
    </layout>
   </widget>

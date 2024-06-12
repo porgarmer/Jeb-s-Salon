@@ -1,0 +1,28 @@
+<RCC>
+  <qresource>
+    <file>add_button_light.svg</file>
+    <file>cancel_button_light.svg</file>
+    <file>delete_button_light.svg</file>
+    <file>edit_button_light.svg</file>
+    <file>more_details_button_light.svg</file>
+    <file>save_button_light.svg</file>
+    <file>menu_dark.svg</file>
+    <file>menu_light.svg</file>
+    <file>admin_dark.svg</file>
+    <file>admin_light.svg</file>
+    <file>barber-shop.svg</file>
+    <file>customers_dark.svg</file>
+    <file>customers_light.svg</file>
+    <file>dashboard_dark.svg</file>
+    <file>dashboard_light.svg</file>
+    <file>employees_dark.svg</file>
+    <file>employees_light.svg</file>
+    <file>receipt.svg</file>
+    <file>receipt_dark.svg</file>
+    <file>receipt_light.svg</file>
+    <file>services_dark.svg</file>
+    <file>services_light.svg</file>
+    <file>sign_out_dark.svg</file>
+    <file>sign_out_light.svg</file>
+  </qresource>
+</RCC>

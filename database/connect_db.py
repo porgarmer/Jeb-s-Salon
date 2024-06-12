@@ -1,5 +1,5 @@
 import psycopg2
-
+from PyQt6.QtWidgets import QMessageBox
 class Database:
     def __init__(self) -> None:
         self._host = "aws-0-ap-southeast-1.pooler.supabase.com"
@@ -11,21 +11,39 @@ class Database:
         self.cursor = None
         
     def connect_db(self):
-        self.conn = psycopg2.connect(
+        try:
+            self.conn = psycopg2.connect(
             
             host=self._host,
             port=self._port,
             database=self._database,
             user=self._user,
             password=self._password)
+            self.cursor = self.conn.cursor()  
+        except Exception as e:
+            return e
         
-        self.cursor = self.conn.cursor()  
+    
+    def rollback(self):
+        self.conn.rollback()
+
+    def close_connection(self):
+        self.conn.close()
         
+    def close_cursor(self):
+        self.cursor.close()
+
+
+
+
     def test(self):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         sql = "select * from customer"
-        
+
         try:
             self.cursor.execute(sql)
             return self.cursor.fetchall()
@@ -34,8 +52,8 @@ class Database:
             self.conn.rollback()
             return e
         finally:
-            self.conn.close()
-            self.cursor.close()
+            self.close_connection()
+            self.close_cursor()
             
             
 

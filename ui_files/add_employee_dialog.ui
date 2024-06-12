@@ -1,0 +1,983 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1207</width>
+    <height>682</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1207</width>
+    <height>682</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1207</width>
+    <height>682</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Add Employee</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_5">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QWidget" name="widget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QWidget{
+	background-color: #2C2C3B;
+}
+
+QLabel{
+	color: #E9E8E8;
+}
+
+QLineEdit, QComboBox, QDateEdit{
+	background-color: #E2CFEA;
+	border: none;
+	height: 30px;
+	border-radius: 10px;
+	color: #45405C;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+QMenu{
+	background-color: white;
+}
+
+   QMenu::item:selected {
+                background-color: #555;
+                color: white;
+            }
+
+QComboBox QAbstractItemView {
+	background-color: #E2CFEA;
+	color: #45405C;
+}
+
+QPushButton {
+                background-color: #5A2E74;  /* Background color of the buttons */
+                color: #E2CFEA;              /* Text color of the buttons */
+                border: none;               /* Remove button border */
+                border-radius: 10px;         /* Border radius of the buttons */
+                padding: 5px 15px;          /* Padding inside the buttons */
+                font-size: 14px;            /* Font size of the button text */
+				font-weight: bold;
+}
+
+QPushButton:hover {
+                background-color: #745288;  /* Background color on hover */
+}
+QPushButton:pressed {
+                background-color: #6B4483;  /* Background color on press */
+}</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="leftMargin">
+       <number>50</number>
+      </property>
+      <property name="topMargin">
+       <number>20</number>
+      </property>
+      <property name="rightMargin">
+       <number>50</number>
+      </property>
+      <property name="bottomMargin">
+       <number>30</number>
+      </property>
+      <item row="1" column="0">
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="2" column="1" colspan="3">
+         <spacer name="horizontalSpacer_10">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>348</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="0">
+         <spacer name="verticalSpacer_10">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>310</width>
+            <height>32</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="4">
+         <layout class="QVBoxLayout" name="verticalLayout_13">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_11"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_12">
+            <property name="font">
+             <font>
+              <family>JetBrains Mono</family>
+              <pointsize>12</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>START DATE</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDateEdit" name="emp_hist_start_date">
+            <property name="font">
+             <font>
+              <family>JetBrains Mono</family>
+              <pointsize>12</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">            QDateEdit QAbstractItemView {
+                selection-background-color: #6a9fb5;
+                selection-color: white;
+                background-color: #f0f0f0;
+            }
+            QCalendarWidget QWidget#qt_calendar_navigationbar {
+                background-color: #45405C; /* Navigation bar background */
+            }
+            QCalendarWidget QToolButton {
+                color: white;
+                background-color: #45405C;
+            }
+            QCalendarWidget QMenu {
+                color: white;
+                background-color: #45405C;
+            }
+
+    	    QCalendarWidget QMenu::item:selected {
+                background-color: #333;  /* Background color when an item is selected */
+            }
+         
+            QCalendarWidget QSpinBox {
+
+                color: white;
+                background-color: #45405C;
+                selection-background-color: #333;
+                selection-color: white;
+            }
+            QCalendarWidget QSpinBox::up-button {
+                subcontrol-origin: border;
+                subcontrol-position: top right;
+
+            }
+            QCalendarWidget QSpinBox::down-button {
+                subcontrol-origin: border;
+                subcontrol-position: bottom right;
+
+            }
+            QCalendarWidget QAbstractItemView:enabled {
+
+                color: black;
+                background-color: #E2CFEA;
+                selection-background-color: #45405C;
+                selection-color: white;
+            }</string>
+            </property>
+            <property name="displayFormat">
+             <string>MM/dd/yyyy</string>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_12">
+            <item>
+             <widget class="QLabel" name="label_14">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>END DATE</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDateEdit" name="emp_hist_end_date">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">            QDateEdit QAbstractItemView {
+                selection-background-color: #6a9fb5;
+                selection-color: white;
+                background-color: #f0f0f0;
+            }
+            QCalendarWidget QWidget#qt_calendar_navigationbar {
+                background-color: #45405C; /* Navigation bar background */
+            }
+            QCalendarWidget QToolButton {
+                color: white;
+                background-color: #45405C;
+            }
+            QCalendarWidget QMenu {
+                color: white;
+                background-color: #45405C;
+            }
+
+    	    QCalendarWidget QMenu::item:selected {
+                background-color: #333;  /* Background color when an item is selected */
+            }
+         
+            QCalendarWidget QSpinBox {
+
+                color: white;
+                background-color: #45405C;
+                selection-background-color: #333;
+                selection-color: white;
+            }
+            QCalendarWidget QSpinBox::up-button {
+                subcontrol-origin: border;
+                subcontrol-position: top right;
+
+            }
+            QCalendarWidget QSpinBox::down-button {
+                subcontrol-origin: border;
+                subcontrol-position: bottom right;
+
+            }
+            QCalendarWidget QAbstractItemView:enabled {
+
+                color: black;
+                background-color: #E2CFEA;
+                selection-background-color: #45405C;
+                selection-color: white;
+            }</string>
+              </property>
+              <property name="displayFormat">
+               <string>MM/dd/yyyy</string>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_12">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_7">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_14">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <item>
+             <widget class="QLabel" name="label_11">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>JOB DESCRIPTION</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="emp_hist_job_desc">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QLabel" name="label_10">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>ESTABLISHMENT</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="emp_hist_establishment">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_11">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="3" colspan="2">
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>427</width>
+            <height>17</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_9">
+          <property name="font">
+           <font>
+            <family>JetBrains Mono</family>
+            <pointsize>15</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>EMPLOYMENT HISTORY</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <spacer name="verticalSpacer_13">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>426</width>
+            <height>17</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0" colspan="2">
+         <spacer name="horizontalSpacer_8">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>459</width>
+            <height>17</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <family>JetBrains Mono</family>
+            <pointsize>20</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>ADD EMPLOYEE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3" colspan="2">
+         <spacer name="horizontalSpacer_9">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>430</width>
+            <height>17</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_15">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>FIRST NAME</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="emp_fname">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::StrongFocus</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>LAST NAME</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="emp_lname">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>MIDDLE NAME</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="emp_mname">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_15">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>SEX</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="emp_sex">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="placeholderText">
+               <string>Select Sex</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Male</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Female</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>SERVICES </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="emp_services">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="maxCount">
+               <number>2147483647</number>
+              </property>
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToContents</enum>
+              </property>
+              <property name="placeholderText">
+               <string>Select Services</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Apple</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Bottom</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Jeans</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="1" colspan="3">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>338</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="4">
+         <layout class="QVBoxLayout" name="verticalLayout_16">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>ADDRESS</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="emp_address">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>CONTACT NUMBER</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="emp_contact_number">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>DATE HIRED</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDateEdit" name="emp_date_hired">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">            QDateEdit QAbstractItemView {
+                selection-background-color: #6a9fb5;
+                selection-color: white;
+                background-color: #f0f0f0;
+            }
+            QCalendarWidget QWidget#qt_calendar_navigationbar {
+                background-color: #45405C; /* Navigation bar background */
+            }
+            QCalendarWidget QToolButton {
+                color: white;
+                background-color: #45405C;
+            }
+            QCalendarWidget QMenu {
+                color: white;
+                background-color: #45405C;
+            }
+
+    	    QCalendarWidget QMenu::item:selected {
+                background-color: #333;  /* Background color when an item is selected */
+            }
+         
+            QCalendarWidget QSpinBox {
+
+                color: white;
+                background-color: #45405C;
+                selection-background-color: #333;
+                selection-color: white;
+            }
+            QCalendarWidget QSpinBox::up-button {
+                subcontrol-origin: border;
+                subcontrol-position: top right;
+
+            }
+            QCalendarWidget QSpinBox::down-button {
+                subcontrol-origin: border;
+                subcontrol-position: bottom right;
+
+            }
+            QCalendarWidget QAbstractItemView:enabled {
+
+                color: black;
+                background-color: #E2CFEA;
+                selection-background-color: #45405C;
+                selection-color: white;
+            }</string>
+              </property>
+              <property name="displayFormat">
+               <string>MM/dd/yyyy</string>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_10">
+            <item>
+             <widget class="QLabel" name="label_13">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>EMAIL ADDRESS</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="emp_email_address">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <spacer name="horizontalSpacer_11">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>848</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="save_emp_button">
+          <property name="text">
+           <string>Save</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../static/icons/save_button_light.svg</normaloff>../static/icons/save_button_light.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="cancel_add_emp_button">
+          <property name="text">
+           <string>Cancel</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../static/icons/cancel_button_light.svg</normaloff>../static/icons/cancel_button_light.svg</iconset>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0">
+       <spacer name="verticalSpacer_9">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>4</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
