@@ -181,25 +181,7 @@ QPushButton:pressed {
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
-             <widget class="QLabel" name="emp_address">
-              <property name="font">
-               <font>
-                <family>JetBrains Mono</family>
-                <pointsize>12</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>ADDRESS: </string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
-            <item>
-             <widget class="QLabel" name="emp_contact_num">
+             <widget class="QLabel" name="label_6">
               <property name="font">
                <font>
                 <family>JetBrains Mono</family>
@@ -215,9 +197,9 @@ QPushButton:pressed {
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_4">
+           <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
-             <widget class="QLabel" name="emp_date_hired">
+             <widget class="QLabel" name="label_4">
               <property name="font">
                <font>
                 <family>JetBrains Mono</family>
@@ -226,65 +208,19 @@ QPushButton:pressed {
                </font>
               </property>
               <property name="text">
-               <string>DATE HIRED:</string>
+               <string>APPOINTMENT DATE:</string>
               </property>
              </widget>
             </item>
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_10">
-            <property name="spacing">
-             <number>20</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="emp_email_address">
-              <property name="font">
-               <font>
-                <family>JetBrains Mono</family>
-                <pointsize>12</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>EMAIL ADDRESS:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_9">
-              <item>
-               <widget class="QLabel" name="emp_available">
-                <property name="font">
-                 <font>
-                  <family>JetBrains Mono</family>
-                  <pointsize>12</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>AVAILABLE: </string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
+           <layout class="QVBoxLayout" name="verticalLayout_4"/>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_10"/>
           </item>
          </layout>
-        </item>
-        <item row="1" column="0">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout_15">
@@ -294,7 +230,7 @@ QPushButton:pressed {
           <item>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QLabel" name="emp_fname">
+             <widget class="QLabel" name="label_2">
               <property name="font">
                <font>
                 <family>JetBrains Mono</family>
@@ -312,7 +248,7 @@ QPushButton:pressed {
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QLabel" name="emp_minitial">
+             <widget class="QLabel" name="label_3">
               <property name="font">
                <font>
                 <family>JetBrains Mono</family>
@@ -330,7 +266,7 @@ QPushButton:pressed {
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
-             <widget class="QLabel" name="emp_lname">
+             <widget class="QLabel" name="label_5">
               <property name="font">
                <font>
                 <family>JetBrains Mono</family>
@@ -348,7 +284,7 @@ QPushButton:pressed {
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QLabel" name="emp_sex">
+             <widget class="QLabel" name="label_15">
               <property name="font">
                <font>
                 <family>JetBrains Mono</family>
@@ -364,24 +300,12 @@ QPushButton:pressed {
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_7">
-            <item>
-             <widget class="QLabel" name="emp_services">
-              <property name="font">
-               <font>
-                <family>JetBrains Mono</family>
-                <pointsize>12</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>SERVICES</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <layout class="QVBoxLayout" name="verticalLayout_7"/>
           </item>
          </layout>
+        </item>
+        <item row="2" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_19"/>
         </item>
         <item row="1" column="1">
          <spacer name="horizontalSpacer_3">
@@ -396,8 +320,18 @@ QPushButton:pressed {
           </property>
          </spacer>
         </item>
-        <item row="2" column="0">
-         <layout class="QVBoxLayout" name="verticalLayout_19"/>
+        <item row="1" column="0">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -420,7 +354,7 @@ QPushButton:pressed {
          </spacer>
         </item>
         <item row="1" column="0" colspan="3">
-         <widget class="QTableWidget" name="employment_history_table">
+         <widget class="QTableWidget" name="services_availed_table">
           <property name="font">
            <font>
             <family>JetBrains Mono</family>
@@ -504,47 +438,37 @@ QTableWidget::item{
           <row/>
           <column>
            <property name="text">
-            <string>EH_ID</string>
+            <string>SERVICE NAME</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>JOB DESCRIPTION</string>
+            <string>ASSIGNED EMPLOYEE</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>ESTABLISHMENT</string>
+            <string>APPOINTMENT TIME</string>
            </property>
           </column>
-          <column>
-           <property name="text">
-            <string>START DATE</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>END DATE</string>
-           </property>
-          </column>
-          <item row="0" column="1">
+          <item row="0" column="0">
            <property name="text">
             <string>cc</string>
            </property>
           </item>
-          <item row="0" column="2">
+          <item row="0" column="1">
            <property name="text">
             <string>sdsd</string>
            </property>
           </item>
-          <item row="0" column="3">
+          <item row="0" column="2">
            <property name="text">
             <string>sdds</string>
            </property>
           </item>
-          <item row="0" column="4">
+          <item row="1" column="0">
            <property name="text">
-            <string>SEGGS</string>
+            <string>sdf</string>
            </property>
           </item>
           <item row="1" column="1">
@@ -554,17 +478,7 @@ QTableWidget::item{
           </item>
           <item row="1" column="2">
            <property name="text">
-            <string>sdf</string>
-           </property>
-          </item>
-          <item row="1" column="3">
-           <property name="text">
             <string>gh</string>
-           </property>
-          </item>
-          <item row="1" column="4">
-           <property name="text">
-            <string>SEGGS</string>
            </property>
           </item>
          </widget>
@@ -595,7 +509,7 @@ QTableWidget::item{
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>EMPLOYMENT HISTORY</string>
+           <string>SERVICES_AVAILED</string>
           </property>
          </widget>
         </item>

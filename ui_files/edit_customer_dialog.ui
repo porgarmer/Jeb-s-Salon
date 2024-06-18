@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1207</width>
-    <height>533</height>
+    <height>723</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -115,7 +115,78 @@ QPushButton:pressed {
       <property name="bottomMargin">
        <number>30</number>
       </property>
-      <item row="0" column="0">
+      <item row="2" column="0">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <spacer name="horizontalSpacer_11">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>848</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="save_cus_edit_button">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="text">
+           <string>Save</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../static/icons/save_button_light.svg</normaloff>../static/icons/save_button_light.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="cancel_edit_cus_button">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="text">
+           <string>Cancel</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../static/icons/cancel_button_light.svg</normaloff>../static/icons/cancel_button_light.svg</iconset>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="3" colspan="2">
          <spacer name="horizontalSpacer_9">
@@ -170,6 +241,38 @@ QPushButton:pressed {
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
+             <widget class="QLabel" name="label_5">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>MIDDLE INITIAL</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="cus_minitial">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
              <widget class="QLabel" name="label_3">
               <property name="font">
                <font>
@@ -191,38 +294,6 @@ QPushButton:pressed {
                 <pointsize>12</pointsize>
                 <bold>true</bold>
                </font>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
-            <item>
-             <widget class="QLabel" name="label_5">
-              <property name="font">
-               <font>
-                <family>JetBrains Mono</family>
-                <pointsize>12</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>MIDDLE NAME</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="cus_mname">
-              <property name="font">
-               <font>
-                <family>JetBrains Mono</family>
-                <pointsize>12</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
               </property>
              </widget>
             </item>
@@ -278,12 +349,12 @@ QPushButton:pressed {
                </font>
               </property>
               <property name="text">
-               <string>SERVICES TO AVAIL</string>
+               <string>SERVICE AVAILED</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="cus_services">
+             <widget class="QComboBox" name="cus_service_availed">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -303,21 +374,6 @@ QPushButton:pressed {
               <property name="placeholderText">
                <string>Select Services</string>
               </property>
-              <item>
-               <property name="text">
-                <string>Apple</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Bottom</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Jeans</string>
-               </property>
-              </item>
              </widget>
             </item>
            </layout>
@@ -326,40 +382,14 @@ QPushButton:pressed {
         </item>
         <item row="1" column="4">
          <layout class="QVBoxLayout" name="verticalLayout_16">
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_6">
-            <item>
-             <widget class="QLabel" name="label_8">
-              <property name="font">
-               <font>
-                <family>JetBrains Mono</family>
-                <pointsize>12</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>ADDRESS</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="cus_address">
-              <property name="font">
-               <font>
-                <family>JetBrains Mono</family>
-                <pointsize>12</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
+          <property name="spacing">
+           <number>15</number>
+          </property>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_5">
+            <property name="spacing">
+             <number>15</number>
+            </property>
             <item>
              <widget class="QLabel" name="label_7">
               <property name="font">
@@ -392,6 +422,9 @@ QPushButton:pressed {
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_4">
+            <property name="spacing">
+             <number>15</number>
+            </property>
             <item>
              <widget class="QLabel" name="label_6">
               <property name="font">
@@ -462,6 +495,9 @@ QPushButton:pressed {
                 selection-color: white;
             }</string>
               </property>
+              <property name="displayFormat">
+               <string>MM/dd/yyyy h:mm AP</string>
+              </property>
               <property name="calendarPopup">
                <bool>true</bool>
               </property>
@@ -473,7 +509,49 @@ QPushButton:pressed {
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_10"/>
+           <layout class="QVBoxLayout" name="verticalLayout_10">
+            <property name="spacing">
+             <number>15</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_9">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>EMPLOYEE ASSIGNED</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="cus_employee_assigned">
+              <property name="font">
+               <font>
+                <family>JetBrains Mono</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
@@ -522,60 +600,8 @@ QPushButton:pressed {
         </item>
        </layout>
       </item>
-      <item row="2" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <spacer name="horizontalSpacer_11">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>848</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="save_cus_edit_button">
-          <property name="text">
-           <string>Save</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../static/icons/save_button_light.svg</normaloff>../static/icons/save_button_light.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="cancel_edit_cus_button">
-          <property name="text">
-           <string>Cancel</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../static/icons/cancel_button_light.svg</normaloff>../static/icons/cancel_button_light.svg</iconset>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
-       <spacer name="verticalSpacer">
+      <item row="0" column="0">
+       <spacer name="verticalSpacer_2">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>

@@ -61,6 +61,1623 @@ QLabel{
     <property name="spacing">
      <number>0</number>
     </property>
+    <item row="0" column="2">
+     <widget class="QWidget" name="main_screen" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_16">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="header_widget" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="spacing">
+           <number>20</number>
+          </property>
+          <property name="rightMargin">
+           <number>50</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_12">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../static/icons/resourcs.qrc">
+              <normaloff>:/menu_light.svg</normaloff>:/menu_light.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="current_date_time">
+            <property name="font">
+             <font>
+              <family>JetBrains Mono</family>
+              <pointsize>12</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>7:27 PM</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="stackedWidget">
+         <property name="styleSheet">
+          <string notr="true">background-color: #20262E;</string>
+         </property>
+         <property name="currentIndex">
+          <number>3</number>
+         </property>
+         <widget class="QWidget" name="dashboard_page">
+          <widget class="QLabel" name="label_2">
+           <property name="geometry">
+            <rect>
+             <x>260</x>
+             <y>210</y>
+             <width>351</width>
+             <height>231</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>JetBrains Mono</family>
+             <pointsize>50</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>DASHBOARD</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="employees_page">
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <widget class="QWidget" name="widget" native="true">
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+                background-color: #5A2E74;  /* Background color of the buttons */
+                color: #E2CFEA;              /* Text color of the buttons */
+                border: none;               /* Remove button border */
+                border-radius: 10px;         /* Border radius of the buttons */
+                padding: 5px 15px;          /* Padding inside the buttons */
+                font-size: 14px;            /* Font size of the button text */
+				font-weight: bold;
+}
+
+QPushButton:hover {
+                background-color: #745288;  /* Background color on hover */
+}
+QPushButton:pressed {
+                background-color: #6B4483;  /* Background color on press */
+}
+
+QLabel{
+	color: #E9E8E8;
+}
+
+QLineEdit{
+	background-color: #E2CFEA;
+	border: none;
+	height: 30px;
+	border-radius: 10px;
+	color: #45405C;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <property name="verticalSpacing">
+               <number>50</number>
+              </property>
+              <item row="0" column="0" colspan="2">
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <property name="spacing">
+                 <number>20</number>
+                </property>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit">
+                  <property name="font">
+                   <font>
+                    <family>JetBrains Mono</family>
+                    <pointsize>12</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="search_emp_button">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string>SEARCH</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="2">
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="3">
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>404</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="2" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_4">
+                <property name="spacing">
+                 <number>20</number>
+                </property>
+                <item>
+                 <widget class="QPushButton" name="add_emp_button">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string>ADD</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../static/icons/resourcs.qrc">
+                    <normaloff>:/add_button_light.svg</normaloff>:/add_button_light.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>16</width>
+                    <height>16</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="delete_all_emp_button">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+                background-color: rgb(255, 0, 0);  /* Background color of the buttons */
+                color: #E2CFEA;              /* Text color of the buttons */
+                border: none;               /* Remove button border */
+                border-radius: 10px;         /* Border radius of the buttons */
+                padding: 5px 15px;          /* Padding inside the buttons */
+                font-size: 14px;            /* Font size of the button text */
+				font-weight: bold;
+}
+
+QPushButton:hover {
+                background-color: rgb(255, 62, 62);  /* Background color on hover */
+}
+QPushButton:pressed {
+                background-color: rgb(200, 0, 0);  /* Background color on press */
+}
+</string>
+                  </property>
+                  <property name="text">
+                   <string>DELETE ALL</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../static/icons/resourcs.qrc">
+                    <normaloff>:/delete_button_light.svg</normaloff>:/delete_button_light.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="1" colspan="3">
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>386</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="1" column="0" colspan="4">
+               <widget class="QTableWidget" name="emp_table">
+                <property name="font">
+                 <font>
+                  <family>JetBrains Mono</family>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QHeaderView::section{
+	background-color: #45405C;
+	color: #E9E8E8;
+	border: none;
+	font: 700 10pt &quot;JetBrains Mono&quot;;
+}
+
+QTableWidget{
+	background-color: #E2CFEA;
+	border: none;
+	alternate-background-color: #BCADC5;
+}
+
+QTableWidget::item:selected{
+	color: #2C2C3B;
+	background-color: #FFEE8c;  /* Background color for selected items */
+
+}
+QTableWidget::item{
+	color: #2C2C3B;
+	selection-color: #2C2C3B;  /* Text color for selected items */
+
+}
+</string>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Sunken</enum>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::NoSelection</enum>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
+                <property name="showGrid">
+                 <bool>true</bool>
+                </property>
+                <property name="gridStyle">
+                 <enum>Qt::NoPen</enum>
+                </property>
+                <attribute name="horizontalHeaderVisible">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="horizontalHeaderCascadingSectionResizes">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderHighlightSections">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderStretchLastSection">
+                 <bool>false</bool>
+                </attribute>
+                <row>
+                 <property name="text">
+                  <string>New Row</string>
+                 </property>
+                </row>
+                <row/>
+                <column>
+                 <property name="text">
+                  <string>EMPLOYEE ID</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>NAME</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>SEX</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>DATE HIRED</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>CONTACT NUMBER</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>EMAIL ADDRESS</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>ADDRESS</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>AVAILABLE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>ACTIONS</string>
+                 </property>
+                </column>
+                <item row="0" column="1">
+                 <property name="text">
+                  <string>cc</string>
+                 </property>
+                </item>
+                <item row="0" column="3">
+                 <property name="text">
+                  <string>d</string>
+                 </property>
+                </item>
+                <item row="0" column="4">
+                 <property name="text">
+                  <string>dsd</string>
+                 </property>
+                </item>
+                <item row="0" column="5">
+                 <property name="text">
+                  <string>dsdds</string>
+                 </property>
+                </item>
+                <item row="0" column="6">
+                 <property name="text">
+                  <string>dsdds</string>
+                 </property>
+                </item>
+                <item row="1" column="1">
+                 <property name="text">
+                  <string>sdf</string>
+                 </property>
+                </item>
+                <item row="1" column="3">
+                 <property name="text">
+                  <string>ghj</string>
+                 </property>
+                </item>
+                <item row="1" column="4">
+                 <property name="text">
+                  <string>gj</string>
+                 </property>
+                </item>
+                <item row="1" column="5">
+                 <property name="text">
+                  <string>gjjg</string>
+                 </property>
+                </item>
+                <item row="1" column="6">
+                 <property name="text">
+                  <string>ghhh</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="customers_page">
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0" rowspan="2" colspan="2">
+            <widget class="QWidget" name="widget_2" native="true">
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+                background-color: #5A2E74;  /* Background color of the buttons */
+                color: #E2CFEA;              /* Text color of the buttons */
+                border: none;               /* Remove button border */
+                border-radius: 10px;         /* Border radius of the buttons */
+                padding: 5px 15px;          /* Padding inside the buttons */
+                font-size: 14px;            /* Font size of the button text */
+				font-weight: bold;
+}
+
+QPushButton:hover {
+                background-color: #745288;  /* Background color on hover */
+}
+QPushButton:pressed {
+                background-color: #6B4483;  /* Background color on press */
+}
+
+QLabel{
+	color: #E9E8E8;
+}
+
+QLineEdit{
+	background-color: #E2CFEA;
+	border: none;
+	height: 30px;
+	border-radius: 10px;
+	color: #45405C;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_5">
+              <property name="verticalSpacing">
+               <number>50</number>
+              </property>
+              <item row="2" column="1" colspan="3">
+               <spacer name="horizontalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>386</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <property name="spacing">
+                 <number>20</number>
+                </property>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_2">
+                  <property name="font">
+                   <font>
+                    <family>JetBrains Mono</family>
+                    <pointsize>12</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="search_cus_button">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string>SEARCH</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <property name="spacing">
+                 <number>20</number>
+                </property>
+                <item>
+                 <widget class="QPushButton" name="add_cus_button">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string>ADD</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../static/icons/resourcs.qrc">
+                    <normaloff>:/add_button_light.svg</normaloff>:/add_button_light.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>16</width>
+                    <height>16</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="delete_all_cus_button">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+                background-color: rgb(255, 0, 0);  /* Background color of the buttons */
+                color: #E2CFEA;              /* Text color of the buttons */
+                border: none;               /* Remove button border */
+                border-radius: 10px;         /* Border radius of the buttons */
+                padding: 5px 15px;          /* Padding inside the buttons */
+                font-size: 14px;            /* Font size of the button text */
+				font-weight: bold;
+}
+
+QPushButton:hover {
+                background-color: rgb(255, 62, 62);  /* Background color on hover */
+}
+QPushButton:pressed {
+                background-color: rgb(200, 0, 0);  /* Background color on press */
+}
+</string>
+                  </property>
+                  <property name="text">
+                   <string>DELETE ALL</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../static/icons/resourcs.qrc">
+                    <normaloff>:/delete_button_light.svg</normaloff>:/delete_button_light.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0" colspan="4">
+               <widget class="QTableWidget" name="cus_table">
+                <property name="font">
+                 <font>
+                  <family>JetBrains Mono</family>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QHeaderView::section{
+	background-color: #45405C;
+	color: #E9E8E8;
+	border: none;
+	font: 700 10pt &quot;JetBrains Mono&quot;;
+}
+
+QTableWidget{
+	background-color: #E2CFEA;
+	border: none;
+	alternate-background-color: #BCADC5;
+}
+
+QTableWidget::item:selected{
+	color: #2C2C3B;
+	background-color: #FFEE8c;  /* Background color for selected items */
+
+}
+QTableWidget::item{
+	color: #2C2C3B;
+	selection-color: #2C2C3B;  /* Text color for selected items */
+
+}
+</string>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Sunken</enum>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::NoSelection</enum>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
+                <property name="showGrid">
+                 <bool>true</bool>
+                </property>
+                <property name="gridStyle">
+                 <enum>Qt::NoPen</enum>
+                </property>
+                <attribute name="horizontalHeaderVisible">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="horizontalHeaderCascadingSectionResizes">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderHighlightSections">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderStretchLastSection">
+                 <bool>false</bool>
+                </attribute>
+                <row>
+                 <property name="text">
+                  <string>New Row</string>
+                 </property>
+                </row>
+                <row/>
+                <column>
+                 <property name="text">
+                  <string>CUS_ID</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>APP_ID</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>NAME</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>SEX</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>CONTACT NUMBER</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>AVAILED SERVICE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>ASSIGNED EMPLOYEE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>APPOINTMENT DATE AND TIME</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>ACTIONS</string>
+                 </property>
+                </column>
+                <item row="0" column="4">
+                 <property name="text">
+                  <string>dsd</string>
+                 </property>
+                </item>
+                <item row="0" column="5">
+                 <property name="text">
+                  <string>SEGGS</string>
+                 </property>
+                </item>
+                <item row="1" column="4">
+                 <property name="text">
+                  <string>gj</string>
+                 </property>
+                </item>
+                <item row="1" column="5">
+                 <property name="text">
+                  <string>SEGGS</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <spacer name="horizontalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>404</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="2">
+               <spacer name="horizontalSpacer_8">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="services_page">
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="1" column="0">
+            <widget class="QWidget" name="widget_3" native="true">
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+                background-color: #5A2E74;  /* Background color of the buttons */
+                color: #E2CFEA;              /* Text color of the buttons */
+                border: none;               /* Remove button border */
+                border-radius: 10px;         /* Border radius of the buttons */
+                padding: 5px 15px;          /* Padding inside the buttons */
+                font-size: 14px;            /* Font size of the button text */
+				font-weight: bold;
+}
+
+QPushButton:hover {
+                background-color: #745288;  /* Background color on hover */
+}
+QPushButton:pressed {
+                background-color: #6B4483;  /* Background color on press */
+}
+
+QLabel{
+	color: #E9E8E8;
+}
+
+QLineEdit{
+	background-color: #E2CFEA;
+	border: none;
+	height: 30px;
+	border-radius: 10px;
+	color: #45405C;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+QLabel{
+	color: #E9E8E8;
+}
+
+QLineEdit, QComboBox, QDateEdit{
+	background-color: #E2CFEA;
+	border: none;
+	height: 30px;
+	border-radius: 10px;
+	color: #45405C;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+QMenu{
+	background-color: white;
+}
+
+   QMenu::item:selected {
+                background-color: #555;
+                color: white;
+            }
+
+QComboBox QAbstractItemView {
+	background-color: #E2CFEA;
+	color: #45405C;
+}
+
+</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_8">
+              <property name="verticalSpacing">
+               <number>15</number>
+              </property>
+              <item row="0" column="0" colspan="2">
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <property name="spacing">
+                 <number>15</number>
+                </property>
+                <item>
+                 <widget class="QComboBox" name="service_filter">
+                  <property name="font">
+                   <font>
+                    <family>JetBrains Mono</family>
+                    <pointsize>10</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="editable">
+                   <bool>false</bool>
+                  </property>
+                  <property name="placeholderText">
+                   <string>FILTER BY SERVICE</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="refresh_button">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../static/icons/refresh_light.svg</normaloff>../static/icons/refresh_light.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="remove_service_filter_button">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../static/icons/undo-alt_light.svg</normaloff>../static/icons/undo-alt_light.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_12">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>855</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0" colspan="2">
+               <widget class="QTableWidget" name="services_table">
+                <property name="font">
+                 <font>
+                  <family>JetBrains Mono</family>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QHeaderView::section{
+	background-color: #45405C;
+	color: #E9E8E8;
+	border: none;
+	font: 700 10pt &quot;JetBrains Mono&quot;;
+}
+
+QTableWidget{
+	background-color: #E2CFEA;
+	border: none;
+	alternate-background-color: #BCADC5;
+}
+
+QTableWidget::item:selected{
+	color: #2C2C3B;
+	background-color: #FFEE8c;  /* Background color for selected items */
+
+}
+QTableWidget::item{
+	color: #2C2C3B;
+	selection-color: #2C2C3B;  /* Text color for selected items */
+
+}
+</string>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Sunken</enum>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::NoSelection</enum>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
+                <property name="showGrid">
+                 <bool>true</bool>
+                </property>
+                <property name="gridStyle">
+                 <enum>Qt::NoPen</enum>
+                </property>
+                <attribute name="horizontalHeaderVisible">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="horizontalHeaderCascadingSectionResizes">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderHighlightSections">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderStretchLastSection">
+                 <bool>false</bool>
+                </attribute>
+                <row>
+                 <property name="text">
+                  <string>New Row</string>
+                 </property>
+                </row>
+                <row/>
+                <column>
+                 <property name="text">
+                  <string>SER_ID</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>SERVICE NAME</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>SERVICE PRICE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>ACTIONS</string>
+                 </property>
+                </column>
+                <item row="0" column="1">
+                 <property name="text">
+                  <string>cc</string>
+                 </property>
+                </item>
+                <item row="0" column="2">
+                 <property name="text">
+                  <string>sdsd</string>
+                 </property>
+                </item>
+                <item row="0" column="3">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </item>
+                <item row="1" column="1">
+                 <property name="text">
+                  <string>sdf</string>
+                 </property>
+                </item>
+                <item row="1" column="2">
+                 <property name="text">
+                  <string>sdf</string>
+                 </property>
+                </item>
+                <item row="1" column="3">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="add_new_service_button">
+                <property name="text">
+                 <string>ADD NEW SERVICE</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../static/icons/add_button_light.svg</normaloff>../static/icons/add_button_light.svg</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <spacer name="horizontalSpacer_9">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>966</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="3" column="0" colspan="2">
+               <layout class="QGridLayout" name="gridLayout_9">
+                <property name="verticalSpacing">
+                 <number>15</number>
+                </property>
+                <item row="0" column="1">
+                 <spacer name="horizontalSpacer_10">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>358</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="available_employee_header">
+                  <property name="font">
+                   <font>
+                    <family>JetBrains Mono</family>
+                    <pointsize>20</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>AVAILABLE EMPLOYEES</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="3">
+                 <spacer name="horizontalSpacer_11">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>348</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="1" column="1" colspan="3">
+                 <widget class="QTableWidget" name="available_employees_table">
+                  <property name="font">
+                   <font>
+                    <family>JetBrains Mono</family>
+                    <pointsize>10</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QHeaderView::section{
+	background-color: #45405C;
+	color: #E9E8E8;
+	border: none;
+	font: 700 10pt &quot;JetBrains Mono&quot;;
+}
+
+QTableWidget{
+	background-color: #E2CFEA;
+	border: none;
+	alternate-background-color: #BCADC5;
+}
+
+QTableWidget::item:selected{
+	color: #2C2C3B;
+	background-color: #FFEE8c;  /* Background color for selected items */
+
+}
+QTableWidget::item{
+	color: #2C2C3B;
+	selection-color: #2C2C3B;  /* Text color for selected items */
+
+}
+</string>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Sunken</enum>
+                  </property>
+                  <property name="editTriggers">
+                   <set>QAbstractItemView::NoEditTriggers</set>
+                  </property>
+                  <property name="alternatingRowColors">
+                   <bool>true</bool>
+                  </property>
+                  <property name="selectionMode">
+                   <enum>QAbstractItemView::NoSelection</enum>
+                  </property>
+                  <property name="selectionBehavior">
+                   <enum>QAbstractItemView::SelectRows</enum>
+                  </property>
+                  <property name="showGrid">
+                   <bool>true</bool>
+                  </property>
+                  <property name="gridStyle">
+                   <enum>Qt::NoPen</enum>
+                  </property>
+                  <attribute name="horizontalHeaderVisible">
+                   <bool>true</bool>
+                  </attribute>
+                  <attribute name="horizontalHeaderCascadingSectionResizes">
+                   <bool>false</bool>
+                  </attribute>
+                  <attribute name="horizontalHeaderHighlightSections">
+                   <bool>true</bool>
+                  </attribute>
+                  <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+                   <bool>false</bool>
+                  </attribute>
+                  <attribute name="horizontalHeaderStretchLastSection">
+                   <bool>false</bool>
+                  </attribute>
+                  <attribute name="verticalHeaderVisible">
+                   <bool>false</bool>
+                  </attribute>
+                  <attribute name="verticalHeaderStretchLastSection">
+                   <bool>false</bool>
+                  </attribute>
+                  <row>
+                   <property name="text">
+                    <string>New Row</string>
+                   </property>
+                  </row>
+                  <row/>
+                  <column>
+                   <property name="text">
+                    <string>EMPLOYEE ID</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>FIRST NAME</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>MIDDLE NAME</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>LAST NAME</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>SEX</string>
+                   </property>
+                  </column>
+                  <item row="0" column="1">
+                   <property name="text">
+                    <string>cc</string>
+                   </property>
+                  </item>
+                  <item row="0" column="2">
+                   <property name="text">
+                    <string>sdsd</string>
+                   </property>
+                  </item>
+                  <item row="0" column="3">
+                   <property name="text">
+                    <string>sdds</string>
+                   </property>
+                  </item>
+                  <item row="1" column="1">
+                   <property name="text">
+                    <string>sdf</string>
+                   </property>
+                  </item>
+                  <item row="1" column="2">
+                   <property name="text">
+                    <string>sdf</string>
+                   </property>
+                  </item>
+                  <item row="1" column="3">
+                   <property name="text">
+                    <string>gh</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="profile_page">
+          <widget class="QLabel" name="label_8">
+           <property name="geometry">
+            <rect>
+             <x>300</x>
+             <y>240</y>
+             <width>281</width>
+             <height>231</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>JetBrains Mono</family>
+             <pointsize>50</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>PROFILE</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="transaction_history_page">
+          <widget class="QLabel" name="label_7">
+           <property name="geometry">
+            <rect>
+             <x>90</x>
+             <y>210</y>
+             <width>731</width>
+             <height>291</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>JetBrains Mono</family>
+             <pointsize>50</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>TRANSCTION HISTORY</string>
+           </property>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="footer_widget" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>858</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="logout_button">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../static/icons/resourcs.qrc">
+              <normaloff>:/sign_out_light.svg</normaloff>:/sign_out_light.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QWidget" name="side_bar_icon_only" native="true">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	padding-right: 5px;
+	padding-left: 5px;
+
+}
+
+QPushButton{
+	border-radius: 10px;
+}
+
+QPushButton:checked{
+	background-color: #E2CFEA;
+	color: #2C2C3B;
+}</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>9</number>
+       </property>
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <property name="topMargin">
+          <number>10</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <family>JetBrains Mono</family>
+             <pointsize>20</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>JEB'S</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>78</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="spacing">
+          <number>50</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="dashboard_icon_button">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../static/icons/resourcs.qrc">
+             <normaloff>:/dashboard_light.svg</normaloff>
+             <normalon>:/dashboard_dark.svg</normalon>:/dashboard_light.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="employees_icon_button">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../static/icons/resourcs.qrc">
+             <normaloff>:/employees_light.svg</normaloff>
+             <normalon>:/employees_dark.svg</normalon>:/employees_light.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="customers_icon_button">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../static/icons/resourcs.qrc">
+             <normaloff>:/customers_light.svg</normaloff>
+             <normalon>:/customers_dark.svg</normalon>:/customers_light.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="services_icon_button">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../static/icons/resourcs.qrc">
+             <normaloff>:/services_light.svg</normaloff>
+             <normalon>:/services_dark.svg</normalon>:/services_light.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="transac_history_button_2">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../static/icons/resourcs.qrc">
+             <normaloff>:/receipt_light.svg</normaloff>
+             <normalon>:/receipt_dark.svg</normalon>:/receipt_light.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>168</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="profile_icon_button">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../static/icons/resourcs.qrc">
+             <normaloff>:/admin_light.svg</normaloff>
+             <normalon>:/admin_dark.svg</normalon>:/admin_light.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>40</width>
+             <height>40</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="0" column="1">
      <widget class="QWidget" name="side_bar" native="true">
       <property name="styleSheet">
@@ -375,1260 +1992,6 @@ QPushButton:checked{
           </spacer>
          </item>
         </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QWidget" name="side_bar_icon_only" native="true">
-      <property name="styleSheet">
-       <string notr="true">QLabel{
-	padding-right: 5px;
-	padding-left: 5px;
-
-}
-
-QPushButton{
-	border-radius: 10px;
-}
-
-QPushButton:checked{
-	background-color: #E2CFEA;
-	color: #2C2C3B;
-}</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <property name="leftMargin">
-        <number>9</number>
-       </property>
-       <property name="rightMargin">
-        <number>9</number>
-       </property>
-       <item row="0" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout_6">
-         <property name="topMargin">
-          <number>10</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="font">
-            <font>
-             <family>JetBrains Mono</family>
-             <pointsize>20</pointsize>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>JEB'S</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_4">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>78</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="1" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <property name="spacing">
-          <number>50</number>
-         </property>
-         <item>
-          <widget class="QPushButton" name="dashboard_icon_button">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="../static/icons/resourcs.qrc">
-             <normaloff>:/dashboard_light.svg</normaloff>
-             <normalon>:/dashboard_dark.svg</normalon>:/dashboard_light.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <property name="autoExclusive">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="employees_icon_button">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="../static/icons/resourcs.qrc">
-             <normaloff>:/employees_light.svg</normaloff>
-             <normalon>:/employees_dark.svg</normalon>:/employees_light.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="autoExclusive">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="customers_icon_button">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="../static/icons/resourcs.qrc">
-             <normaloff>:/customers_light.svg</normaloff>
-             <normalon>:/customers_dark.svg</normalon>:/customers_light.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="autoExclusive">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="services_icon_button">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="../static/icons/resourcs.qrc">
-             <normaloff>:/services_light.svg</normaloff>
-             <normalon>:/services_dark.svg</normalon>:/services_light.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="autoExclusive">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="transac_history_button_2">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="../static/icons/resourcs.qrc">
-             <normaloff>:/receipt_light.svg</normaloff>
-             <normalon>:/receipt_dark.svg</normalon>:/receipt_light.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="autoExclusive">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>168</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="profile_icon_button">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="../static/icons/resourcs.qrc">
-             <normaloff>:/admin_light.svg</normaloff>
-             <normalon>:/admin_dark.svg</normalon>:/admin_light.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>40</width>
-             <height>40</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="autoExclusive">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QWidget" name="main_screen" native="true">
-      <layout class="QVBoxLayout" name="verticalLayout_16">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QWidget" name="header_widget" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QPushButton" name="pushButton_12">
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="../static/icons/resourcs.qrc">
-              <normaloff>:/menu_light.svg</normaloff>:/menu_light.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QStackedWidget" name="stackedWidget">
-         <property name="styleSheet">
-          <string notr="true">background-color: #20262E;</string>
-         </property>
-         <property name="currentIndex">
-          <number>2</number>
-         </property>
-         <widget class="QWidget" name="dashboard_page">
-          <widget class="QLabel" name="label_2">
-           <property name="geometry">
-            <rect>
-             <x>260</x>
-             <y>210</y>
-             <width>351</width>
-             <height>231</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>JetBrains Mono</family>
-             <pointsize>50</pointsize>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>DASHBOARD</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="employees_page">
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="0" column="0">
-            <widget class="QWidget" name="widget" native="true">
-             <property name="styleSheet">
-              <string notr="true">QPushButton {
-                background-color: #5A2E74;  /* Background color of the buttons */
-                color: #E2CFEA;              /* Text color of the buttons */
-                border: none;               /* Remove button border */
-                border-radius: 10px;         /* Border radius of the buttons */
-                padding: 5px 15px;          /* Padding inside the buttons */
-                font-size: 14px;            /* Font size of the button text */
-				font-weight: bold;
-}
-
-QPushButton:hover {
-                background-color: #745288;  /* Background color on hover */
-}
-QPushButton:pressed {
-                background-color: #6B4483;  /* Background color on press */
-}
-
-QLabel{
-	color: #E9E8E8;
-}
-
-QLineEdit{
-	background-color: #E2CFEA;
-	border: none;
-	height: 30px;
-	border-radius: 10px;
-	color: #45405C;
-	padding-left: 5px;
-	padding-right: 5px;
-}
-</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_3">
-              <property name="verticalSpacing">
-               <number>50</number>
-              </property>
-              <item row="0" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout">
-                <property name="spacing">
-                 <number>20</number>
-                </property>
-                <item>
-                 <widget class="QLineEdit" name="lineEdit">
-                  <property name="font">
-                   <font>
-                    <family>JetBrains Mono</family>
-                    <pointsize>12</pointsize>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="search_emp_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>SEARCH</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item row="1" column="0" colspan="6">
-               <widget class="QTableWidget" name="emp_table">
-                <property name="font">
-                 <font>
-                  <family>JetBrains Mono</family>
-                  <pointsize>10</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QHeaderView::section{
-	background-color: #45405C;
-	color: #E9E8E8;
-	border: none;
-	font: 700 10pt &quot;JetBrains Mono&quot;;
-}
-
-QTableWidget{
-	background-color: #E2CFEA;
-	border: none;
-	alternate-background-color: #BCADC5;
-}
-
-QTableWidget::item:selected{
-	color: #2C2C3B;
-	background-color: #FFEE8c;  /* Background color for selected items */
-
-}
-QTableWidget::item{
-	color: #2C2C3B;
-	selection-color: #2C2C3B;  /* Text color for selected items */
-
-}
-</string>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Sunken</enum>
-                </property>
-                <property name="editTriggers">
-                 <set>QAbstractItemView::NoEditTriggers</set>
-                </property>
-                <property name="alternatingRowColors">
-                 <bool>true</bool>
-                </property>
-                <property name="selectionMode">
-                 <enum>QAbstractItemView::NoSelection</enum>
-                </property>
-                <property name="selectionBehavior">
-                 <enum>QAbstractItemView::SelectRows</enum>
-                </property>
-                <property name="showGrid">
-                 <bool>true</bool>
-                </property>
-                <property name="gridStyle">
-                 <enum>Qt::NoPen</enum>
-                </property>
-                <attribute name="horizontalHeaderVisible">
-                 <bool>true</bool>
-                </attribute>
-                <attribute name="horizontalHeaderCascadingSectionResizes">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="horizontalHeaderHighlightSections">
-                 <bool>true</bool>
-                </attribute>
-                <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="horizontalHeaderStretchLastSection">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="verticalHeaderVisible">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="verticalHeaderStretchLastSection">
-                 <bool>false</bool>
-                </attribute>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row/>
-                <column>
-                 <property name="text">
-                  <string>FIRST NAME</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>MIDDLE NAME</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>LAST NAME</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>SEX</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>DATE HIRED</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>CONTACT NUMBER</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>EMAIL ADDRESS</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>ADDRESS</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>MORE DETAILS</string>
-                 </property>
-                </column>
-                <item row="0" column="0">
-                 <property name="text">
-                  <string>cc</string>
-                 </property>
-                </item>
-                <item row="0" column="1">
-                 <property name="text">
-                  <string>sdsd</string>
-                 </property>
-                </item>
-                <item row="0" column="2">
-                 <property name="text">
-                  <string>sdds</string>
-                 </property>
-                </item>
-                <item row="0" column="3">
-                 <property name="text">
-                  <string>SEGGS</string>
-                 </property>
-                </item>
-                <item row="0" column="4">
-                 <property name="text">
-                  <string>d</string>
-                 </property>
-                </item>
-                <item row="0" column="5">
-                 <property name="text">
-                  <string>dsd</string>
-                 </property>
-                </item>
-                <item row="0" column="6">
-                 <property name="text">
-                  <string>dsdds</string>
-                 </property>
-                </item>
-                <item row="0" column="7">
-                 <property name="text">
-                  <string>dsdds</string>
-                 </property>
-                </item>
-                <item row="1" column="0">
-                 <property name="text">
-                  <string>sdf</string>
-                 </property>
-                </item>
-                <item row="1" column="1">
-                 <property name="text">
-                  <string>sdf</string>
-                 </property>
-                </item>
-                <item row="1" column="2">
-                 <property name="text">
-                  <string>gh</string>
-                 </property>
-                </item>
-                <item row="1" column="3">
-                 <property name="text">
-                  <string>SEGGS</string>
-                 </property>
-                </item>
-                <item row="1" column="4">
-                 <property name="text">
-                  <string>ghj</string>
-                 </property>
-                </item>
-                <item row="1" column="5">
-                 <property name="text">
-                  <string>gj</string>
-                 </property>
-                </item>
-                <item row="1" column="6">
-                 <property name="text">
-                  <string>gjjg</string>
-                 </property>
-                </item>
-                <item row="1" column="7">
-                 <property name="text">
-                  <string>ghhh</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="2" column="5">
-               <spacer name="horizontalSpacer_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>386</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="2" colspan="4">
-               <spacer name="horizontalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>404</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="2" column="0" colspan="3">
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
-                <property name="spacing">
-                 <number>20</number>
-                </property>
-                <item>
-                 <widget class="QPushButton" name="add_emp_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>ADD</string>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="../static/icons/resourcs.qrc">
-                    <normaloff>:/add_button_light.svg</normaloff>:/add_button_light.svg</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>16</width>
-                    <height>16</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="edit_emp_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>EDIT</string>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="../static/icons/resourcs.qrc">
-                    <normaloff>:/edit_button_light.svg</normaloff>:/edit_button_light.svg</iconset>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="delete_emp_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string>DELETE</string>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="../static/icons/resourcs.qrc">
-                    <normaloff>:/delete_button_light.svg</normaloff>:/delete_button_light.svg</iconset>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="select_all_emp_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>SELECT ALL</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="deselect_all_emp_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>DESELECT ALL</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="more_emp_details_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>MORE DETAILS</string>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="../static/icons/resourcs.qrc">
-                    <normaloff>:/more_details_button_light.svg</normaloff>:/more_details_button_light.svg</iconset>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item row="0" column="1">
-               <spacer name="horizontalSpacer_5">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="customers_page">
-          <layout class="QGridLayout" name="gridLayout_6">
-           <item row="0" column="0" rowspan="2" colspan="2">
-            <widget class="QWidget" name="widget_2" native="true">
-             <property name="styleSheet">
-              <string notr="true">QPushButton {
-                background-color: #5A2E74;  /* Background color of the buttons */
-                color: #E2CFEA;              /* Text color of the buttons */
-                border: none;               /* Remove button border */
-                border-radius: 10px;         /* Border radius of the buttons */
-                padding: 5px 15px;          /* Padding inside the buttons */
-                font-size: 14px;            /* Font size of the button text */
-				font-weight: bold;
-}
-
-QPushButton:hover {
-                background-color: #745288;  /* Background color on hover */
-}
-QPushButton:pressed {
-                background-color: #6B4483;  /* Background color on press */
-}
-
-QLabel{
-	color: #E9E8E8;
-}
-
-QLineEdit{
-	background-color: #E2CFEA;
-	border: none;
-	height: 30px;
-	border-radius: 10px;
-	color: #45405C;
-	padding-left: 5px;
-	padding-right: 5px;
-}
-</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_5">
-              <property name="verticalSpacing">
-               <number>50</number>
-              </property>
-              <item row="0" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout_5">
-                <property name="spacing">
-                 <number>20</number>
-                </property>
-                <item>
-                 <widget class="QLineEdit" name="lineEdit_2">
-                  <property name="font">
-                   <font>
-                    <family>JetBrains Mono</family>
-                    <pointsize>12</pointsize>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="search_cus_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>SEARCH</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item row="1" column="0" colspan="6">
-               <widget class="QTableWidget" name="cus_table">
-                <property name="font">
-                 <font>
-                  <family>JetBrains Mono</family>
-                  <pointsize>10</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QHeaderView::section{
-	background-color: #45405C;
-	color: #E9E8E8;
-	border: none;
-	font: 700 10pt &quot;JetBrains Mono&quot;;
-}
-
-QTableWidget{
-	background-color: #E2CFEA;
-	border: none;
-	alternate-background-color: #BCADC5;
-}
-
-QTableWidget::item:selected{
-	color: #2C2C3B;
-	background-color: #FFEE8c;  /* Background color for selected items */
-
-}
-QTableWidget::item{
-	color: #2C2C3B;
-	selection-color: #2C2C3B;  /* Text color for selected items */
-
-}
-</string>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Sunken</enum>
-                </property>
-                <property name="editTriggers">
-                 <set>QAbstractItemView::NoEditTriggers</set>
-                </property>
-                <property name="alternatingRowColors">
-                 <bool>true</bool>
-                </property>
-                <property name="selectionMode">
-                 <enum>QAbstractItemView::NoSelection</enum>
-                </property>
-                <property name="selectionBehavior">
-                 <enum>QAbstractItemView::SelectRows</enum>
-                </property>
-                <property name="showGrid">
-                 <bool>true</bool>
-                </property>
-                <property name="gridStyle">
-                 <enum>Qt::NoPen</enum>
-                </property>
-                <attribute name="horizontalHeaderVisible">
-                 <bool>true</bool>
-                </attribute>
-                <attribute name="horizontalHeaderCascadingSectionResizes">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="horizontalHeaderHighlightSections">
-                 <bool>true</bool>
-                </attribute>
-                <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="horizontalHeaderStretchLastSection">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="verticalHeaderVisible">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="verticalHeaderStretchLastSection">
-                 <bool>false</bool>
-                </attribute>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row/>
-                <column>
-                 <property name="text">
-                  <string>FIRST NAME</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>MIDDLE NAME</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>LAST NAME</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>SEX</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>CONTACT NUMBER</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>APPOINTMENT DATE</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>MORE DETAILS</string>
-                 </property>
-                </column>
-                <item row="0" column="0">
-                 <property name="text">
-                  <string>cc</string>
-                 </property>
-                </item>
-                <item row="0" column="1">
-                 <property name="text">
-                  <string>sdsd</string>
-                 </property>
-                </item>
-                <item row="0" column="2">
-                 <property name="text">
-                  <string>sdds</string>
-                 </property>
-                </item>
-                <item row="0" column="3">
-                 <property name="text">
-                  <string>SEGGS</string>
-                 </property>
-                </item>
-                <item row="0" column="4">
-                 <property name="text">
-                  <string>dsd</string>
-                 </property>
-                </item>
-                <item row="1" column="0">
-                 <property name="text">
-                  <string>sdf</string>
-                 </property>
-                </item>
-                <item row="1" column="1">
-                 <property name="text">
-                  <string>sdf</string>
-                 </property>
-                </item>
-                <item row="1" column="2">
-                 <property name="text">
-                  <string>gh</string>
-                 </property>
-                </item>
-                <item row="1" column="3">
-                 <property name="text">
-                  <string>SEGGS</string>
-                 </property>
-                </item>
-                <item row="1" column="4">
-                 <property name="text">
-                  <string>gj</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="2" column="5">
-               <spacer name="horizontalSpacer_6">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>386</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="2" colspan="4">
-               <spacer name="horizontalSpacer_7">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>404</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="2" column="0" colspan="3">
-               <layout class="QHBoxLayout" name="horizontalLayout_6">
-                <property name="spacing">
-                 <number>20</number>
-                </property>
-                <item>
-                 <widget class="QPushButton" name="add_cus_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>ADD</string>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="../static/icons/resourcs.qrc">
-                    <normaloff>:/add_button_light.svg</normaloff>:/add_button_light.svg</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>16</width>
-                    <height>16</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="edit_cus_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>EDIT</string>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="../static/icons/resourcs.qrc">
-                    <normaloff>:/edit_button_light.svg</normaloff>:/edit_button_light.svg</iconset>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="delete_cus_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string>DELETE</string>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="../static/icons/resourcs.qrc">
-                    <normaloff>:/delete_button_light.svg</normaloff>:/delete_button_light.svg</iconset>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="select_all_cus_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>SELECT ALL</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="deselect_all_cus_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>DESELECT ALL</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="more_cus_details_button">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>MORE DETAILS</string>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="../static/icons/resourcs.qrc">
-                    <normaloff>:/more_details_button_light.svg</normaloff>:/more_details_button_light.svg</iconset>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item row="0" column="1">
-               <spacer name="horizontalSpacer_8">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="services_page">
-          <widget class="QLabel" name="label_6">
-           <property name="geometry">
-            <rect>
-             <x>290</x>
-             <y>210</y>
-             <width>321</width>
-             <height>231</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>JetBrains Mono</family>
-             <pointsize>50</pointsize>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>SERVICES</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="profile_page">
-          <widget class="QLabel" name="label_8">
-           <property name="geometry">
-            <rect>
-             <x>300</x>
-             <y>240</y>
-             <width>281</width>
-             <height>231</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>JetBrains Mono</family>
-             <pointsize>50</pointsize>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>PROFILE</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="transaction_history_page">
-          <widget class="QLabel" name="label_7">
-           <property name="geometry">
-            <rect>
-             <x>90</x>
-             <y>210</y>
-             <width>731</width>
-             <height>291</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>JetBrains Mono</family>
-             <pointsize>50</pointsize>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>TRANSCTION HISTORY</string>
-           </property>
-          </widget>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QWidget" name="footer_widget" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>858</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="logout_button">
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="../static/icons/resourcs.qrc">
-              <normaloff>:/sign_out_light.svg</normaloff>:/sign_out_light.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
        </item>
       </layout>
      </widget>
