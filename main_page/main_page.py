@@ -54,6 +54,7 @@ class MainPage(QMainWindow):
 
         self.transac_history_button.clicked.connect(self.switch_to_transac_history_page)
         self.transac_history_button_2.clicked.connect(self.switch_to_transac_history_page)
+        self.populate_transac_table()
         
         self.profile_button.clicked.connect(self.switch_to_profile_page)
         self.profile_icon_button.clicked.connect(self.switch_to_profile_page)
@@ -110,6 +111,8 @@ class MainPage(QMainWindow):
     def switch_to_transac_history_page(self):
         index = self.stackedWidget.indexOf(self.transaction_history_page)
         self.stackedWidget.setCurrentIndex(index)
+        header = self.transac_table.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         
     def switch_to_profile_page(self):
         index = self.stackedWidget.indexOf(self.profile_page)
@@ -346,6 +349,7 @@ class MainPage(QMainWindow):
         if reply == QMessageBox.StandardButton.Yes:
             self.db.complete_cus_app(app_id=app_id, cus_id=cus_id)
             print("Yes button pressed")
+            self.populate_transac_table()
         else:
             print("No button pressed")
 
@@ -510,6 +514,23 @@ class MainPage(QMainWindow):
             for service in services:
                 self.service_filter.addItem(service[1])
 
+######## Functions for the transactions tab#########
+
+    def populate_transac_table(self):
+        self.transactions = self.db.select_all_transac()
+        self.transac_table.setRowCount(0)
+        self.transac_table.hideColumn(0)
+
+        if self.transactions:
+            for row, row_data in enumerate(self.transactions):
+                self.transac_table.insertRow(row)
+                for col, cell_data in enumerate(row_data):
+                    if isinstance(cell_data, datetime):
+                        cell_data = cell_data.strftime("%m-%d-%Y %I:%M %p")
+                    item = QTableWidgetItem(str(cell_data))
+            
+                    self.transac_table.setItem(row, col, item)
+                
 class ActionButtons(QWidget):
     def __init__(self) -> None:
         super().__init__()

@@ -1009,5 +1009,5 @@ db = Database()
 # string = "rolinO b oNgco"
 # print(string.title())
 
-
-print(db.complete_cus_app(app_id="1", cus_id="1"))
+results = db.select_all_customers()
+print(results)

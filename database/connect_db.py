@@ -142,7 +142,7 @@ class Database:
         if isinstance(connection, Exception):
             return connection
         
-        sql = "select emp_id, concat(emp_fname, ' ', emp_minitial, ' ', emp_lname) as name, emp_sex, emp_date_hired, emp_contact_num, emp_email_address, emp_address, emp_available from employee"
+        sql = "select emp_id, concat(emp_fname, ' ', emp_minitial, ' ', emp_lname) as name, emp_sex, emp_date_hired, emp_contact_num, emp_email_address, emp_address, emp_available from employee order by (emp_fname, emp_minitial, emp_lname) asc"
 
         try:
             self.cursor.execute(sql)
@@ -182,7 +182,7 @@ class Database:
             return connection
         
         sql = f"""
-            select emp_id, emp_fname, emp_minitial, emp_lname, emp_sex from employee where emp_available = 'TRUE'
+            select emp_id, emp_fname, emp_minitial, emp_lname, emp_sex from employee where emp_available = 'TRUE' order by (emp_fname, emp_minitial, emp_lname)
         """
         
 
@@ -208,7 +208,7 @@ class Database:
         sql = f"""
             select employee.emp_id, employee.emp_fname, employee.emp_minitial, employee.emp_lname, employee.emp_sex from employee 
             inner join {service_name} on employee.emp_id = {service_name}.emp_id
-            where emp_available = 'TRUE'
+            where emp_available = 'TRUE' order by (emp_fname, emp_minitial, emp_lname)
         """
 
         try:
@@ -465,7 +465,8 @@ class Database:
             from customer
             left join appointment on  customer.cus_id =  appointment.cus_id  
             left join employee on appointment.emp_id = employee.emp_id
-            left join service on appointment.ser_id = service.ser_id        
+            left join service on appointment.ser_id = service.ser_id   
+            order by (customer.cus_fname, customer.cus_minitial, customer.cus_lname) asc     
         """
 
         try:
@@ -830,13 +831,86 @@ class Database:
 #transaction function
 
     def select_all_transac(self):
-        pass
+        self.connect_db()
+        
+        sql = f"""
+            select  th_id, 
+                    concat(th_cus_fname, ' ', th_cus_minitial, ' ', th_cus_lname) as "cus name", 
+                    th_cus_sex, 
+                    service.ser_name, 
+                    concat(employee.emp_fname, ' ', employee.emp_lname) as "employee assigned",
+                    th_app_date_time
+            from transaction_history
+            left join service on transaction_history.ser_id = service.ser_id
+            left join employee on transaction_history.emp_id = employee.emp_id
+            order by th_app_date_time desc
+        """
+            
+        try:
+            self.cursor.execute(sql)
+            return self.cursor.fetchall()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
     
-    def select_transac_by_date(self):
-        pass
+    def select_all_transac_ascending(self):
+        self.connect_db()
+        
+        sql = f"""
+            select  th_id, 
+                    concat(th_cus_fname, ' ', th_cus_minitial, ' ', th_cus_lname) as "cus name", 
+                    th_cus_sex, 
+                    service.ser_name, 
+                    concat(employee.emp_fname, ' ', employee.emp_lname) as "employee assigned",
+                    th_app_date_time
+            from transaction_history
+            left join service on transaction_history.ser_id = service.ser_id
+            left join employee on transaction_history.emp_id = employee.emp_id
+            order by th_app_date_time asc
+        """
+            
+        try:
+            self.cursor.execute(sql)
+            return self.cursor.fetchall()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
     
-    def select_all_transac_descending(self):
-        pass
+ 
+    def select_transac_by_date(self, date):
+        self.connect_db()
+        
+        sql = f"""
+            select  th_id, 
+                    concat(th_cus_fname, ' ', th_cus_minitial, ' ', th_cus_lname) as "cus name", 
+                    th_cus_sex, 
+                    service.ser_name, 
+                    concat(employee.emp_fname, ' ', employee.emp_lname) as "employee assigned",
+                    th_app_date_time
+            from transaction_history
+            left join service on transaction_history.ser_id = service.ser_id
+            left join employee on transaction_history.emp_id = employee.emp_id
+            where DATE(transaction_history.th_app_date_time) = '{date}'
+        """
+            
+        try:
+            self.cursor.execute(sql)
+            return self.cursor.fetchall()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
+    
+        
+    
 
 
 
