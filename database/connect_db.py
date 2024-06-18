@@ -665,11 +665,7 @@ class Database:
         sql = f"""
             create table {service_name}(
                 emp_id      text     primary key,
-                ser_name    varchar(50) not null,
                 foreign key (emp_id)    references employee (emp_id) 
-                                                                        on update cascade
-                                                                        on delete cascade,
-                foreign key (ser_name)  references service (ser_name)
                                                                         on update cascade
                                                                         on delete cascade
             );

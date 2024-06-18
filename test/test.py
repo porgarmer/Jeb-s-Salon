@@ -1009,5 +1009,3 @@ db = Database()
 # string = "rolinO b oNgco"
 # print(string.title())
 
-results = db.select_all_customers()
-print(results)
