@@ -121,8 +121,8 @@ class Database:
                     """
                     
             sql2 = f"""
-                        insert into {service_} (emp_id, ser_name)
-                        values ('{emp_id}', '{service}');
+                        insert into {service} (emp_id)
+                        values ('{emp_id}');
                     """
             self.cursor.execute(sql+sql2)
         try:
@@ -202,8 +202,6 @@ class Database:
         
         if isinstance(connection, Exception):
             return connection
-        
-        service_name = service_name.replace(" ", "_")
         
         sql = f"""
             select employee.emp_id, employee.emp_fname, employee.emp_minitial, employee.emp_lname, employee.emp_sex from employee 
@@ -341,8 +339,8 @@ class Database:
                 """
                 
                 sql2 = f"""
-                        insert into {service_} (emp_id, ser_name)
-                        values ('{emp_id}', '{service[1]}')
+                        insert into {service_} (emp_id)
+                        values ('{emp_id}')
                         on conflict (emp_id) do nothing;
                     """
                 self.cursor.execute(sql+sql2)
@@ -367,7 +365,10 @@ class Database:
         self.cursor.close()
 
     def delete_employee(self, emp_id):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         sql = f"""
             delete from employee where emp_id = '{emp_id}'
@@ -384,7 +385,10 @@ class Database:
             self.cursor.close()
             
     def delete_employee_history(self, emp_hist_id):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         sql = f"""
             delete from employment_history where eh_id = '{emp_hist_id}'
@@ -401,7 +405,10 @@ class Database:
             self.cursor.close()
 
     def delete_all_employees(self):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         sql = f"""
             delete from employee
@@ -418,7 +425,11 @@ class Database:
             self.cursor.close()
 
     def check_employee_app(self, emp_name, app_date_time):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
+        
         try:
             sql = f"""
                 select emp_id from employee where concat(emp_fname, ' ', emp_lname) = '{emp_name}'   
@@ -566,9 +577,11 @@ class Database:
             self.cursor.close()
 
     def update_customer(self, cus_id, cus_data, app_id, app_data):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
                 
-       
         try:
 
             sql1 = f"""
@@ -599,8 +612,10 @@ class Database:
             self.cursor.close()
         
     def delete_customer(self, cus_id):
-        print(cus_id)
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         sql = f"""
             delete from customer where cus_id = '{cus_id}';
@@ -660,6 +675,26 @@ class Database:
             self.conn.close()
             self.cursor.close()
 
+    def delete_all_customers(self):
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
+        
+        sql = f"""
+            delete from customer;
+        """    
+            
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
+        
 #service functions
     def add_service(self, service_data):
         connection = self.connect_db()
@@ -693,7 +728,7 @@ class Database:
         if isinstance(connection, Exception):
             return connection
         
-        service_name = service_name.replace(" ", "_")
+        service_name_ = service_name.replace(" ", "_")
         
         sql = f"""
             create table {service_name}(
@@ -706,7 +741,7 @@ class Database:
         
         sql2 = f"""
         alter table employee 
-        add column emp_is_{service_name} bool default false;
+        add column emp_is_{service_name_} bool default false not null;
         """
         
         try:
@@ -721,39 +756,27 @@ class Database:
             self.conn.close()
             self.cursor.close()
 
-    def update_service(self, service_id, service_data):
-        self.connect_db()
+    def update_service(self, old_service_name, service_id, service_data):
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         service_name = service_data[0]
         
         sql = f"""
-            update service set ser_name = '{service_name}', ser_price = '{service_data[1]}' where ser_id = '{service_id}'
+            update service set ser_name = '{service_name}', ser_price = '{service_data[1]}' where ser_id = '{service_id}';
         """
             
-        try:
-            self.cursor.execute(sql)
-            self.conn.commit()
-        except Exception as e:
-            self.conn.rollback()
-            return e
-        finally:
-            self.conn.close()
-            self.cursor.close()
-        
-    def update_service_table(self, service_id, service_name):
-        
-        old_service_name = self.select_service(service_id=service_id).replace(" ", "_")
-      
-        self.connect_db()
-        
-        service_name = service_name.replace(" ", "_")
-
-        sql = f"""
-                alter table {old_service_name} rename to {service_name}        
+        sql2 = f"""
+            alter table employee rename column emp_is_{old_service_name.replace(" ", "_")} to emp_is_{service_name.replace(" ", "_")};
         """
-            
+        
+        sql3 = f"""
+                alter table {old_service_name} rename to {service_name};       
+        """
         try:
-            self.cursor.execute(sql)
+            self.cursor.execute(sql+sql2+sql3)
             self.conn.commit()
         except Exception as e:
             self.conn.rollback()
@@ -763,37 +786,26 @@ class Database:
             self.cursor.close()
         
     def delete_service(self, service_name):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         sql = f"""
             delete from service where ser_name = '{service_name}';
         """    
             
-        try:
-            self.cursor.execute(sql)
-            self.conn.commit()
-        except Exception as e:
-            self.conn.rollback()
-            return e
-        finally:
-            self.conn.close()
-            self.cursor.close()
-        
-    def delete_service_table(self, service_name):
-        self.connect_db()
-        
-        service_name = service_name.replace(" ", "_")
-        
-        sql = f"""
+        sql1 = f"""
             drop table {service_name};
         """
             
         sql2 = f"""
             alter table employee
-            drop column emp_is_{service_name};
+            drop column emp_is_{service_name.replace(" ", "_")};
         """
+        
         try:
-            self.cursor.execute(sql+sql2)
+            self.cursor.execute(sql+sql1+sql2)
             self.conn.commit()
         except Exception as e:
             self.conn.rollback()
@@ -801,6 +813,32 @@ class Database:
         finally:
             self.conn.close()
             self.cursor.close()
+        
+    # def delete_service_table(self, service_name):
+    #     connection = self.connect_db()
+        
+    #     if isinstance(connection, Exception):
+    #         return connection
+        
+    #     service_name = service_name.replace(" ", "_")
+        
+    #     sql = f"""
+    #         drop table {service_name};
+    #     """
+            
+    #     sql2 = f"""
+    #         alter table employee
+    #         drop column emp_is_{service_name};
+    #     """
+    #     try:
+    #         self.cursor.execute(sql+sql2)
+    #         self.conn.commit()
+    #     except Exception as e:
+    #         self.conn.rollback()
+    #         return e
+    #     finally:
+    #         self.conn.close()
+    #         self.cursor.close()
 
     def select_services(self):
         connection = self.connect_db()
@@ -823,7 +861,10 @@ class Database:
             self.cursor.close()
 
     def select_service(self, service_id):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         sql = f"""
             select ser_name from service where ser_id = '{service_id}'
@@ -840,7 +881,10 @@ class Database:
             self.cursor.close()
 
     def select_service_by_name(self, service_name):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         sql = f"""
             select ser_id, ser_name, ser_price from service where ser_name = '{service_name}'
@@ -856,11 +900,45 @@ class Database:
             self.conn.close()
             self.cursor.close()
 
-
+    def delete_all_services(self):
+        self.connect_db()
+        
+        try:
+            sql = f"""
+                select ser_name from service;
+            """    
+            self.cursor.execute(sql)
+            services = self.cursor.fetchall()
+            
+            for service in services:
+                sql = f"""
+                    alter table employee drop column emp_is_{service[0].replace(" ", "_")};
+                """    
+                sql1 = f"""
+                    drop table {service};
+                    """    
+                    
+                self.cursor.execute(sql+sql1)
+                
+            sql = f"""
+                delete from service;
+            """    
+            self.cursor.execute(sql)
+            self.conn.commit()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
+        
 #transaction function
 
     def select_all_transac(self):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         sql = f"""
             select  th_id, 
@@ -886,7 +964,10 @@ class Database:
             self.cursor.close()
     
     def select_all_transac_ascending(self):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         sql = f"""
             select  th_id, 
@@ -910,10 +991,12 @@ class Database:
         finally:
             self.conn.close()
             self.cursor.close()
-    
  
     def select_transac_by_date(self, date):
-        self.connect_db()
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
         
         sql = f"""
             select  th_id, 
@@ -938,6 +1021,28 @@ class Database:
             self.conn.close()
             self.cursor.close()
     
+        
+    def delete_all_transac(self):
+        
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
+        
+        try:
+            sql = f"""
+                delete from transaction_history
+            """    
+                    
+            self.cursor.execute(sql)
+                
+            self.conn.commit()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
         
     
 

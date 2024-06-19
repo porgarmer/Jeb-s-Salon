@@ -5,6 +5,7 @@ from random import randint
 import re
 import sys
 import os
+from unicodedata import digit
 
 # Get the parent directory of the current file's directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -1051,50 +1052,58 @@ db = Database()
 # print(db.check_employee_app('24', 'Oten Dako'))
 # print(datetime.now())
 
-import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QDateTimeEdit, QVBoxLayout, QWidget
-from PyQt6.QtCore import QDateTime, QDate, QTime
+# import sys
+# from PyQt6.QtWidgets import QApplication, QMainWindow, QDateTimeEdit, QVBoxLayout, QWidget
+# from PyQt6.QtCore import QDateTime, QDate, QTime
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle('QDateTimeEdit Example')
+# class MainWindow(QMainWindow):
+#     def __init__(self):
+#         super().__init__()
+#         self.setWindowTitle('QDateTimeEdit Example')
 
-        # Create a QDateTimeEdit widget
-        self.datetime_edit = QDateTimeEdit(self)
-        self.datetime_edit.setCalendarPopup(True)
-        self.datetime_edit.setDateTime(QDateTime.currentDateTime())
+#         # Create a QDateTimeEdit widget
+#         self.datetime_edit = QDateTimeEdit(self)
+#         self.datetime_edit.setCalendarPopup(True)
+#         self.datetime_edit.setDateTime(QDateTime.currentDateTime())
 
-        # Create a layout and add the QDateTimeEdit widget to it
-        layout = QVBoxLayout()
-        layout.addWidget(self.datetime_edit)
+#         # Create a layout and add the QDateTimeEdit widget to it
+#         layout = QVBoxLayout()
+#         layout.addWidget(self.datetime_edit)
 
-        # Create a central widget and set the layout
-        central_widget = QWidget()
-        central_widget.setLayout(layout)
-        self.setCentralWidget(central_widget)
+#         # Create a central widget and set the layout
+#         central_widget = QWidget()
+#         central_widget.setLayout(layout)
+#         self.setCentralWidget(central_widget)
 
-        # Connect the signal to print the date and time
-        self.datetime_edit.dateTimeChanged.connect(self.print_datetime)
+#         # Connect the signal to print the date and time
+#         self.datetime_edit.dateTimeChanged.connect(self.print_datetime)
 
-    def print_datetime(self):
-        # Get the date and time from the QDateTimeEdit widget
-        date_time = self.datetime_edit.dateTime()
-        date = self.datetime_edit.date()
-        time = self.datetime_edit.time()
+#     def print_datetime(self):
+#         # Get the date and time from the QDateTimeEdit widget
+#         date_time = self.datetime_edit.dateTime()
+#         date = self.datetime_edit.date()
+#         time = self.datetime_edit.time()
         
-        print(date_time < datetime.now())
-        # Print the date and time
-        print(f"QDateTime: {date_time.toString('yyyy-mm-dd hh:mm')}")
-        print(f"QDate: {date.toString()}")
-        print(f"QTime: {time.toString()}")
+#         print(date_time < datetime.now())
+#         # Print the date and time
+#         print(f"QDateTime: {date_time.toString('yyyy-mm-dd hh:mm')}")
+#         print(f"QDate: {date.toString()}")
+#         print(f"QTime: {time.toString()}")
 
-        date_time = date_time.toString('yyyy-MM-dd hh:mm')
-        print(db.check_employee_app('Oten Dako', date_time))
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    app.exec()
+#         date_time = date_time.toString('yyyy-MM-dd hh:mm')
+#         print(db.check_employee_app('Oten Dako', date_time))
+# if __name__ == '__main__':
+#     app = QApplication(sys.argv)
+#     window = MainWindow()
+#     window.show()
+#     app.exec()
 
-# print(db.check_employee_app('2024-20-00 18:00'))
+# print(db.delete_all_services())
+
+# emp_hist_date_started = "June 19, 2024"
+# print(datetime.strptime(emp_hist_date_started, "%B %d, %Y").date())
+
+# print(db.create_service_table("jabol"))
+
+# print(db.add_service(["tae", '200']))
+print(db.select_all_transac())

@@ -1,6 +1,8 @@
 import sys
 import os
 
+from httpx import delete
+
 # Get the parent directory of the current file's directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
@@ -40,19 +42,22 @@ class MainPage(QMainWindow):
         self.employees_icon_button.clicked.connect(self.switch_to_employees_page)
         self.populate_employees_table()
         
+        self.delete_all_cus_button.clicked.connect(self.delete_all_customers)
         self.customers_button.clicked.connect(self.switch_to_customers_page)
         self.customers_icon_button.clicked.connect(self.switch_to_customers_page)
         self.populate_customers_table()
         
-        
+        self.delete_all_service.clicked.connect(self.delete_all_services)
         self.services_button.clicked.connect(self.switch_to_services_page)
         self.services_icon_button.clicked.connect(self.switch_to_services_page)
-        self.refresh_button.clicked.connect(self.filter_by_service)
+        # self.refresh_button.clicked.connect(self.filter_by_service)
         self.remove_service_filter_button.clicked.connect(self.remove_service_filter)
+        self.service_filter.currentIndexChanged.connect(self.filter_by_service)
         self.set_up_services()
         self.populate_services_table()
         self.populate_available_employees()
 
+        self.delete_all_transac_btn.clicked.connect(self.delete_all_transac)
         self.transac_history_button.clicked.connect(self.switch_to_transac_history_page)
         self.transac_history_button_2.clicked.connect(self.switch_to_transac_history_page)
         self.populate_transac_table()
@@ -60,15 +65,12 @@ class MainPage(QMainWindow):
         self.profile_button.clicked.connect(self.switch_to_profile_page)
         self.profile_icon_button.clicked.connect(self.switch_to_profile_page)
 
-        self.logout_button.clicked.connect(self.logout)
-        
-        
-        
+        self.logout_btn.clicked.connect(self.logout)
+        self.logout_btn_icon.clicked.connect(self.logout)
+
         ### employees tab button links ###
         self.add_emp_button.clicked.connect(self.show_add_employee_dialog)
         # self.delete_all_emp_button.clicked.connect(self.)
-
-        
         
         ### customers tab button links ###
         self.add_cus_button.clicked.connect(self.show_add_customer_dialog)
@@ -80,7 +82,7 @@ class MainPage(QMainWindow):
     def update_date_time(self):
         # Get the current time and format it as a string
         current_date_time = QDateTime.currentDateTime()
-        time_string = current_date_time.toString('MMMM dd, yyyy hh:mm:ss: AP')
+        time_string = current_date_time.toString('MMMM dd, yyyy | hh:mm:ss AP')
         # Update the QLabel with the formatted time string
         self.current_date_time.setText(time_string)
 
@@ -142,7 +144,7 @@ class MainPage(QMainWindow):
             self.emp_table.insertRow(row)
             for col, cell_data in enumerate(row_data):
                 if isinstance(cell_data, date):
-                    cell_data = cell_data.strftime("%m-%d-%Y")
+                    cell_data = cell_data.strftime("%B %d, %Y")
                 item = QTableWidgetItem(str(cell_data))
            
                 self.emp_table.setItem(row, col, item)
@@ -364,6 +366,16 @@ class MainPage(QMainWindow):
 
         self.populate_customers_table()
         
+    def delete_all_customers(self):
+        reply = QMessageBox.critical(self, "!!!!", "ARE YOU SURE YOU WANT TO DELETE ALL CUSTOMERS?",
+                                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel, defaultButton=QMessageBox.StandardButton.Cancel)
+        
+        if reply == QMessageBox.StandardButton.Yes:
+            self.db.delete_all_customers()
+            QMessageBox.information(self, "Successful", "Successfully deleted all customers", 
+                                    QMessageBox.StandardButton.Ok, defaultButton=QMessageBox.StandardButton.Ok)
+            
+        self.populate_customers_table()
 ######## Functions for the services tab#########
 
     def populate_services_table(self):
@@ -412,7 +424,8 @@ class MainPage(QMainWindow):
         from main_page.services_tab import EditService
         
         service_id = self.services_table.item(row,0).text()
-        self.edit_service_dialog = EditService(service_id=service_id)
+        old_service_name =  self.services_table.item(row,1).text()
+        self.edit_service_dialog = EditService(service_id=service_id, old_service_name=old_service_name)
         blur_effect = QGraphicsBlurEffect()
         blur_effect.setBlurRadius(3)
         self.setGraphicsEffect(blur_effect)
@@ -445,8 +458,7 @@ class MainPage(QMainWindow):
             service_name = self.services_table.item(row, 1).text()
             
             self.db.delete_service(service_name=service_name)
-            self.db.delete_service_table(service_name=service_name)
-            
+                        
             print("Yes button pressed")
         else:
             print("No button pressed")
@@ -523,6 +535,20 @@ class MainPage(QMainWindow):
             for service in services:
                 self.service_filter.addItem(service[1])
 
+    def delete_all_services(self):
+        reply = QMessageBox.critical(self, "!!!!", "ARE YOU SURE YOU WANT TO DELETE ALL SERVICES?",
+                                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel, defaultButton=QMessageBox.StandardButton.Cancel)
+        
+        if reply == QMessageBox.StandardButton.Yes:
+            self.db.delete_all_services()
+            QMessageBox.information(self, "Successful", "Successfully deleted all services", 
+                                    QMessageBox.StandardButton.Ok, defaultButton=QMessageBox.StandardButton.Ok)
+            
+        self.populate_services_table()
+        self.populate_available_employees()
+        self.service_filter.clear()
+        self.service_filter.setPlaceholderText("FILTER BY SERVICE")
+
 ######## Functions for the transactions tab#########
 
     def populate_transac_table(self):
@@ -535,11 +561,21 @@ class MainPage(QMainWindow):
                 self.transac_table.insertRow(row)
                 for col, cell_data in enumerate(row_data):
                     if isinstance(cell_data, datetime):
-                        cell_data = cell_data.strftime("%m-%d-%Y %I:%M %p")
+                        cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
                     item = QTableWidgetItem(str(cell_data))
             
                     self.transac_table.setItem(row, col, item)
                 
+    def delete_all_transac(self):
+        reply = QMessageBox.critical(self, "!!!!", "ARE YOU SURE YOU WANT TO DELETE ALL TRANSACTIONS?",
+                                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel, defaultButton=QMessageBox.StandardButton.Cancel)
+        
+        if reply == QMessageBox.StandardButton.Yes:
+            self.db.delete_all_transac()
+            QMessageBox.information(self, "Successful", "Successfully deleted all transactions", 
+                                    QMessageBox.StandardButton.Ok, defaultButton=QMessageBox.StandardButton.Ok)
+        self.populate_transac_table()
+        
 class ActionButtons(QWidget):
     def __init__(self) -> None:
         super().__init__()

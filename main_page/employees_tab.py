@@ -160,6 +160,8 @@ class AddEmployee(QDialog):
             QMessageBox.warning(self, "Warning", "Please fill out the contact number.")
         elif emp_contact_num != "" and not emp_contact_num.isnumeric():
             QMessageBox.warning(self, "Warning", "Contact number should be numeric.")
+        elif len(emp_contact_num) > 11:
+            QMessageBox.warning(self, "Warning", "Contact number should not be more than eleven numbers.")
         elif emp_date_hired > date.today().strftime("%Y-%m-%d"):
             QMessageBox.warning(self, "Warning", "Date hired should not be greater than today's date.")
         elif emp_date_hired < date(2017, 1, 8).strftime("%Y-%m-%d"):
@@ -377,7 +379,7 @@ class EditEmployee(QDialog):
                 self.emp_hist_table.insertRow(row)
                 for col, cell_data in enumerate(row_data):
                     if isinstance(cell_data, date):
-                        cell_data = cell_data.strftime("%m-%d-%Y")
+                        cell_data = cell_data.strftime("%B %d, %Y")
                     item = QTableWidgetItem(str(cell_data))
                     self.emp_hist_table.setItem(row, col, item)
                     
@@ -402,11 +404,10 @@ class EditEmployee(QDialog):
         emp_hist_data = []
         
         for row in range(self.emp_hist_table.rowCount()):
-            item = self.emp_hist_table.item(row, 0)
-            if item:
                 for col in range(self.emp_hist_table.columnCount()-1):
-                    item = self.emp_hist_table.item(row, col)
-                
+                    item = self.emp_hist_table.item(row, col).text()
+                    if col == 2:
+                        item = datetime.strptime(item, "%B %d, %Y").date()
                     emp_row_data.append(item.text())
                 emp_hist_data.append(emp_row_data)
                 emp_row_data = []
@@ -431,10 +432,10 @@ class EditEmployee(QDialog):
         self.edit_emp_hist_dialog.emp_hist_establishment.setText(self.emp_hist_table.item(row, 2).text())
         
         date_string1 = self.emp_hist_table.item(row, 3).text()
-        date_format1 = "MM-dd-yyyy"
+        date_format1 = "MMMM dd, yyyy"
         
         date_string2 = self.emp_hist_table.item(row, 4).text()
-        date_format2 = "MM-dd-yyyy"
+        date_format2 = "MMMM dd, yyyy"
 
         date_started = QDate.fromString(date_string1, date_format1)
         date_ended = QDate.fromString(date_string2, date_format2)
@@ -501,6 +502,8 @@ class EditEmployee(QDialog):
             QMessageBox.warning(self, "Warning", "Please fill out the contact number.")
         elif emp_contact_num != "" and not emp_contact_num.isnumeric():
             QMessageBox.warning(self, "Warning", "Contact number should be numeric.")
+        elif len(emp_contact_num) > 11:
+            QMessageBox.warning(self, "Warning", "Contact number should not be more than eleven numbers.")
         elif emp_date_hired > date.today().strftime("%Y-%m-%d"):
             QMessageBox.warning(self, "Warning", "Date hired should not be greater than today's date.")
         elif emp_date_hired < date(2017, 1, 8).strftime("%Y-%m-%d"):
@@ -559,7 +562,7 @@ class MoreDetails(QDialog):
         self.emp_services.setText("SERVICES: "+ ", ".join(emp_services))
         self.emp_address.setText(f"ADDRESS: {emp_data[4]}")
         self.emp_contact_num.setText(f"CONTACT NUMBER: {emp_data[5]}")
-        date_hired = emp_data[6].strftime("%m-%d-%Y")
+        date_hired = emp_data[6].strftime("%B %d, %Y")
         self.emp_date_hired.setText(f"DATE HIRED: {date_hired}")
         self.emp_email_address.setText(f"EMAIL ADDRESS: {emp_data[7]}")
         self.emp_available.setText(f"AVAILABLE: {emp_data[8]}")
@@ -573,7 +576,7 @@ class MoreDetails(QDialog):
             self.employment_history_table.insertRow(row)
             for col, cell_data in enumerate(row_data):
                 if isinstance(cell_data, date):
-                    cell_data = cell_data.strftime("%m-%d-%Y")
+                    cell_data = cell_data.strftime("%B %d, %Y")
                 item = QTableWidgetItem(str(cell_data))
            
                 self.employment_history_table.setItem(row, col, item)
@@ -637,7 +640,7 @@ class AddEmpHist(QDialog):
         elif datetime.strptime(emp_hist_date_started, "%m-%d-%Y").date() == datetime.strptime(emp_hist_date_ended, "%m-%d-%Y").date():
             QMessageBox.warning(self, "Warning", "Date started and date ended should not be equal.")
         else:
-            emp_hist_data = [emp_hist_job_desc, emp_hist_establishment, emp_hist_date_started, emp_hist_date_ended]
+            emp_hist_data = [emp_hist_job_desc, emp_hist_establishment, datetime.strptime(emp_hist_date_started, "%m-%d-%Y").date().strftime("%B %d, %Y"), datetime.strptime(emp_hist_date_ended, "%m-%d-%Y").date().strftime("%B %d, %Y")]
             
             return emp_hist_data
     

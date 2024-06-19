@@ -77,12 +77,14 @@ class AddCustomer(QDialog):
             QMessageBox.warning(self, "Warning", "Please select a service to avail.")
         elif cus_contact_number != "" and not cus_contact_number.isnumeric():
             QMessageBox.warning(self, "Warning", "Contact number should be numeric.")
+        elif len(cus_contact_number) > 11:
+            QMessageBox.warning(self, "Warning", "Contact number should not be more than eleven numbers.")
         elif self.cus_app_date_time.time() < time(9, 0):
             QMessageBox.warning(self, "Warning", "Appointment time should not be before opening time.")
         elif self.cus_app_date_time.time() > time(21, 0):
             QMessageBox.warning(self, "Warning", "Appointment time should not be after closing time.")
         elif self.cus_app_date_time.dateTime() < datetime.now():
-            QMessageBox.warning(self, "Warning", "Appointment time should not be earlier than the current date and time.")
+            QMessageBox.warning(self, "Warning", "Appointment date and time should not be earlier than the current date and time.")
         elif cus_employee_assigned == "":
             QMessageBox.warning(self, "Warning", "Please select an employee.")
         elif self.db.check_employee_app(app_date_time=self.cus_app_date_time.dateTime().toString('yyyy-MM-dd hh:mm'), emp_name=cus_employee_assigned):
@@ -195,12 +197,14 @@ class EditCustomer(QDialog):
             QMessageBox.warning(self, "Warning", "Please select a service to avail.")
         elif cus_contact_number != "" and not cus_contact_number.isnumeric():
             QMessageBox.warning(self, "Warning", "Contact number should be numeric.")
+        elif len(cus_contact_number) > 11:
+            QMessageBox.warning(self, "Warning", "Contact number should not be more than eleven numbers.")
         elif self.cus_app_date_time.time() < time(9, 0):
             QMessageBox.warning(self, "Warning", "Appointment time should not be before opening time.")
         elif self.cus_app_date_time.time() > time(21, 0):
             QMessageBox.warning(self, "Warning", "Appointment time should not be after closing time.")
         elif self.cus_app_date_time.dateTime() < datetime.now():
-            QMessageBox.warning(self, "Warning", "Appointment time should not be earlier than the current date and time.")
+            QMessageBox.warning(self, "Warning", "Appointment date and time should not be earlier than the current date and time.")
         elif cus_employee_assigned == "":
             QMessageBox.warning(self, "Warning", "Please select an employee.")
         elif self.db.check_employee_app(app_date_time=self.cus_app_date_time.dateTime().toString('yyyy-MM-dd hh:mm'), emp_name=cus_employee_assigned):

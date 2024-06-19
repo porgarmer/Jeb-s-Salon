@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1207</width>
-    <height>730</height>
+    <height>733</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -300,7 +300,7 @@ QPushButton:pressed {
             }</string>
               </property>
               <property name="displayFormat">
-               <string>MM/dd/yyyy h:mm AP</string>
+               <string>MMMM dd, yyyy | h:mm AP</string>
               </property>
               <property name="calendarPopup">
                <bool>true</bool>
