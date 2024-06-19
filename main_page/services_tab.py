@@ -8,8 +8,7 @@ parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 # Add the parent directory to the Python path
 sys.path.append(parent_dir)
 
-from PyQt6.QtCore import Qt, QDate
-from PyQt6.QtWidgets import QDialog, QMessageBox, QHeaderView
+from PyQt6.QtWidgets import QDialog, QMessageBox
 from PyQt6.uic import loadUi
 from database.connect_db import Database
 from main_page import resources

@@ -1611,7 +1611,7 @@ QComboBox QAbstractItemView {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="remove_service_filter_button">
+                 <widget class="QPushButton" name="reset_service_filter_btn">
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
@@ -2107,178 +2107,6 @@ QLineEdit, QComboBox, QDateEdit{
                 </property>
                </spacer>
               </item>
-              <item row="0" column="0" colspan="2">
-               <layout class="QGridLayout" name="gridLayout_11">
-                <property name="horizontalSpacing">
-                 <number>20</number>
-                </property>
-                <item row="0" column="4">
-                 <spacer name="horizontalSpacer_15">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>37</width>
-                    <height>17</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="0" column="6">
-                 <spacer name="horizontalSpacer_14">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>401</width>
-                    <height>17</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QLabel" name="label_3">
-                  <property name="font">
-                   <font>
-                    <family>JetBrains Mono</family>
-                    <pointsize>10</pointsize>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>FILTER BY DATE:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLineEdit" name="lineEdit_3">
-                  <property name="font">
-                   <font>
-                    <family>JetBrains Mono</family>
-                    <pointsize>12</pointsize>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QPushButton" name="search_transac">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string>SEARCH</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="3">
-                 <widget class="QDateEdit" name="filter_transac_by_date">
-                  <property name="font">
-                   <font>
-                    <family>JetBrains Mono</family>
-                    <pointsize>12</pointsize>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">            QDateEdit QAbstractItemView {
-                selection-background-color: #6a9fb5;
-                selection-color: white;
-                background-color: #f0f0f0;
-            }
-            QCalendarWidget QWidget#qt_calendar_navigationbar {
-                background-color: #45405C; /* Navigation bar background */
-            }
-            QCalendarWidget QToolButton {
-                color: white;
-                background-color: #45405C;
-            }
-            QCalendarWidget QMenu {
-                color: white;
-                background-color: #45405C;
-            }
-
-    	    QCalendarWidget QMenu::item:selected {
-                background-color: #333;  /* Background color when an item is selected */
-            }
-         
-            QCalendarWidget QSpinBox {
-
-                color: white;
-                background-color: #45405C;
-                selection-background-color: #333;
-                selection-color: white;
-            }
-            QCalendarWidget QSpinBox::up-button {
-                subcontrol-origin: border;
-                subcontrol-position: top right;
-
-            }
-            QCalendarWidget QSpinBox::down-button {
-                subcontrol-origin: border;
-                subcontrol-position: bottom right;
-
-            }
-            QCalendarWidget QAbstractItemView:enabled {
-
-                color: black;
-                background-color: #E2CFEA;
-                selection-background-color: #45405C;
-                selection-color: white;
-            }</string>
-                  </property>
-                  <property name="displayFormat">
-                   <string>MMMM dd, yyyy</string>
-                  </property>
-                  <property name="calendarPopup">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item row="2" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout_9">
-                <property name="spacing">
-                 <number>20</number>
-                </property>
-               </layout>
-              </item>
-              <item row="2" column="2">
-               <widget class="QPushButton" name="delete_all_transac_btn">
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QPushButton {
-                background-color: rgb(255, 0, 0);  /* Background color of the buttons */
-                color: #E2CFEA;              /* Text color of the buttons */
-                border: none;               /* Remove button border */
-                border-radius: 10px;         /* Border radius of the buttons */
-                padding: 5px 15px;          /* Padding inside the buttons */
-                font-size: 14px;            /* Font size of the button text */
-				font-weight: bold;
-}
-
-QPushButton:hover {
-                background-color: rgb(255, 62, 62);  /* Background color on hover */
-}
-QPushButton:pressed {
-                background-color: rgb(200, 0, 0);  /* Background color on press */
-}
-</string>
-                </property>
-                <property name="text">
-                 <string>DELETE ALL</string>
-                </property>
-                <property name="icon">
-                 <iconset resource="../static/icons/resourcs.qrc">
-                  <normaloff>:/delete_button_light.svg</normaloff>:/delete_button_light.svg</iconset>
-                </property>
-               </widget>
-              </item>
               <item row="1" column="0" colspan="3">
                <widget class="QTableWidget" name="transac_table">
                 <property name="font">
@@ -2393,6 +2221,198 @@ QTableWidget::item{
                  </property>
                 </column>
                </widget>
+              </item>
+              <item row="2" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <property name="spacing">
+                 <number>20</number>
+                </property>
+               </layout>
+              </item>
+              <item row="2" column="2">
+               <widget class="QPushButton" name="delete_all_transac_btn">
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+                background-color: rgb(255, 0, 0);  /* Background color of the buttons */
+                color: #E2CFEA;              /* Text color of the buttons */
+                border: none;               /* Remove button border */
+                border-radius: 10px;         /* Border radius of the buttons */
+                padding: 5px 15px;          /* Padding inside the buttons */
+                font-size: 14px;            /* Font size of the button text */
+				font-weight: bold;
+}
+
+QPushButton:hover {
+                background-color: rgb(255, 62, 62);  /* Background color on hover */
+}
+QPushButton:pressed {
+                background-color: rgb(200, 0, 0);  /* Background color on press */
+}
+</string>
+                </property>
+                <property name="text">
+                 <string>DELETE ALL</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../static/icons/resourcs.qrc">
+                  <normaloff>:/delete_button_light.svg</normaloff>:/delete_button_light.svg</iconset>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <layout class="QGridLayout" name="gridLayout_11">
+                <property name="horizontalSpacing">
+                 <number>20</number>
+                </property>
+                <item row="0" column="5">
+                 <spacer name="horizontalSpacer_15">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>37</width>
+                    <height>17</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="0" column="7">
+                 <spacer name="horizontalSpacer_14">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>401</width>
+                    <height>17</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="0" column="3">
+                 <widget class="QDateEdit" name="filter_transac_date">
+                  <property name="font">
+                   <font>
+                    <family>JetBrains Mono</family>
+                    <pointsize>12</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">            QDateEdit QAbstractItemView {
+                selection-background-color: #6a9fb5;
+                selection-color: white;
+                background-color: #f0f0f0;
+            }
+            QCalendarWidget QWidget#qt_calendar_navigationbar {
+                background-color: #45405C; /* Navigation bar background */
+            }
+            QCalendarWidget QToolButton {
+                color: white;
+                background-color: #45405C;
+            }
+            QCalendarWidget QMenu {
+                color: white;
+                background-color: #45405C;
+            }
+
+    	    QCalendarWidget QMenu::item:selected {
+                background-color: #333;  /* Background color when an item is selected */
+            }
+         
+            QCalendarWidget QSpinBox {
+
+                color: white;
+                background-color: #45405C;
+                selection-background-color: #333;
+                selection-color: white;
+            }
+            QCalendarWidget QSpinBox::up-button {
+                subcontrol-origin: border;
+                subcontrol-position: top right;
+
+            }
+            QCalendarWidget QSpinBox::down-button {
+                subcontrol-origin: border;
+                subcontrol-position: bottom right;
+
+            }
+            QCalendarWidget QAbstractItemView:enabled {
+
+                color: black;
+                background-color: #E2CFEA;
+                selection-background-color: #45405C;
+                selection-color: white;
+            }</string>
+                  </property>
+                  <property name="displayFormat">
+                   <string>MMMM dd, yyyy</string>
+                  </property>
+                  <property name="calendarPopup">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="label_3">
+                  <property name="font">
+                   <font>
+                    <family>JetBrains Mono</family>
+                    <pointsize>10</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>FILTER BY DATE:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QPushButton" name="search_transac">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string>SEARCH</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLineEdit" name="lineEdit_3">
+                  <property name="font">
+                   <font>
+                    <family>JetBrains Mono</family>
+                    <pointsize>12</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="4">
+                 <widget class="QPushButton" name="reset_transac_filter_btn">
+                  <property name="toolTip">
+                   <string>Reset filters</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../static/icons/undo-alt_light.svg</normaloff>../static/icons/undo-alt_light.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>16</width>
+                    <height>16</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>

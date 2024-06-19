@@ -478,6 +478,7 @@ class Database:
     def add_customer(self, cus_data, app_data):
         connection = self.connect_db()
         
+        print(cus_data, app_data)
         if isinstance(connection, Exception):
             return connection
         
@@ -1047,8 +1048,7 @@ class Database:
             self.conn.close()
             self.cursor.close()
         
-    def select_transact_by_date(self, date):
-        pass
+
     
 
 

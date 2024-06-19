@@ -10,9 +10,9 @@ parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 # Add the parent directory to the Python path
 sys.path.append(parent_dir)
 
-from PyQt6.QtCore import Qt, QDateTime, QTimer
+from PyQt6.QtCore import Qt, QDateTime, QTimer, QDate
 from PyQt6.QtWidgets import QMainWindow, QHeaderView, QGraphicsBlurEffect, QMessageBox, QPushButton, QWidget, QHBoxLayout, QGridLayout, QVBoxLayout, QTableWidgetItem
-from PyQt6.QtGui import QIcon, QStandardItem, QStandardItemModel, QFont
+from PyQt6.QtGui import QIcon
 from PyQt6.uic import loadUi
 from main_page import resources
 from database.connect_db import Database
@@ -51,7 +51,7 @@ class MainPage(QMainWindow):
         self.services_button.clicked.connect(self.switch_to_services_page)
         self.services_icon_button.clicked.connect(self.switch_to_services_page)
         # self.refresh_button.clicked.connect(self.filter_by_service)
-        self.remove_service_filter_button.clicked.connect(self.remove_service_filter)
+        self.reset_service_filter_btn.clicked.connect(self.reset_service_filter)
         self.service_filter.currentIndexChanged.connect(self.filter_by_service)
         self.set_up_services()
         self.populate_services_table()
@@ -60,8 +60,11 @@ class MainPage(QMainWindow):
         self.delete_all_transac_btn.clicked.connect(self.delete_all_transac)
         self.transac_history_button.clicked.connect(self.switch_to_transac_history_page)
         self.transac_history_button_2.clicked.connect(self.switch_to_transac_history_page)
-        # self.filter_transac_by_date.dateTimeChanged.connect(self.filter_transac_by_date)
+        self.filter_transac_date.setDate(QDate.currentDate())
+        self.filter_transac_date.dateTimeChanged.connect(self.filter_transac_by_date)
+        self.reset_transac_filter_btn.clicked.connect(self.reset_transac_filter)
         self.populate_transac_table()
+        
         
         self.profile_button.clicked.connect(self.switch_to_profile_page)
         self.profile_icon_button.clicked.connect(self.switch_to_profile_page)
@@ -524,7 +527,7 @@ class MainPage(QMainWindow):
             
                     self.available_employees_table.setItem(row, col, item)
 
-    def remove_service_filter(self):
+    def reset_service_filter(self):
         self.populate_services_table()
         self.populate_available_employees()
         self.set_up_services()
@@ -579,7 +582,23 @@ class MainPage(QMainWindow):
         self.populate_transac_table()
         
     def filter_transac_by_date(self):
-        pass
+        self.transactions = self.db.select_transac_by_date(self.filter_transac_date.date().toString("yyyy-MM-dd"))
+        self.transac_table.setRowCount(0)
+        self.transac_table.hideColumn(0)
+
+        if self.transactions:
+            for row, row_data in enumerate(self.transactions):
+                self.transac_table.insertRow(row)
+                for col, cell_data in enumerate(row_data):
+                    if isinstance(cell_data, datetime):
+                        cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
+                    item = QTableWidgetItem(str(cell_data))
+            
+                    self.transac_table.setItem(row, col, item)
+
+    def reset_transac_filter(self):
+        self.filter_transac_date.setDate(QDate.currentDate())
+        self.populate_transac_table()
 class ActionButtons(QWidget):
     def __init__(self) -> None:
         super().__init__()

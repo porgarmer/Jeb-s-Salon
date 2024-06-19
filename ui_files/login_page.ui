@@ -114,7 +114,7 @@ QLineEdit{
        </font>
       </property>
       <property name="text">
-       <string>JEB'S SALON</string>
+       <string>JEBS SALON</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

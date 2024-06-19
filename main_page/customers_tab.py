@@ -10,7 +10,7 @@ parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 # Add the parent directory to the Python path
 sys.path.append(parent_dir)
 
-from PyQt6.QtCore import Qt, QDate, QDateTime
+from PyQt6.QtCore import QDateTime
 from PyQt6.QtWidgets import QDialog, QMessageBox, QHeaderView
 from PyQt6.uic import loadUi
 from database.connect_db import Database
@@ -61,7 +61,7 @@ class AddCustomer(QDialog):
         cus_contact_number = self.cus_contact_number.text().strip()
         
         #appointment data
-        cus_app_date = self.cus_app_date_time.date().toString("MM-dd-yyyy")
+        cus_app_date = self.cus_app_date_time.date().toString("yyyy-MM-dd")
         cus_app_time = self.cus_app_date_time.time().toString("h:mm AP")
         cus_employee_assigned = self.cus_employee_assigned.currentText()
         

@@ -1107,4 +1107,5 @@ db = Database()
 
 # print(db.add_service(["tae", '200']))
 # print(db.add_service(["tester", "200"]))
-print(db.select_all_employees())
+# print(db.add_customer(['0620202412', 'Fdf', 'F', 'Fdfd', '234434', 'Male'], ['2024-06-20', '9:16 AM', '0620202412', 'hair dressing', 'Asd Gfdgdfg']))
+print(db.select_transac_by_date("2024-06-20"))
