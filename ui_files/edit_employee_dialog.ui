@@ -237,6 +237,9 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true"/>
               </property>
+              <property name="maxLength">
+               <number>1</number>
+              </property>
              </widget>
             </item>
            </layout>
@@ -450,6 +453,9 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true"/>
+              </property>
+              <property name="maxLength">
+               <number>11</number>
               </property>
              </widget>
             </item>

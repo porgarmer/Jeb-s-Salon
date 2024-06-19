@@ -1106,4 +1106,5 @@ db = Database()
 # print(db.create_service_table("jabol"))
 
 # print(db.add_service(["tae", '200']))
-print(db.select_all_transac())
+# print(db.add_service(["tester", "200"]))
+print(db.select_all_employees())

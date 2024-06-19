@@ -2,11 +2,19 @@ import psycopg2
 from PyQt6.QtWidgets import QMessageBox
 class Database:
     def __init__(self) -> None:
-        self._host = "aws-0-ap-southeast-1.pooler.supabase.com"
-        self._port = 6543
-        self._user = "postgres.lvsotcbvutxvfdiiljju"
-        self._password = "q,gkb9K8/*BVFKy"
-        self._database = "postgres"
+        # self._host = "aws-0-ap-southeast-1.pooler.supabase.com"
+        # self._port = 6543
+        # self._user = "postgres.lvsotcbvutxvfdiiljju"
+        # self._password = "q,gkb9K8/*BVFKy"
+        # self._database = "postgres"
+        # self.conn = None
+        # self.cursor = None
+        
+        self._host = "localhost"
+        self._port = 5432
+        self._user = "postgres"
+        self._password = "givemeallyourdata112"
+        self._database = "jebs_salon"
         self.conn = None
         self.cursor = None
         
@@ -116,13 +124,20 @@ class Database:
         for service in emp_services:
             
             service_ = service.replace(" ", "_")
+            
+            sql = f"""
+                    select ser_id from service where ser_name = '{service}' ;
+            """
+            self.cursor.execute(sql)
+            ser_id = self.cursor.fetchone()[0]
+            
             sql = f"""
                         update employee set emp_is_{service_} = 'TRUE' where emp_id = '{emp_id}';
                     """
                     
             sql2 = f"""
-                        insert into {service} (emp_id)
-                        values ('{emp_id}');
+                        insert into {service_} (emp_id, ser_id)
+                        values ('{emp_id}', '{ser_id}');
                     """
             self.cursor.execute(sql+sql2)
         try:
@@ -203,9 +218,11 @@ class Database:
         if isinstance(connection, Exception):
             return connection
         
+        service_ = service_name.replace(" ", "_")
+
         sql = f"""
             select employee.emp_id, employee.emp_fname, employee.emp_minitial, employee.emp_lname, employee.emp_sex from employee 
-            inner join {service_name} on employee.emp_id = {service_name}.emp_id
+            inner join {service_} on employee.emp_id = {service_}.emp_id
             where emp_available = 'TRUE' order by (emp_fname, emp_minitial, emp_lname)
         """
 
@@ -256,8 +273,8 @@ class Database:
                                 select emp_is_{service_} from employee where emp_id = '{emp_id}'
                                 """)
             try:
-                flag = self.cursor.fetchone()
-                if flag[0] is True:
+                flag = self.cursor.fetchone()[0]
+                if flag is True:
                     employee_services.append(service[1])
             except Exception as e:
                 self.conn.rollback()
@@ -334,13 +351,21 @@ class Database:
         for service in services:
             service_ = service[1].replace(" ", "_")
             if service[1] in emp_services:
+                
+                sql = f"""
+                    select ser_id from service where ser_name = '{service[1]}'
+                """
+                
+                self.cursor.execute(sql)
+                ser_id = self.cursor.fetchone()[0]
+                
                 sql = f"""
                     update employee set emp_is_{service_} = TRUE where emp_id = '{emp_id}';
                 """
                 
                 sql2 = f"""
-                        insert into {service_} (emp_id)
-                        values ('{emp_id}')
+                        insert into {service_} (emp_id, ser_id)
+                        values ('{emp_id}', '{ser_id}')
                         on conflict (emp_id) do nothing;
                     """
                 self.cursor.execute(sql+sql2)
@@ -731,17 +756,21 @@ class Database:
         service_name_ = service_name.replace(" ", "_")
         
         sql = f"""
-            create table {service_name}(
+            create table {service_name_}(
                 emp_id      text     primary key,
                 foreign key (emp_id)    references employee (emp_id) 
+                                                                        on update cascade
+                                                                        on delete cascade,
+                ser_id      int     not null,
+                foreign key (ser_id)    references service (ser_id) 
                                                                         on update cascade
                                                                         on delete cascade
             );
         """
         
         sql2 = f"""
-        alter table employee 
-        add column emp_is_{service_name_} bool default false not null;
+            alter table employee 
+            add column emp_is_{service_name_} bool default false not null;
         """
         
         try:
@@ -773,7 +802,7 @@ class Database:
         """
         
         sql3 = f"""
-                alter table {old_service_name} rename to {service_name};       
+                alter table {old_service_name.replace(" ", "_")} rename to {service_name.replace(" ", "_")};       
         """
         try:
             self.cursor.execute(sql+sql2+sql3)
@@ -796,7 +825,7 @@ class Database:
         """    
             
         sql1 = f"""
-            drop table {service_name};
+            drop table {service_name.replace(" ", "_")};
         """
             
         sql2 = f"""
@@ -814,32 +843,6 @@ class Database:
             self.conn.close()
             self.cursor.close()
         
-    # def delete_service_table(self, service_name):
-    #     connection = self.connect_db()
-        
-    #     if isinstance(connection, Exception):
-    #         return connection
-        
-    #     service_name = service_name.replace(" ", "_")
-        
-    #     sql = f"""
-    #         drop table {service_name};
-    #     """
-            
-    #     sql2 = f"""
-    #         alter table employee
-    #         drop column emp_is_{service_name};
-    #     """
-    #     try:
-    #         self.cursor.execute(sql+sql2)
-    #         self.conn.commit()
-    #     except Exception as e:
-    #         self.conn.rollback()
-    #         return e
-    #     finally:
-    #         self.conn.close()
-    #         self.cursor.close()
-
     def select_services(self):
         connection = self.connect_db()
         
@@ -915,7 +918,7 @@ class Database:
                     alter table employee drop column emp_is_{service[0].replace(" ", "_")};
                 """    
                 sql1 = f"""
-                    drop table {service};
+                    drop table {service[0].replace(" ", "_")};
                     """    
                     
                 self.cursor.execute(sql+sql1)
@@ -1044,6 +1047,8 @@ class Database:
             self.conn.close()
             self.cursor.close()
         
+    def select_transact_by_date(self, date):
+        pass
     
 
 

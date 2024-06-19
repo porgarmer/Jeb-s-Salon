@@ -60,6 +60,7 @@ class MainPage(QMainWindow):
         self.delete_all_transac_btn.clicked.connect(self.delete_all_transac)
         self.transac_history_button.clicked.connect(self.switch_to_transac_history_page)
         self.transac_history_button_2.clicked.connect(self.switch_to_transac_history_page)
+        # self.filter_transac_by_date.dateTimeChanged.connect(self.filter_transac_by_date)
         self.populate_transac_table()
         
         self.profile_button.clicked.connect(self.switch_to_profile_page)
@@ -140,21 +141,22 @@ class MainPage(QMainWindow):
         self.emp_table.setRowCount(0)
         self.emp_table.hideColumn(0)
         
-        for row, row_data in enumerate(self.employees):
-            self.emp_table.insertRow(row)
-            for col, cell_data in enumerate(row_data):
-                if isinstance(cell_data, date):
-                    cell_data = cell_data.strftime("%B %d, %Y")
-                item = QTableWidgetItem(str(cell_data))
-           
-                self.emp_table.setItem(row, col, item)
+        if self.employees:
+            for row, row_data in enumerate(self.employees):
+                self.emp_table.insertRow(row)
+                for col, cell_data in enumerate(row_data):
+                    if isinstance(cell_data, date):
+                        cell_data = cell_data.strftime("%B %d, %Y")
+                    item = QTableWidgetItem(str(cell_data))
             
-                #actions buttons
-            action_buttons = ActionButtons()
-            action_buttons.edit_button.clicked.connect(self.show_edit_employee_dialog)
-            action_buttons.delete_button.clicked.connect(self.delete_employee)
-            action_buttons.more_details_button.clicked.connect(self.more_emp_details)
-            self.emp_table.setCellWidget(row, 8, action_buttons)
+                    self.emp_table.setItem(row, col, item)
+                
+                    #actions buttons
+                action_buttons = ActionButtons()
+                action_buttons.edit_button.clicked.connect(self.show_edit_employee_dialog)
+                action_buttons.delete_button.clicked.connect(self.delete_employee)
+                action_buttons.more_details_button.clicked.connect(self.more_emp_details)
+                self.emp_table.setCellWidget(row, 8, action_buttons)
 
     def show_add_employee_dialog(self):
         from main_page.employees_tab import AddEmployee
@@ -263,7 +265,7 @@ class MainPage(QMainWindow):
                 self.cus_table.insertRow(row)
                 for col, cell_data in enumerate(row_data):  
                     if isinstance(cell_data, datetime):
-                        cell_data = cell_data.strftime("%m-%d-%Y %I:%M %p")
+                        cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
                     item = QTableWidgetItem(str(cell_data))
             
                         
@@ -576,6 +578,8 @@ class MainPage(QMainWindow):
                                     QMessageBox.StandardButton.Ok, defaultButton=QMessageBox.StandardButton.Ok)
         self.populate_transac_table()
         
+    def filter_transac_by_date(self):
+        pass
 class ActionButtons(QWidget):
     def __init__(self) -> None:
         super().__init__()
