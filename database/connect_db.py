@@ -310,8 +310,8 @@ class Database:
         update employment_history set 
         eh_job_description = '{emp_hist_data[0]}',
         eh_establishment = '{emp_hist_data[1]}',
-        eh_date_ended = '{emp_hist_data[2]}',
-        eh_date_started = '{emp_hist_data[3]}'
+        eh_date_started = '{emp_hist_data[2]}',
+        eh_date_ended = '{emp_hist_data[3]}'
         where eh_id = '{emp_hist_id}'
         """
         try:
@@ -384,7 +384,6 @@ class Database:
             self.cursor.close()
             
     def delete_employee_history(self, emp_hist_id):
-        print(emp_hist_id)
         self.connect_db()
         
         sql = f"""
@@ -401,6 +400,42 @@ class Database:
             self.conn.close()
             self.cursor.close()
 
+    def delete_all_employees(self):
+        self.connect_db()
+        
+        sql = f"""
+            delete from employee
+        """
+            
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
+
+    def check_employee_app(self, emp_name, app_date_time):
+        self.connect_db()
+        try:
+            sql = f"""
+                select emp_id from employee where concat(emp_fname, ' ', emp_lname) = '{emp_name}'   
+            """
+            self.cursor.execute(sql)
+            emp_id = self.cursor.fetchone()[0]
+            sql = f"""
+                select app_id from appointment where app_date_time = '{app_date_time}' and emp_id = '{emp_id}'
+            """
+            self.cursor.execute(sql)
+            return self.cursor.fetchall()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
 
 #customer functions
         
@@ -413,12 +448,11 @@ class Database:
 
         try:
             sql = f"""
-            select service.ser_id, employee.emp_id from employee, service
-            where concat(employee.emp_fname, ' ', employee.emp_lname) = '{app_data[4]}' and service.ser_name = '{app_data[3]}';
-        """
+                select employee.emp_id, service.ser_id from employee, service
+                where concat(employee.emp_fname, ' ', employee.emp_lname) = '{app_data[4]}' and service.ser_name = '{app_data[3]}';
+            """
             self.cursor.execute(sql)
             emp_id_ser_id = self.cursor.fetchone()
-            
             sql1 = f"""
                 insert into customer(cus_id, cus_fname, cus_minitial, cus_lname, cus_contact_num, cus_sex)
                 values(
@@ -431,14 +465,13 @@ class Database:
                 );
             """
             sql2 = f"""
-                insert into appointment (app_date_time, cus_id, ser_id, emp_id)
+                insert into appointment (app_date_time, cus_id,  emp_id, ser_id)
                 values (
                     '{app_data[0]} {app_data[1]}', '{app_data[2]}', '{emp_id_ser_id[0]}', '{emp_id_ser_id[1]}'
                 );
             """            
             self.cursor.execute(sql1+sql2)
             self.conn.commit()
-            
         except Exception as e:
             self.conn.rollback()
             return e
@@ -553,7 +586,7 @@ class Database:
                 where cus_id = '{cus_id}';
             """
             sql3 =  f"""
-                update appointment set app_date_time = '{app_data[0]}', ser_id = '{emp_id_ser_id[0]}', emp_id = '{emp_id_ser_id[1]}' where app_id = '{app_id}';
+                update appointment set app_date_time = '{app_data[0]} {app_data[1]}', ser_id = '{emp_id_ser_id[0]}', emp_id = '{emp_id_ser_id[1]}' where app_id = '{app_id}';
             """
             
             self.cursor.execute(sql2+sql3)

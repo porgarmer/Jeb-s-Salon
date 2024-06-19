@@ -1,3 +1,4 @@
+from datetime import date, time, datetime
 from random import randint
 import sys
 import os
@@ -41,10 +42,11 @@ class AddCustomer(QDialog):
         if reply == QMessageBox.StandardButton.Yes:
             print("Yes button pressed")
             cus_values = self.retrieve_all_values()
-            self.db.add_customer(cus_data=cus_values["cus_data"], app_data=cus_values["cus_app_data"])
-            # self.db.add_customer_appointment(app_data=cus_values["cus_app_data"])
             
-            self.close() 
+            if cus_values:
+                self.db.add_customer(cus_data=cus_values["cus_data"], app_data=cus_values["cus_app_data"])
+                
+                self.close() 
         else:
             print("No button pressed")
             
@@ -65,9 +67,30 @@ class AddCustomer(QDialog):
         
         cus_id = self.generate_cus_id(cus_app_date)
         
-        return{"cus_data": [cus_id, cus_fname, cus_minitial, cus_lname, cus_contact_number, cus_sex],
-               "cus_app_data": [cus_app_date, cus_app_time, cus_id, cus_service_availed, cus_employee_assigned]
-               }
+        if cus_fname == "" or cus_lname == "":
+            QMessageBox.warning(self, "Warning", "Please fill atleast the first and last name fields.")
+        elif not cus_fname.isalpha() or not cus_lname.isalpha():
+            QMessageBox.warning(self, "Warning", "Name should not contain numeric character.")
+        elif (cus_minitial and len(cus_minitial) > 1) or (cus_minitial and not cus_minitial.isalpha()):
+            QMessageBox.warning(self, "Warning", "Middle initial should only be one letter and not a number.")
+        elif cus_service_availed == "":
+            QMessageBox.warning(self, "Warning", "Please select a service to avail.")
+        elif cus_contact_number != "" and not cus_contact_number.isnumeric():
+            QMessageBox.warning(self, "Warning", "Contact number should be numeric.")
+        elif self.cus_app_date_time.time() < time(9, 0):
+            QMessageBox.warning(self, "Warning", "Appointment time should not be before opening time.")
+        elif self.cus_app_date_time.time() > time(21, 0):
+            QMessageBox.warning(self, "Warning", "Appointment time should not be after closing time.")
+        elif self.cus_app_date_time.dateTime() < datetime.now():
+            QMessageBox.warning(self, "Warning", "Appointment time should not be earlier than the current date and time.")
+        elif cus_employee_assigned == "":
+            QMessageBox.warning(self, "Warning", "Please select an employee.")
+        elif self.db.check_employee_app(app_date_time=self.cus_app_date_time.dateTime().toString('yyyy-MM-dd hh:mm'), emp_name=cus_employee_assigned):
+            QMessageBox.warning(self, "Warning", "Employee already booked for that time.")
+        else:
+            return{"cus_data": [cus_id, cus_fname, cus_minitial, cus_lname, cus_contact_number, cus_sex],
+                "cus_app_data": [cus_app_date, cus_app_time, cus_id, cus_service_availed, cus_employee_assigned]
+                }
         
     def generate_cus_id(self, cus_app_date):
 
@@ -138,9 +161,10 @@ class EditCustomer(QDialog):
             print("Yes button pressed edit")
             
             cus_values = self.retrieve_all_values()
-            self.db.update_customer(cus_id=self.cus_id, cus_data=cus_values["cus_data"], app_id=self.app_id, app_data=cus_values["cus_app_data"])
-            # self.db.udpate_customer_appointment()
-            self.close() 
+            if cus_values:
+                self.db.update_customer(cus_id=self.cus_id, cus_data=cus_values["cus_data"], app_id=self.app_id, app_data=cus_values["cus_app_data"])
+                # self.db.udpate_customer_appointment()
+                self.close() 
         else:
             print("No button pressed edit")
             
@@ -160,10 +184,32 @@ class EditCustomer(QDialog):
         cus_app_time = self.cus_app_date_time.time().toString("h:mm AP")
         cus_employee_assigned = self.cus_employee_assigned.currentText()
                 
-        return{"cus_data": [cus_fname, cus_minitial, cus_lname, cus_contact_number, cus_sex],
-               "cus_app_data": [cus_app_date, cus_app_time, cus_service_availed, cus_employee_assigned]
-               }
-        
+                
+        if cus_fname == "" or cus_lname == "":
+            QMessageBox.warning(self, "Warning", "Please fill atleast the first and last name fields.")
+        elif not cus_fname.isalpha() or not cus_lname.isalpha():
+            QMessageBox.warning(self, "Warning", "Name should not contain numeric character.")
+        elif (cus_minitial and len(cus_minitial) > 1) or (cus_minitial and not cus_minitial.isalpha()):
+            QMessageBox.warning(self, "Warning", "Middle initial should only be one letter and not a number.")
+        elif cus_service_availed == "":
+            QMessageBox.warning(self, "Warning", "Please select a service to avail.")
+        elif cus_contact_number != "" and not cus_contact_number.isnumeric():
+            QMessageBox.warning(self, "Warning", "Contact number should be numeric.")
+        elif self.cus_app_date_time.time() < time(9, 0):
+            QMessageBox.warning(self, "Warning", "Appointment time should not be before opening time.")
+        elif self.cus_app_date_time.time() > time(21, 0):
+            QMessageBox.warning(self, "Warning", "Appointment time should not be after closing time.")
+        elif self.cus_app_date_time.dateTime() < datetime.now():
+            QMessageBox.warning(self, "Warning", "Appointment time should not be earlier than the current date and time.")
+        elif cus_employee_assigned == "":
+            QMessageBox.warning(self, "Warning", "Please select an employee.")
+        elif self.db.check_employee_app(app_date_time=self.cus_app_date_time.dateTime().toString('yyyy-MM-dd hh:mm'), emp_name=cus_employee_assigned):
+            QMessageBox.warning(self, "Warning", "Employee already booked for that time.")
+        else:
+            return{"cus_data": [cus_fname, cus_minitial, cus_lname, cus_contact_number, cus_sex],
+                "cus_app_data": [cus_app_date, cus_app_time, cus_service_availed, cus_employee_assigned]
+                }
+            
     def set_up_services(self):
         services = self.db.select_services()
         if services:

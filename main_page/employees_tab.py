@@ -1,4 +1,5 @@
-from datetime import date
+from datetime import date, datetime
+import re
 import sys
 import os
 
@@ -91,8 +92,7 @@ class AddEmployee(QDialog):
     def show_add_emp_hist_dialog(self):
         self.add_emp_hist_dialog = AddEmpHist()
         self.add_emp_hist_dialog.send_data.connect(self.display_emp_history)
-        self.add_emp_hist_dialog.exec()
-        
+        self.add_emp_hist_dialog.exec() 
 
     def display_emp_history(self, emp_hist_data):
         
@@ -121,18 +121,18 @@ class AddEmployee(QDialog):
             emp_data = self.retrieve_emp_values()
             emp_hist_data = self.retrieve_emp_hist_values()
             
-            self.db.add_employee(emp_data=emp_data)
-            self.db.add_employee_history(emp_id=emp_data["emp_id"],emp_hist_data=emp_hist_data)
-            self.db.add_employee_services(emp_id=emp_data["emp_id"], emp_services=emp_data["emp_services"])
-            
-            self.close() 
+            if emp_data:
+                self.db.add_employee(emp_data=emp_data)
+                self.db.add_employee_services(emp_id=emp_data["emp_id"], emp_services=emp_data["emp_services"])
+                self.db.add_employee_history(emp_id=emp_data["emp_id"],emp_hist_data=emp_hist_data)
+                
+                self.close() 
         else:
             print("No button pressed")
             
     def retrieve_emp_values(self):
         
         #employee information
-        
         emp_fname = self.emp_fname.text().strip().capitalize()
         emp_lname = self.emp_lname.text().strip().capitalize()
         emp_minitial = self.emp_minitial.text().capitalize()
@@ -145,27 +145,50 @@ class AddEmployee(QDialog):
         emp_available = self.emp_available.currentText()
         emp_id = self.generate_emp_id(emp_sex, emp_date_hired)
         
-        return {"emp_id": emp_id,
-                "emp_fname": emp_fname, 
-                "emp_lname": emp_lname, 
-                "emp_minitial": emp_minitial, 
-                "emp_sex": emp_sex,
-                "emp_services": emp_services,
-                "emp_address": emp_address,
-                "emp_contact_num": emp_contact_num,
-                "emp_date_hired": emp_date_hired,
-                "emp_email_address":emp_email_address,
-                "emp_available": emp_available
-                }
-        
-        
+        #input error trappings
+        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+
+        if emp_fname == "" or emp_lname == "":
+            QMessageBox.warning(self, "Warning", "Please fill the first and last name fields.")
+        elif not emp_fname.isalpha() or not emp_lname.isalpha():
+            QMessageBox.warning(self, "Warning", "Name should not contain numeric character.")
+        elif (emp_minitial and len(emp_minitial) > 1) or (emp_minitial and not emp_minitial.isalpha()):
+            QMessageBox.warning(self, "Warning", "Middle initial should only be one letter and not a number.")
+        elif emp_address == "":
+            QMessageBox.warning(self, "Warning", "Please fill out the address.")
+        elif emp_contact_num == "":
+            QMessageBox.warning(self, "Warning", "Please fill out the contact number.")
+        elif emp_contact_num != "" and not emp_contact_num.isnumeric():
+            QMessageBox.warning(self, "Warning", "Contact number should be numeric.")
+        elif emp_date_hired > date.today().strftime("%Y-%m-%d"):
+            QMessageBox.warning(self, "Warning", "Date hired should not be greater than today's date.")
+        elif emp_date_hired < date(2017, 1, 8).strftime("%Y-%m-%d"):
+            QMessageBox.warning(self, "Warning", "Date hired should not be lesser than the salon's founding date.")
+        elif emp_email_address != "" and not re.match(email_regex, emp_email_address):
+            QMessageBox.warning(self, "Warning", "Please enter a valid email.")
+        else:
+            return {"emp_id": emp_id,
+                    "emp_fname": emp_fname, 
+                    "emp_lname": emp_lname, 
+                    "emp_minitial": emp_minitial, 
+                    "emp_sex": emp_sex,
+                    "emp_services": emp_services,
+                    "emp_address": emp_address,
+                    "emp_contact_num": emp_contact_num,
+                    "emp_date_hired": emp_date_hired,
+                    "emp_email_address":emp_email_address,
+                    "emp_available": emp_available
+                    }
+            
     def generate_emp_id(self, emp_sex, emp_date_hired):
   
         while True:
             if emp_sex == "Male":
                 id_start_value = "M"
-            else:
+            elif emp_sex == "Female":
                 id_start_value = "F"
+            else:
+                id_start_value = "N"
                 
             emp_date_hired = emp_date_hired.replace("-", "")
             random_number = str(randint(1,1000))
@@ -462,16 +485,40 @@ class EditEmployee(QDialog):
         emp_date_hired = self.emp_date_hired.date().toString("yyyy-MM-dd")
         emp_email_address = self.emp_email_address.text().strip()
         emp_available = self.emp_available.currentText()
-        return {"emp_fname": emp_fname, 
-                "emp_lname": emp_lname, 
-                "emp_minitial": emp_minitial, 
-                "emp_sex": emp_sex,
-                "emp_services": emp_services,
-                "emp_address": emp_address,
-                "emp_contact_num": emp_contact_num,
-                "emp_date_hired": emp_date_hired,
-                "emp_email_address":emp_email_address,
-                "emp_available": emp_available}
+        
+        #input error trapping
+        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        
+        if emp_fname == "" or emp_lname == "":
+            QMessageBox.warning(self, "Warning", "Please fill the first and last name fields.")
+        elif not emp_fname.isalpha() or not emp_lname.isalpha():
+            QMessageBox.warning(self, "Warning", "Name should not contain numeric character.")
+        elif (emp_minitial and len(emp_minitial) > 1) or (emp_minitial and not emp_minitial.isalpha()):
+            QMessageBox.warning(self, "Warning", "Middle initial should only be one letter and not a number.")
+        elif emp_address == "":
+            QMessageBox.warning(self, "Warning", "Please fill out the address.")
+        elif emp_contact_num == "":
+            QMessageBox.warning(self, "Warning", "Please fill out the contact number.")
+        elif emp_contact_num != "" and not emp_contact_num.isnumeric():
+            QMessageBox.warning(self, "Warning", "Contact number should be numeric.")
+        elif emp_date_hired > date.today().strftime("%Y-%m-%d"):
+            QMessageBox.warning(self, "Warning", "Date hired should not be greater than today's date.")
+        elif emp_date_hired < date(2017, 1, 8).strftime("%Y-%m-%d"):
+            QMessageBox.warning(self, "Warning", "Date hired should not be lesser than the salon's founding date.")
+        elif emp_email_address != "" and not re.match(email_regex, emp_email_address):
+            QMessageBox.warning(self, "Warning", "Please enter a valid email.")
+        else:
+            return {"emp_fname": emp_fname, 
+                    "emp_lname": emp_lname, 
+                    "emp_minitial": emp_minitial, 
+                    "emp_sex": emp_sex,
+                    "emp_services": emp_services,
+                    "emp_address": emp_address,
+                    "emp_contact_num": emp_contact_num,
+                    "emp_date_hired": emp_date_hired,
+                    "emp_email_address":emp_email_address,
+                    "emp_available": emp_available
+                    }
         
     def save_employee_edit(self, emp_id):
         
@@ -483,11 +530,11 @@ class EditEmployee(QDialog):
         if reply == QMessageBox.StandardButton.Yes:
             print("Yes button pressed")
             emp_data = self.retrieve_emp_values()
-                
-            self.db.update_employee(emp_id=emp_id, emp_data=emp_data)
-            self.db.update_employee_services(emp_id=emp_id, emp_services=emp_data["emp_services"])
-            
-            self.close() 
+            if emp_data: 
+                self.db.update_employee(emp_id=emp_id, emp_data=emp_data)
+                self.db.update_employee_services(emp_id=emp_id, emp_services=emp_data["emp_services"])
+                    
+                self.close() 
         else:
             print("No button pressed")       
 
@@ -557,8 +604,6 @@ class AddEmpHist(QDialog):
                                         QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
                                         QMessageBox.StandardButton.No)
         else: 
-                                       
-            
             reply = QMessageBox.question(self, 'Message', 'Do you want to add to this employee\'s history?', 
                                             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, 
                                             QMessageBox.StandardButton.No)
@@ -566,23 +611,35 @@ class AddEmpHist(QDialog):
         if reply == QMessageBox.StandardButton.Yes:
             print("Yes button pressed")
             emp_hist_data = self.retrieve_all_values()
-            row = self.row
-            self.send_data.emit(emp_hist_data, row)
-            self.close()            
-             
+            
+            if emp_hist_data:
+                row = self.row
+                self.send_data.emit(emp_hist_data, row)
+                self.close()            
         else:
             print("No button pressen")
             
     def retrieve_all_values(self):
         
-        emp_hist_job_desc = self.emp_hist_job_desc.text()
-        emp_hist_establishment = self.emp_hist_establishment.text()
+        emp_hist_job_desc = self.emp_hist_job_desc.text().strip()
+        emp_hist_establishment = self.emp_hist_establishment.text().strip()
         emp_hist_date_started = self.emp_hist_date_started.date().toString("MM-dd-yyyy")
         emp_hist_date_ended = self.emp_hist_date_ended.date().toString("MM-dd-yyyy")
         
-        emp_hist_data = [emp_hist_job_desc, emp_hist_establishment, emp_hist_date_started, emp_hist_date_ended]
-        
-        return emp_hist_data
+        if emp_hist_job_desc == "" or emp_hist_establishment == "":
+            QMessageBox.warning(self, "Warning", "Please fill out the job description and establishment.")
+        elif datetime.strptime(emp_hist_date_started, "%m-%d-%Y").date() > date.today():
+            QMessageBox.warning(self, "Warning", "Date started should not be greater than today's date.")
+        elif datetime.strptime(emp_hist_date_ended, "%m-%d-%Y").date() > date.today():
+            QMessageBox.warning(self, "Warning", "Date ended should not be greater than today's date.") 
+        elif datetime.strptime(emp_hist_date_started, "%m-%d-%Y").date() > datetime.strptime(emp_hist_date_ended, "%m-%d-%Y").date():
+            QMessageBox.warning(self, "Warning", "Date started should not be greater than date ended.")
+        elif datetime.strptime(emp_hist_date_started, "%m-%d-%Y").date() == datetime.strptime(emp_hist_date_ended, "%m-%d-%Y").date():
+            QMessageBox.warning(self, "Warning", "Date started and date ended should not be equal.")
+        else:
+            emp_hist_data = [emp_hist_job_desc, emp_hist_establishment, emp_hist_date_started, emp_hist_date_ended]
+            
+            return emp_hist_data
     
 class EditEmpHistDb(QDialog):
     def __init__(self, emp_hist_id=None) -> None:
@@ -610,8 +667,9 @@ class EditEmpHistDb(QDialog):
         if reply == QMessageBox.StandardButton.Yes:
             print("Yes button pressed")
             emp_hist_data = self.retrieve_all_values()
-            self.edit_emp_hist(emp_hist_data=emp_hist_data, emp_hist_id=self.emp_hist_id)
-            self.close()            
+            if emp_hist_data:
+                self.edit_emp_hist(emp_hist_data=emp_hist_data, emp_hist_id=self.emp_hist_id)
+                self.close()            
              
         else:
             print("No button pressen")
@@ -623,9 +681,20 @@ class EditEmpHistDb(QDialog):
         emp_hist_date_started = self.emp_hist_date_started.date().toString("MM-dd-yyyy")
         emp_hist_date_ended = self.emp_hist_date_ended.date().toString("MM-dd-yyyy")
         
-        emp_hist_data = [emp_hist_job_desc, emp_hist_establishment, emp_hist_date_started, emp_hist_date_ended]
-        
-        return emp_hist_data
+        if emp_hist_job_desc == "" or emp_hist_establishment == "":
+            QMessageBox.warning(self, "Warning", "Please fill out the job description and establishment.")
+        elif datetime.strptime(emp_hist_date_started, "%m-%d-%Y").date() > date.today():
+            QMessageBox.warning(self, "Warning", "Date started should not be greater than today's date.")
+        elif datetime.strptime(emp_hist_date_ended, "%m-%d-%Y").date() > date.today():
+            QMessageBox.warning(self, "Warning", "Date ended should not be greater than today's date.") 
+        elif datetime.strptime(emp_hist_date_started, "%m-%d-%Y").date() > datetime.strptime(emp_hist_date_ended, "%m-%d-%Y").date():
+            QMessageBox.warning(self, "Warning", "Date started should not be greater than date ended.")
+        elif datetime.strptime(emp_hist_date_started, "%m-%d-%Y").date() == datetime.strptime(emp_hist_date_ended, "%m-%d-%Y").date():
+            QMessageBox.warning(self, "Warning", "Date started and date ended should not be equal.")
+        else:
+            emp_hist_data = [emp_hist_job_desc, emp_hist_establishment, emp_hist_date_started, emp_hist_date_ended]
+            
+            return emp_hist_data
     
     def edit_emp_hist(self, emp_hist_data, emp_hist_id):
         self.db.update_employee_history(emp_hist_id=emp_hist_id, emp_hist_data=emp_hist_data)

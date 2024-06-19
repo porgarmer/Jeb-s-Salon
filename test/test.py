@@ -1,6 +1,8 @@
 
-from datetime import date, datetime, time
+from curses.ascii import isdigit
+from datetime import UTC, date, datetime, time
 from random import randint
+import re
 import sys
 import os
 
@@ -1009,3 +1011,90 @@ db = Database()
 # string = "rolinO b oNgco"
 # print(string.title())
 
+# date_compare = date(2004, 6, 20).strftime("%Y-%m-%d")
+# salon_founded = date(2017, 1, 8).strftime("%Y-%m-%d")
+# print(date_compare)
+
+# email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+# email = "sdsdd@gmail.com"
+
+# if email != "" and not re.match(email_regex, email):
+#     print("invalid")
+# else:
+#     print("return")
+# emp_hist_end_date = "06-17-2027"
+# emp_hist_end_date = datetime.strptime(emp_hist_end_date, "%m-%d-%Y").date()
+# print(emp_hist_end_date > date.today())
+
+
+# email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+
+#         if emp_fname == "" or emp_lname == "":
+#             QMessageBox.warning(self, "Warning", "Please fill atleast the first and last name fields.")
+#         elif not emp_fname.isalpha() or not emp_lname.isalpha():
+#             QMessageBox.warning(self, "Warning", "Name should not contain numeric character.")
+#         elif (emp_minitial and len(emp_minitial) > 1) or (emp_minitial and not emp_minitial.isalpha()):
+#             QMessageBox.warning(self, "Warning", "Middle initial should only be one letter and not a number.")
+#         elif emp_address == "":
+#             QMessageBox.warning(self, "Warning", "Please fill out the address.")
+#         elif emp_contact_num == "":
+#             QMessageBox.warning(self, "Warning", "Please fill out the contact number.")
+#         elif emp_contact_num != "" and not emp_contact_num.isnumeric():
+#             QMessageBox.warning(self, "Warning", "Contact number should be numeric.")
+#         elif emp_date_hired > date.today().strftime("%Y-%m-%d"):
+#             QMessageBox.warning(self, "Warning", "Date hired should not be greater than today's date.")
+#         elif emp_date_hired < date(2017, 1, 8).strftime("%Y-%m-%d"):
+#             QMessageBox.warning(self, "Warning", "Date hired should not be lesser than the salon's founding date.")
+#         elif emp_email_address != "" and not re.match(email_regex, emp_email_address):
+#             QMessageBox.warning(self, "Warning", "Please enter a valid email.")
+
+# print(db.check_employee_app('24', 'Oten Dako'))
+# print(datetime.now())
+
+import sys
+from PyQt6.QtWidgets import QApplication, QMainWindow, QDateTimeEdit, QVBoxLayout, QWidget
+from PyQt6.QtCore import QDateTime, QDate, QTime
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('QDateTimeEdit Example')
+
+        # Create a QDateTimeEdit widget
+        self.datetime_edit = QDateTimeEdit(self)
+        self.datetime_edit.setCalendarPopup(True)
+        self.datetime_edit.setDateTime(QDateTime.currentDateTime())
+
+        # Create a layout and add the QDateTimeEdit widget to it
+        layout = QVBoxLayout()
+        layout.addWidget(self.datetime_edit)
+
+        # Create a central widget and set the layout
+        central_widget = QWidget()
+        central_widget.setLayout(layout)
+        self.setCentralWidget(central_widget)
+
+        # Connect the signal to print the date and time
+        self.datetime_edit.dateTimeChanged.connect(self.print_datetime)
+
+    def print_datetime(self):
+        # Get the date and time from the QDateTimeEdit widget
+        date_time = self.datetime_edit.dateTime()
+        date = self.datetime_edit.date()
+        time = self.datetime_edit.time()
+        
+        print(date_time < datetime.now())
+        # Print the date and time
+        print(f"QDateTime: {date_time.toString('yyyy-mm-dd hh:mm')}")
+        print(f"QDate: {date.toString()}")
+        print(f"QTime: {time.toString()}")
+
+        date_time = date_time.toString('yyyy-MM-dd hh:mm')
+        print(db.check_employee_app('Oten Dako', date_time))
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    app.exec()
+
+# print(db.check_employee_app('2024-20-00 18:00'))

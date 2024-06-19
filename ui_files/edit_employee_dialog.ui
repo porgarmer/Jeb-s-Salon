@@ -769,8 +769,15 @@ QTableWidget::item{
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QPushButton" name="add_emp_hist_button">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="text">
            <string>ADD EMPLOYMENT HISTORY</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../static/icons/add_button_light.svg</normaloff>../static/icons/add_button_light.svg</iconset>
           </property>
          </widget>
         </item>
@@ -809,6 +816,9 @@ QTableWidget::item{
         </item>
         <item>
          <widget class="QPushButton" name="save_emp_edit_button">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="text">
            <string>Save</string>
           </property>
@@ -820,6 +830,9 @@ QTableWidget::item{
         </item>
         <item>
          <widget class="QPushButton" name="cancel_edit_emp_button">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="text">
            <string>Cancel</string>
           </property>

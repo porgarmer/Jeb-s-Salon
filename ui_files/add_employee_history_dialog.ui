@@ -138,6 +138,9 @@ QPushButton:pressed {
         </item>
         <item>
          <widget class="QPushButton" name="save_emp_hist_button">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="text">
            <string>Save</string>
           </property>
@@ -149,6 +152,9 @@ QPushButton:pressed {
         </item>
         <item>
          <widget class="QPushButton" name="cancel_add_emp_hist_button">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="text">
            <string>Cancel</string>
           </property>

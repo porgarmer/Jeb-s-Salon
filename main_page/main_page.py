@@ -35,6 +35,7 @@ class MainPage(QMainWindow):
         self.dashboard_button.clicked.connect(self.switch_to_dashboard_page)
         self.dashboard_icon_button.clicked.connect(self.switch_to_dashboard_page)
         
+        self.delete_all_emp_button.clicked.connect(self.delete_all_employees)
         self.employees_button.clicked.connect(self.switch_to_employees_page)
         self.employees_icon_button.clicked.connect(self.switch_to_employees_page)
         self.populate_employees_table()
@@ -238,8 +239,16 @@ class MainPage(QMainWindow):
         self.more_details_dialog.finished.connect(self.reset_blur_effect) 
         self.more_details_dialog.exec()
             
-    
+    def delete_all_employees(self):
+        reply = QMessageBox.critical(self, "!!!!", "ARE YOU SURE YOU WANT TO DELETE ALL EMPLOYEES?",
+                                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel, defaultButton=QMessageBox.StandardButton.Cancel)
         
+        if reply == QMessageBox.StandardButton.Yes:
+            self.db.delete_all_employees()
+            QMessageBox.information(self, "Successful", "Successfully deleted all employees", 
+                                    QMessageBox.StandardButton.Ok, defaultButton=QMessageBox.StandardButton.Ok)
+            
+        self.populate_employees_table()
 ######## Functions for the customers tab#########
     def populate_customers_table(self):
         self.customers = self.db.select_all_customers()

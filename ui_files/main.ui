@@ -144,7 +144,7 @@ QLabel{
           <string notr="true">background-color: #20262E;</string>
          </property>
          <property name="currentIndex">
-          <number>5</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="dashboard_page">
           <widget class="QLabel" name="label_2">
@@ -937,6 +937,12 @@ QComboBox QAbstractItemView {
                 </item>
                 <item>
                  <widget class="QPushButton" name="refresh_button">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="toolTip">
+                   <string>Referesh</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -948,6 +954,12 @@ QComboBox QAbstractItemView {
                 </item>
                 <item>
                  <widget class="QPushButton" name="remove_service_filter_button">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="toolTip">
+                   <string>Remove filter</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1109,6 +1121,9 @@ QTableWidget::item{
               </item>
               <item row="2" column="0">
                <widget class="QPushButton" name="add_new_service_button">
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
                 <property name="text">
                  <string>ADD NEW SERVICE</string>
                 </property>
@@ -2047,7 +2062,7 @@ QPushButton:checked{
             </font>
            </property>
            <property name="text">
-            <string>JEB'S SALON</string>
+            <string>JEBS SALON</string>
            </property>
           </widget>
          </item>
