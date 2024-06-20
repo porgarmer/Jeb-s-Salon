@@ -108,13 +108,13 @@ QLineEdit{
       <property name="font">
        <font>
         <family>JetBrains Mono</family>
-        <pointsize>15</pointsize>
+        <pointsize>30</pointsize>
         <italic>false</italic>
         <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>JEBS SALON</string>
+       <string>JEB SALON</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

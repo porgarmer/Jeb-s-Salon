@@ -241,14 +241,15 @@ class AddEmployee(QDialog):
         self.edit_emp_hist_dialog.emp_hist_establishment.setText(self.emp_hist_table.item(row, 1).text())
         
         date_string1 = self.emp_hist_table.item(row, 2).text()
-        date_format1 = "MM-dd-yyyy"
+        date_format1 = "MMMM dd, yyyy"
         
         date_string2 = self.emp_hist_table.item(row, 3).text()
-        date_format2 = "MM-dd-yyyy"
+        date_format2 = "MMMM dd, yyyy"
 
         date_started = QDate.fromString(date_string1, date_format1)
         date_ended = QDate.fromString(date_string2, date_format2)
         
+        print(date_started, date_ended)
         self.edit_emp_hist_dialog.emp_hist_date_started.setDate(date_started)
         self.edit_emp_hist_dialog.emp_hist_date_ended.setDate(date_ended)
 
@@ -593,8 +594,10 @@ class AddEmpHist(QDialog):
 
         self.row = row
         
-        self.emp_hist_date_started.setDate(QDate.currentDate())
-        self.emp_hist_date_ended.setDate(QDate.currentDate())
+        if row == None:
+        
+            self.emp_hist_date_started.setDate(QDate.currentDate())
+            self.emp_hist_date_ended.setDate(QDate.currentDate())
         
         self.save_emp_hist_button.clicked.connect(self.save_emp_hist)
         self.cancel_add_emp_hist_button.clicked.connect(self.close)

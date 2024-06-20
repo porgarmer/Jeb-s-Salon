@@ -1,4 +1,6 @@
+from datetime import datetime
 import psycopg2
+from psycopg2 import sql
 from PyQt6.QtWidgets import QMessageBox
 class Database:
     def __init__(self) -> None:
@@ -256,7 +258,7 @@ class Database:
         finally:
             self.conn.close()
             self.cursor.close()
-#TODO: REWRITED THIS FUNCTION
+
     def select_employee_services(self, emp_id, services):
         employee_services = []
         
@@ -473,8 +475,125 @@ class Database:
             self.conn.close()
             self.cursor.close()
 
-#customer functions
+    def num_of_avail_emp(self):
+        connection = self.connect_db()
         
+        if isinstance(connection, Exception):
+            return connection
+        
+        try:
+            sql = f"""
+                select count(emp_id) from employee where emp_available = 'true';            
+            """
+            self.cursor.execute(sql)
+            return self.cursor.fetchone()[0]
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
+
+    def search_employee(self, search_param):
+        
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
+        
+        try:
+            
+            columns = ["emp_fname", "emp_minitial", "emp_lname", "emp_date_hired", "emp_email_address", "emp_address", "emp_contact_num", "emp_available", "emp_sex", "emp_available"]
+            
+            conditions = " or ".join([f"CAST({column} AS TEXT) ilike %s" for column in columns])
+            sql = f"""
+                select emp_id, 
+                        concat(emp_fname, ' ', emp_minitial, ' ', emp_lname) as name, 
+                        emp_sex, emp_date_hired, 
+                        emp_contact_num, 
+                        emp_email_address, 
+                        emp_address, 
+                        emp_available 
+                from employee
+                where {conditions}
+                order by (emp_fname, emp_minitial, emp_lname) asc          
+            """
+            
+            params = tuple(f"%{search_param}%" for _ in columns)
+            
+            
+            self.cursor.execute(sql, params)
+            return self.cursor.fetchall()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
+
+    def select_emp_by_date(self, date_param):
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
+        
+        sql = f"""
+                select  emp_id, 
+                        concat(emp_fname, ' ', emp_minitial, ' ', emp_lname) as name, 
+                        emp_sex, 
+                        emp_date_hired,
+                        emp_contact_num,
+                        emp_email_address, 
+                        emp_address, 
+                        emp_available 
+                from employee 
+                where emp_date_hired = '{date_param}'
+                order by (emp_fname, emp_minitial, emp_lname) desc    
+        """
+
+        try:
+            self.cursor.execute(sql)
+            return self.cursor.fetchall()
+            
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
+    
+    def filter_emp_available(self, availability):
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
+        
+        sql = f"""
+                select  emp_id, 
+                        concat(emp_fname, ' ', emp_minitial, ' ', emp_lname) as name, 
+                        emp_sex, 
+                        emp_date_hired,
+                        emp_contact_num,
+                        emp_email_address, 
+                        emp_address, 
+                        emp_available 
+                from employee 
+                where CAST(emp_available AS TEXT) ilike '%{availability}%'
+                order by (emp_fname, emp_minitial, emp_lname) desc    
+        """
+
+        try:
+            self.cursor.execute(sql)
+            return self.cursor.fetchall()
+            
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
+    
+#customer functions 
     def add_customer(self, cus_data, app_data):
         connection = self.connect_db()
         
@@ -536,7 +655,7 @@ class Database:
             left join appointment on  customer.cus_id =  appointment.cus_id  
             left join employee on appointment.emp_id = employee.emp_id
             left join service on appointment.ser_id = service.ser_id   
-            order by (customer.cus_fname, customer.cus_minitial, customer.cus_lname) asc     
+            order by (app_date_time) desc     
         """
 
         try:
@@ -721,6 +840,113 @@ class Database:
             self.conn.close()
             self.cursor.close()
         
+    def select_customer_today(self):
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
+        
+        sql = f"""
+            select  customer.cus_id, 
+                    appointment.app_id,
+                    concat(customer.cus_fname, ' ', customer.cus_minitial, ' ', customer.cus_lname) as "cus name", 
+                    customer.cus_sex,
+                    customer.cus_contact_num,
+                    service.ser_name,
+                    concat(employee.emp_fname, ' ', emp_lname) "assigned employee",
+                    app_date_time
+            from customer
+            left join appointment on  customer.cus_id =  appointment.cus_id  
+            left join employee on appointment.emp_id = employee.emp_id
+            left join service on appointment.ser_id = service.ser_id   
+            where app_date_time::date = '{datetime.today().date()}'
+            order by (customer.cus_fname, customer.cus_minitial, customer.cus_lname) asc     
+        """
+
+        try:
+            self.cursor.execute(sql)
+            return self.cursor.fetchall()
+            
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
+
+    def search_customer(self, search_param):
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
+        
+        try:
+            
+            columns = ["cus_fname", "cus_minitial", "cus_lname", "cus_sex", "cus_contact_num", "cus_sex"]
+            
+            conditions = " or ".join([f"CAST({column} AS TEXT) ilike %s" for column in columns])
+            sql = f"""
+                select  customer.cus_id, 
+                    appointment.app_id,
+                    concat(customer.cus_fname, ' ', customer.cus_minitial, ' ', customer.cus_lname) as "cus name", 
+                    customer.cus_sex,
+                    customer.cus_contact_num,
+                    service.ser_name,
+                    concat(employee.emp_fname, ' ', emp_lname) "assigned employee",
+                    app_date_time
+                from customer
+                left join appointment on  customer.cus_id =  appointment.cus_id  
+                left join employee on appointment.emp_id = employee.emp_id
+                left join service on appointment.ser_id = service.ser_id   
+                where {conditions}
+                order by (app_date_time) desc     
+            """
+            
+            params = tuple(f"%{search_param}%" for _ in columns)
+            
+            
+            self.cursor.execute(sql, params)
+            return self.cursor.fetchall()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
+
+    def filter_cus_by_date(self, date_param):
+        connection = self.connect_db()
+        if isinstance(connection, Exception):
+            return connection
+        
+        try:
+        
+            sql = """
+                select  customer.cus_id, 
+                    appointment.app_id,
+                    concat(customer.cus_fname, ' ', customer.cus_minitial, ' ', customer.cus_lname) as "cus name", 
+                    customer.cus_sex,
+                    customer.cus_contact_num,
+                    service.ser_name,
+                    concat(employee.emp_fname, ' ', emp_lname) "assigned employee",
+                    app_date_time
+                from customer
+                left join appointment on  customer.cus_id =  appointment.cus_id  
+                left join employee on appointment.emp_id = employee.emp_id
+                left join service on appointment.ser_id = service.ser_id   
+                where appointment.app_date_time::date = %s
+                order by (app_date_time) desc     
+            """
+            
+            self.cursor.execute(sql, date_param)
+            return self.cursor.fetchall()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
+
 #service functions
     def add_service(self, service_data):
         connection = self.connect_db()
@@ -936,8 +1162,8 @@ class Database:
             self.conn.close()
             self.cursor.close()
         
+        
 #transaction function
-
     def select_all_transac(self):
         connection = self.connect_db()
         
@@ -1024,7 +1250,6 @@ class Database:
         finally:
             self.conn.close()
             self.cursor.close()
-    
         
     def delete_all_transac(self):
         
@@ -1048,6 +1273,42 @@ class Database:
             self.conn.close()
             self.cursor.close()
         
+    def search_transac(self, search_param):
+        connection = self.connect_db()
+        
+        if isinstance(connection, Exception):
+            return connection
+        
+        try:
+            
+            columns = ["th_cus_fname", "th_cus_minitial", "th_cus_lname", "th_cus_sex"]
+            
+            conditions = " or ".join([f"CAST({column} AS TEXT) ilike %s" for column in columns])
+            sql = f"""
+                 select  th_id, 
+                    concat(th_cus_fname, ' ', th_cus_minitial, ' ', th_cus_lname) as "cus name", 
+                    th_cus_sex, 
+                    service.ser_name, 
+                    concat(employee.emp_fname, ' ', employee.emp_lname) as "employee assigned",
+                    th_app_date_time
+                from transaction_history
+                left join service on transaction_history.ser_id = service.ser_id
+                left join employee on transaction_history.emp_id = employee.emp_id
+                where {conditions}
+                order by th_app_date_time desc  
+            """
+            
+            params = tuple(f"%{search_param}%" for _ in columns)
+            
+            
+            self.cursor.execute(sql, params)
+            return self.cursor.fetchall()
+        except Exception as e:
+            self.conn.rollback()
+            return e
+        finally:
+            self.conn.close()
+            self.cursor.close()
 
     
 

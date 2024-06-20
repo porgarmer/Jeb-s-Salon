@@ -36,7 +36,15 @@ class MainPage(QMainWindow):
         
         self.dashboard_button.clicked.connect(self.switch_to_dashboard_page)
         self.dashboard_icon_button.clicked.connect(self.switch_to_dashboard_page)
+        self.populate_app_today_table()
+        self.set_num_app_today()
+        self.set_num_emp_avail()
         
+        self.filter_emp_date.setDate(QDate.currentDate())
+        self.filter_emp_date.userDateChanged.connect(self.filter_emp_by_date)
+        self.filter_emp_available.currentIndexChanged.connect(self.filter_emp_by_available)
+        self.reset_emp_filters_btn.clicked.connect(self.resreset_emp_filters)
+        self.emp_search_bar.textChanged.connect(self.search_employee)
         self.delete_all_emp_button.clicked.connect(self.delete_all_employees)
         self.employees_button.clicked.connect(self.switch_to_employees_page)
         self.employees_icon_button.clicked.connect(self.switch_to_employees_page)
@@ -45,29 +53,31 @@ class MainPage(QMainWindow):
         self.delete_all_cus_button.clicked.connect(self.delete_all_customers)
         self.customers_button.clicked.connect(self.switch_to_customers_page)
         self.customers_icon_button.clicked.connect(self.switch_to_customers_page)
+        self.filter_app_date.setDate(QDate.currentDate())
+        self.filter_app_date.userDateChanged.connect(self.filter_app_by_date)
+        self.cust_search_bar.textChanged.connect(self.search_customer)
+        self.reset_app_filter_btn.clicked.connect(self.reset_app_filter)
         self.populate_customers_table()
         
         self.delete_all_service.clicked.connect(self.delete_all_services)
         self.services_button.clicked.connect(self.switch_to_services_page)
         self.services_icon_button.clicked.connect(self.switch_to_services_page)
-        # self.refresh_button.clicked.connect(self.filter_by_service)
         self.reset_service_filter_btn.clicked.connect(self.reset_service_filter)
         self.service_filter.currentIndexChanged.connect(self.filter_by_service)
         self.set_up_services()
         self.populate_services_table()
         self.populate_available_employees()
 
+
         self.delete_all_transac_btn.clicked.connect(self.delete_all_transac)
         self.transac_history_button.clicked.connect(self.switch_to_transac_history_page)
         self.transac_history_button_2.clicked.connect(self.switch_to_transac_history_page)
         self.filter_transac_date.setDate(QDate.currentDate())
-        self.filter_transac_date.dateTimeChanged.connect(self.filter_transac_by_date)
+        self.filter_transac_date.userDateChanged.connect(self.filter_transac_by_date)
         self.reset_transac_filter_btn.clicked.connect(self.reset_transac_filter)
+        self.transac_search_bar.textChanged.connect(self.seach_transac)
         self.populate_transac_table()
         
-        
-        self.profile_button.clicked.connect(self.switch_to_profile_page)
-        self.profile_icon_button.clicked.connect(self.switch_to_profile_page)
 
         self.logout_btn.clicked.connect(self.logout)
         self.logout_btn_icon.clicked.connect(self.logout)
@@ -94,7 +104,9 @@ class MainPage(QMainWindow):
     def switch_to_dashboard_page(self):
         index = self.stackedWidget.indexOf(self.dashboard_page)
         self.stackedWidget.setCurrentIndex(index)
-    
+        header = self.app_today_table.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        
     def switch_to_employees_page(self):
         index = self.stackedWidget.indexOf(self.employees_page)
         self.stackedWidget.setCurrentIndex(index)
@@ -121,10 +133,6 @@ class MainPage(QMainWindow):
         header = self.transac_table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         
-    def switch_to_profile_page(self):
-        index = self.stackedWidget.indexOf(self.profile_page)
-        self.stackedWidget.setCurrentIndex(index)
-        
     def reset_blur_effect(self):
         blur_effect = QGraphicsBlurEffect()
         blur_effect.setBlurRadius(0)
@@ -136,6 +144,32 @@ class MainPage(QMainWindow):
         self.login_page.show()
         self.close()
         
+        
+######## Functoins fror dashboard #########
+    def populate_app_today_table(self):
+        self.app_today = self.db.select_customer_today()
+        
+        self.app_today_table.setRowCount(0)
+        self.app_today_table.hideColumn(0)
+        self.app_today_table.hideColumn(1)
+
+        if self.app_today:
+            for row, row_data in enumerate(self.app_today):
+                self.app_today_table.insertRow(row)
+                for col, cell_data in enumerate(row_data):  
+                    if isinstance(cell_data, datetime):
+                        cell_data = cell_data.strftime("%I:%M %p")
+                    item = QTableWidgetItem(str(cell_data))
+            
+                        
+                    self.app_today_table.setItem(row, col, item)
+                
+    def set_num_emp_avail(self):
+        self.numer_available_employees.setText(str(self.db.num_of_avail_emp()))
+
+    def set_num_app_today(self):
+        num_app_today = self.app_today_table.rowCount()
+        self.number_app_today.setText(str(num_app_today))
 ######## Functions for the employees tab#########
 
     def populate_employees_table(self):
@@ -175,7 +209,9 @@ class MainPage(QMainWindow):
         self.add_employee_dialog.exec()
 
         self.populate_employees_table()
-                
+        self.populate_available_employees()
+        self.set_num_emp_avail()
+
     def show_edit_employee_dialog(self):
         from main_page.employees_tab import EditEmployee
         
@@ -199,7 +235,9 @@ class MainPage(QMainWindow):
         self.edit_employee_dialog.exec()
         
         self.populate_employees_table()
-   
+        self.populate_available_employees()
+        self.set_num_emp_avail()
+
     def delete_employee(self): 
         
         button = self.sender()
@@ -221,9 +259,12 @@ class MainPage(QMainWindow):
             emp_id = self.emp_table.item(row_index, 0).text()
             self.db.delete_employee(emp_id=emp_id)
             self.populate_employees_table()
+            self.populate_available_employees()
+            self.set_num_emp_avail()
+
         else:
             print("No button pressed")
-        
+            
     def more_emp_details(self):
         from main_page.employees_tab import MoreDetails
 
@@ -255,7 +296,90 @@ class MainPage(QMainWindow):
             QMessageBox.information(self, "Successful", "Successfully deleted all employees", 
                                     QMessageBox.StandardButton.Ok, defaultButton=QMessageBox.StandardButton.Ok)
             
+            self.populate_employees_table()
+            self.populate_available_employees()
+            self.set_num_emp_avail()
+            
+    def search_employee(self):
+        search_param = self.emp_search_bar.text()
+        
+        result = self.db.search_employee(search_param)       
+        
+        self.emp_table.setRowCount(0)
+        self.emp_table.hideColumn(0)
+        
+        if result:
+            for row, row_data in enumerate(result):
+                self.emp_table.insertRow(row)
+                for col, cell_data in enumerate(row_data):
+                    if isinstance(cell_data, date):
+                        cell_data = cell_data.strftime("%B %d, %Y")
+                    item = QTableWidgetItem(str(cell_data))
+            
+                    self.emp_table.setItem(row, col, item)
+                
+                    #actions buttons
+                action_buttons = ActionButtons()
+                action_buttons.edit_button.clicked.connect(self.show_edit_employee_dialog)
+                action_buttons.delete_button.clicked.connect(self.delete_employee)
+                action_buttons.more_details_button.clicked.connect(self.more_emp_details)
+                self.emp_table.setCellWidget(row, 8, action_buttons)
+
+    def filter_emp_by_date(self, date_param):
+  
+        result = self.db.select_emp_by_date(date_param=date_param.toString("yyyy-MM-dd"))
+    
+        self.emp_table.setRowCount(0)
+        self.emp_table.hideColumn(0)
+        
+        if result:
+            for row, row_data in enumerate(result):
+                self.emp_table.insertRow(row)
+                for col, cell_data in enumerate(row_data):
+                    if isinstance(cell_data, date):
+                        cell_data = cell_data.strftime("%B %d, %Y")
+                    item = QTableWidgetItem(str(cell_data))
+            
+                    self.emp_table.setItem(row, col, item)
+                
+                    #actions buttons
+                action_buttons = ActionButtons()
+                action_buttons.edit_button.clicked.connect(self.show_edit_employee_dialog)
+                action_buttons.delete_button.clicked.connect(self.delete_employee)
+                action_buttons.more_details_button.clicked.connect(self.more_emp_details)
+                self.emp_table.setCellWidget(row, 8, action_buttons)
+    
+    def resreset_emp_filters(self):
+        self.filter_emp_date.setDate(QDate.currentDate())
+        self.filter_emp_available.clear()
+        self.filter_emp_available.setPlaceholderText("All")
+        self.filter_emp_available.addItems(["True", "False"])
+        self.emp_search_bar.clear()
         self.populate_employees_table()
+        
+    def filter_emp_by_available(self):
+        availability = self.filter_emp_available.currentText()
+        result = self.db.filter_emp_available(availability=availability)
+        self.emp_table.setRowCount(0)
+        self.emp_table.hideColumn(0)
+        
+        if result:
+            for row, row_data in enumerate(result):
+                self.emp_table.insertRow(row)
+                for col, cell_data in enumerate(row_data):
+                    if isinstance(cell_data, date):
+                        cell_data = cell_data.strftime("%B %d, %Y")
+                    item = QTableWidgetItem(str(cell_data))
+            
+                    self.emp_table.setItem(row, col, item)
+                
+                    #actions buttons
+                action_buttons = ActionButtons()
+                action_buttons.edit_button.clicked.connect(self.show_edit_employee_dialog)
+                action_buttons.delete_button.clicked.connect(self.delete_employee)
+                action_buttons.more_details_button.clicked.connect(self.more_emp_details)
+                self.emp_table.setCellWidget(row, 8, action_buttons)
+        
 ######## Functions for the customers tab#########
     def populate_customers_table(self):
         self.customers = self.db.select_all_customers()
@@ -295,6 +419,8 @@ class MainPage(QMainWindow):
         self.add_customer_dialog.exec()
 
         self.populate_customers_table()
+        self.populate_app_today_table()
+        self.set_num_app_today()
         
     def show_edit_customer_dialog(self):
         from main_page.customers_tab import EditCustomer
@@ -322,7 +448,9 @@ class MainPage(QMainWindow):
         self.edit_customer_dialog.exec()
         
         self.populate_customers_table()
-
+        self.populate_app_today_table()
+        self.set_num_app_today()
+        
     def delete_customer(self): 
         button = self.sender()
         if button:
@@ -342,11 +470,12 @@ class MainPage(QMainWindow):
         if reply == QMessageBox.StandardButton.Yes:
             self.db.delete_customer(cus_id=cus_id)
             print("Yes button pressed")
+            self.populate_customers_table()
+            self.populate_app_today_table()
+            self.set_num_app_today()
         else:
             print("No button pressed")
-
-        self.populate_customers_table()
-   
+    
     def appointment_done(self):
         button = self.sender()
         if button:
@@ -366,10 +495,11 @@ class MainPage(QMainWindow):
             self.db.complete_cus_app(app_id=app_id, cus_id=cus_id)
             print("Yes button pressed")
             self.populate_transac_table()
+            self.populate_customers_table()
+            self.populate_app_today_table()
+            self.set_num_app_today()
         else:
             print("No button pressed")
-
-        self.populate_customers_table()
         
     def delete_all_customers(self):
         reply = QMessageBox.critical(self, "!!!!", "ARE YOU SURE YOU WANT TO DELETE ALL CUSTOMERS?",
@@ -380,6 +510,64 @@ class MainPage(QMainWindow):
             QMessageBox.information(self, "Successful", "Successfully deleted all customers", 
                                     QMessageBox.StandardButton.Ok, defaultButton=QMessageBox.StandardButton.Ok)
             
+            self.populate_customers_table()
+            self.populate_app_today_table()
+            self.set_num_app_today()
+
+    def search_customer(self):
+        
+        search_param = self.cust_search_bar.text()
+        result = self.db.search_customer(search_param=search_param)
+
+        self.cus_table.setRowCount(0)
+        self.cus_table.hideColumn(0)
+        self.cus_table.hideColumn(1)
+
+        if result:
+            for row, row_data in enumerate(result):
+                self.cus_table.insertRow(row)
+                for col, cell_data in enumerate(row_data):  
+                    if isinstance(cell_data, datetime):
+                        cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
+                    item = QTableWidgetItem(str(cell_data))
+            
+                        
+                    self.cus_table.setItem(row, col, item)
+                
+                #actions buttons
+                action_buttons = CustomerActionButtons()
+                action_buttons.edit_button.clicked.connect(self.show_edit_customer_dialog)
+                action_buttons.delete_button.clicked.connect(self.delete_customer)
+                action_buttons.appointment_done_button.clicked.connect(self.appointment_done)
+                self.cus_table.setCellWidget(row, 8, action_buttons)
+
+    def filter_app_by_date(self, date_param):
+        result = self.db.filter_cus_by_date(date_param=(date_param.toString("yyyy-MM-dd"),))
+        self.cus_table.setRowCount(0)
+        self.cus_table.hideColumn(0)
+        self.cus_table.hideColumn(1)
+
+        if result:
+            for row, row_data in enumerate(result):
+                self.cus_table.insertRow(row)
+                for col, cell_data in enumerate(row_data):  
+                    if isinstance(cell_data, datetime):
+                        cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
+                    item = QTableWidgetItem(str(cell_data))
+            
+                        
+                    self.cus_table.setItem(row, col, item)
+                
+                #actions buttons
+                action_buttons = CustomerActionButtons()
+                action_buttons.edit_button.clicked.connect(self.show_edit_customer_dialog)
+                action_buttons.delete_button.clicked.connect(self.delete_customer)
+                action_buttons.appointment_done_button.clicked.connect(self.appointment_done)
+                self.cus_table.setCellWidget(row, 8, action_buttons)
+             
+    def reset_app_filter(self):
+        self.cust_search_bar.clear()
+        self.filter_app_date.setDate(QDate.currentDate())   
         self.populate_customers_table()
 ######## Functions for the services tab#########
 
@@ -442,7 +630,7 @@ class MainPage(QMainWindow):
 
         self.populate_services_table()
         self.set_up_services()
-        
+
     def delete_service(self):
         
         button = self.sender()
@@ -463,13 +651,12 @@ class MainPage(QMainWindow):
             service_name = self.services_table.item(row, 1).text()
             
             self.db.delete_service(service_name=service_name)
-                        
+            self.populate_services_table()
+            self.set_up_services()            
+            
             print("Yes button pressed")
         else:
             print("No button pressed")
-            
-        self.populate_services_table()
-        self.set_up_services()
         
     def populate_available_employees(self):
         self.available_employee_header.setText("AVAILABLE EMPLOYEES - ALL")
@@ -549,11 +736,14 @@ class MainPage(QMainWindow):
             QMessageBox.information(self, "Successful", "Successfully deleted all services", 
                                     QMessageBox.StandardButton.Ok, defaultButton=QMessageBox.StandardButton.Ok)
             
-        self.populate_services_table()
-        self.populate_available_employees()
-        self.service_filter.clear()
-        self.service_filter.setPlaceholderText("FILTER BY SERVICE")
+            self.populate_services_table()
+            self.populate_available_employees()
+            self.service_filter.clear()
+            self.service_filter.setPlaceholderText("FILTER BY SERVICE")
 
+    
+        
+        
 ######## Functions for the transactions tab#########
 
     def populate_transac_table(self):
@@ -579,7 +769,7 @@ class MainPage(QMainWindow):
             self.db.delete_all_transac()
             QMessageBox.information(self, "Successful", "Successfully deleted all transactions", 
                                     QMessageBox.StandardButton.Ok, defaultButton=QMessageBox.StandardButton.Ok)
-        self.populate_transac_table()
+            self.populate_transac_table()
         
     def filter_transac_by_date(self):
         self.transactions = self.db.select_transac_by_date(self.filter_transac_date.date().toString("yyyy-MM-dd"))
@@ -597,8 +787,26 @@ class MainPage(QMainWindow):
                     self.transac_table.setItem(row, col, item)
 
     def reset_transac_filter(self):
+        self.transac_search_bar.clear()
         self.filter_transac_date.setDate(QDate.currentDate())
         self.populate_transac_table()
+        
+    def seach_transac(self, search_param):
+        results = self.db.search_transac(search_param=search_param)
+        self.transac_table.setRowCount(0)
+        self.transac_table.hideColumn(0)
+
+        if results:
+            for row, row_data in enumerate(results):
+                self.transac_table.insertRow(row)
+                for col, cell_data in enumerate(row_data):
+                    if isinstance(cell_data, datetime):
+                        cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
+                    item = QTableWidgetItem(str(cell_data))
+            
+                    self.transac_table.setItem(row, col, item)
+                
+        
 class ActionButtons(QWidget):
     def __init__(self) -> None:
         super().__init__()

@@ -68,7 +68,7 @@ class EditService(QDialog):
         
     def save_employee(self):
         
-        reply = QMessageBox.question(self, 'Message', 'Do you want to save this employee?', 
+        reply = QMessageBox.question(self, 'Message', 'Do you want to save this service?', 
                                      QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, 
                                      QMessageBox.StandardButton.No)
         
