@@ -147,10 +147,12 @@ class AddEmployee(QDialog):
         
         #input error trappings
         email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-
+        name_regex = r"[ \-_]"
+        emp_fname_ = re.sub(name_regex, "", emp_fname)
+        emp_lname_ = re.sub(name_regex, "", emp_lname)
         if emp_fname == "" or emp_lname == "":
             QMessageBox.warning(self, "Warning", "Please fill the first and last name fields.")
-        elif not emp_fname.isalpha() or not emp_lname.isalpha():
+        elif not emp_fname_.isalpha() or not emp_lname_.isalpha():
             QMessageBox.warning(self, "Warning", "Name should not contain numeric character.")
         elif (emp_minitial and len(emp_minitial) > 1) or (emp_minitial and not emp_minitial.isalpha()):
             QMessageBox.warning(self, "Warning", "Middle initial should only be one letter and not a number.")
@@ -490,10 +492,12 @@ class EditEmployee(QDialog):
         
         #input error trapping
         email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-        
+        name_regex = r"[ \-_]"
+        emp_fname_ = re.sub(name_regex, "", emp_fname)
+        emp_lname_ = re.sub(name_regex, "", emp_lname)
         if emp_fname == "" or emp_lname == "":
             QMessageBox.warning(self, "Warning", "Please fill the first and last name fields.")
-        elif not emp_fname.isalpha() or not emp_lname.isalpha():
+        elif not emp_fname_.isalpha() or not emp_lname_.isalpha():
             QMessageBox.warning(self, "Warning", "Name should not contain numeric character.")
         elif (emp_minitial and len(emp_minitial) > 1) or (emp_minitial and not emp_minitial.isalpha()):
             QMessageBox.warning(self, "Warning", "Middle initial should only be one letter and not a number.")

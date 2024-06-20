@@ -1110,5 +1110,9 @@ db = Database()
 # print(db.add_customer(['0620202412', 'Fdf', 'F', 'Fdfd', '234434', 'Male'], ['2024-06-20', '9:16 AM', '0620202412', 'hair dressing', 'Asd Gfdgdfg']))
 # print(db.num_of_avail_emp())
 
-print(db.filter_cus_by_date(("2024-06-20",)))
+# print(db.filter_cus_by_date(("2024-06-20",)))
 
+text = "Hello - World_ Python"
+pattern = r"[ \-_]"
+text = re.sub(pattern, "", text)
+print(text)

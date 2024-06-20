@@ -1,5 +1,6 @@
 from datetime import date, time, datetime
 from random import randint
+import re
 import sys
 import os
 
@@ -66,10 +67,12 @@ class AddCustomer(QDialog):
         cus_employee_assigned = self.cus_employee_assigned.currentText()
         
         cus_id = self.generate_cus_id(cus_app_date)
-        
+        name_regex = r"[ \-_]"
+        cus_fname_ = re.sub(name_regex, "", cus_fname)
+        cus_lname_ = re.sub(name_regex, "", cus_lname)
         if cus_fname == "" or cus_lname == "":
             QMessageBox.warning(self, "Warning", "Please fill atleast the first and last name fields.")
-        elif not cus_fname.isalpha() or not cus_lname.isalpha():
+        elif not cus_fname_.isalpha() or not cus_lname_.isalpha():
             QMessageBox.warning(self, "Warning", "Name should not contain numeric character.")
         elif (cus_minitial and len(cus_minitial) > 1) or (cus_minitial and not cus_minitial.isalpha()):
             QMessageBox.warning(self, "Warning", "Middle initial should only be one letter and not a number.")
@@ -186,10 +189,12 @@ class EditCustomer(QDialog):
         cus_app_time = self.cus_app_date_time.time().toString("h:mm AP")
         cus_employee_assigned = self.cus_employee_assigned.currentText()
                 
-                
+        name_regex = r"[ \-_]"
+        cus_fname_ = re.sub(name_regex, "", cus_fname)
+        cus_lname_ = re.sub(name_regex, "", cus_lname)
         if cus_fname == "" or cus_lname == "":
             QMessageBox.warning(self, "Warning", "Please fill atleast the first and last name fields.")
-        elif not cus_fname.isalpha() or not cus_lname.isalpha():
+        elif not cus_fname_.isalpha() or not cus_lname_.isalpha():
             QMessageBox.warning(self, "Warning", "Name should not contain numeric character.")
         elif (cus_minitial and len(cus_minitial) > 1) or (cus_minitial and not cus_minitial.isalpha()):
             QMessageBox.warning(self, "Warning", "Middle initial should only be one letter and not a number.")
