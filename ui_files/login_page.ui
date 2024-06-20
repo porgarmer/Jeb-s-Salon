@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Login</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../static/icons/services_dark.svg</normaloff>../static/icons/services_dark.svg</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">#centralwidget{

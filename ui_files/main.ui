@@ -16,7 +16,11 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Jeb Salon</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../static/icons/resourcs.qrc">
+    <normaloff>:/barber-shop.svg</normaloff>:/barber-shop.svg</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
