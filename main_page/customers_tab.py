@@ -29,11 +29,22 @@ class AddCustomer(QDialog):
         self.set_up_services()
         self.cus_service_availed.currentIndexChanged.connect(self.set_up_employees)
         
+        self.cus_referred.setCurrentText("False")
+        self.toggle_referrer_name()
+        self.cus_referred.currentIndexChanged.connect(self.toggle_referrer_name)
+        
         self.cus_app_date_time.setDateTime(QDateTime.currentDateTime())
         
         self.save_cus_button.clicked.connect(self.save_customer)
         self.cancel_add_cus_button.clicked.connect(self.close)
         
+    def toggle_referrer_name(self):
+        if self.cus_referred.currentText() == "False":
+            self.cus_referrer_name.setEnabled(False)
+            self.cus_referrer_name.clear()
+        else:
+            self.cus_referrer_name.setEnabled(True)
+            
     def save_customer(self):
         reply = QMessageBox.question(self, 'Message', 'Do you want to save this customer?', 
                                      QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, 
@@ -53,13 +64,14 @@ class AddCustomer(QDialog):
             
     def retrieve_all_values(self):
         
-        #employee information
-        cus_fname = self.cus_fname.text().strip().capitalize()
-        cus_minitial = self.cus_minitial.text().strip().capitalize()
-        cus_lname = self.cus_lname.text().strip().capitalize()
+        cus_fname = self.cus_fname.text().strip().title()
+        cus_minitial = self.cus_minitial.text().strip().title()
+        cus_lname = self.cus_lname.text().strip().title()
         cus_sex = self.cus_sex.currentText()
         cus_service_availed = self.cus_service_availed.currentText()
         cus_contact_number = self.cus_contact_number.text().strip()
+        cus_referred = self.cus_referred.currentText()
+        cus_referrer_name = self.cus_referrer_name.text().strip().title()
         
         #appointment data
         cus_app_date = self.cus_app_date_time.date().toString("yyyy-MM-dd")
@@ -70,6 +82,8 @@ class AddCustomer(QDialog):
         name_regex = r"[ \-_]"
         cus_fname_ = re.sub(name_regex, "", cus_fname)
         cus_lname_ = re.sub(name_regex, "", cus_lname)
+        cus_referrer_name_ =  re.sub(name_regex, "", cus_referrer_name)
+        
         if cus_fname == "" or cus_lname == "":
             QMessageBox.warning(self, "Warning", "Please fill atleast the first and last name fields.")
         elif not cus_fname_.isalpha() or not cus_lname_.isalpha():
@@ -92,8 +106,10 @@ class AddCustomer(QDialog):
             QMessageBox.warning(self, "Warning", "Please select an employee.")
         elif self.db.check_employee_app(app_date_time=self.cus_app_date_time.dateTime().toString('yyyy-MM-dd hh:mm'), emp_name=cus_employee_assigned):
             QMessageBox.warning(self, "Warning", "Employee already booked for that time.")
+        elif cus_referrer_name_ != "" and not cus_referrer_name_.isalpha():
+            QMessageBox.warning(self, "Warning", "Referrer name should not contain numeric character.")
         else:
-            return{"cus_data": [cus_id, cus_fname, cus_minitial, cus_lname, cus_contact_number, cus_sex],
+            return{"cus_data": [cus_id, cus_fname, cus_minitial, cus_lname, cus_contact_number, cus_sex, cus_referred, cus_referrer_name],
                 "cus_app_data": [cus_app_date, cus_app_time, cus_id, cus_service_availed, cus_employee_assigned]
                 }
         
@@ -109,8 +125,7 @@ class AddCustomer(QDialog):
             cus_id_exist = self.db.check_cus_id(generated_cus_id)
             
             if not cus_id_exist:
-                return generated_cus_id
-            
+                return generated_cus_id      
             
     def set_up_services(self):
         services = self.db.select_services()
@@ -141,6 +156,9 @@ class EditCustomer(QDialog):
 
         customer_data = self.db.select_customer(app_id=app_id)
         
+        self.cus_referred.currentIndexChanged.connect(self.toggle_referrer_name)
+
+        
         self.cus_fname.setText(customer_data[0])
         self.cus_minitial.setText(customer_data[1].replace(" ", ""))
         self.cus_lname.setText(customer_data[2])
@@ -151,10 +169,19 @@ class EditCustomer(QDialog):
         self.cus_app_date_time.setDateTime(customer_data[6])
         self.set_up_employees(self.cus_service_availed.currentIndex())
         self.cus_employee_assigned.setCurrentText(customer_data[7])
+        self.cus_referred.setCurrentText(str(customer_data[8]))
+        self.cus_referrer_name.setText(customer_data[9])
         
         self.cus_service_availed.currentIndexChanged.connect(self.set_up_employees)
         self.save_cus_edit_button.clicked.connect(self.save_customer)
         self.cancel_edit_cus_button.clicked.connect(self.close)
+        
+    def toggle_referrer_name(self):
+        if self.cus_referred.currentText() == "False":
+            self.cus_referrer_name.setEnabled(False)
+            self.cus_referrer_name.clear()
+        else:
+            self.cus_referrer_name.setEnabled(True)    
         
     def save_customer(self):
         reply = QMessageBox.question(self, 'Message', 'Do you want to edit this customer?', 
@@ -167,31 +194,33 @@ class EditCustomer(QDialog):
             
             cus_values = self.retrieve_all_values()
             if cus_values:
-                self.db.update_customer(cus_id=self.cus_id, cus_data=cus_values["cus_data"], app_id=self.app_id, app_data=cus_values["cus_app_data"])
-                # self.db.udpate_customer_appointment()
+                print(self.db.update_customer(cus_id=self.cus_id, cus_data=cus_values["cus_data"], app_id=self.app_id, app_data=cus_values["cus_app_data"]))
                 self.close() 
         else:
-            print("No button pressed edit")
-            
-            
+            print("No button pressed edit")     
+    
     def retrieve_all_values(self):
         
         #employee information
-        cus_fname = self.cus_fname.text().strip().capitalize()
-        cus_minitial = self.cus_minitial.text().strip().capitalize()
-        cus_lname = self.cus_lname.text().strip().capitalize()
+        cus_fname = self.cus_fname.text().strip().title()
+        cus_minitial = self.cus_minitial.text().strip().title()
+        cus_lname = self.cus_lname.text().strip().title()
         cus_sex = self.cus_sex.currentText()
         cus_service_availed = self.cus_service_availed.currentText()
         cus_contact_number = self.cus_contact_number.text().strip()
+        cus_referred = self.cus_referred.currentText()
+        cus_referrer_name = self.cus_referrer_name.text().strip().title()
         
         #appointment data
-        cus_app_date = self.cus_app_date_time.date().toString("MM-dd-yyyy")
+        cus_app_date = self.cus_app_date_time.date().toString("yyyy-MM-dd")
         cus_app_time = self.cus_app_date_time.time().toString("h:mm AP")
         cus_employee_assigned = self.cus_employee_assigned.currentText()
                 
         name_regex = r"[ \-_]"
         cus_fname_ = re.sub(name_regex, "", cus_fname)
         cus_lname_ = re.sub(name_regex, "", cus_lname)
+        cus_referrer_name_ =  re.sub(name_regex, "", cus_referrer_name)
+
         if cus_fname == "" or cus_lname == "":
             QMessageBox.warning(self, "Warning", "Please fill atleast the first and last name fields.")
         elif not cus_fname_.isalpha() or not cus_lname_.isalpha():
@@ -214,8 +243,10 @@ class EditCustomer(QDialog):
             QMessageBox.warning(self, "Warning", "Please select an employee.")
         elif self.db.check_employee_app(app_date_time=self.cus_app_date_time.dateTime().toString('yyyy-MM-dd hh:mm'), emp_name=cus_employee_assigned):
             QMessageBox.warning(self, "Warning", "Employee already booked for that time.")
+        elif cus_referrer_name_ != "" and not cus_referrer_name_.isalpha():
+            QMessageBox.warning(self, "Warning", "Referrer name should not contain numeric character.")
         else:
-            return{"cus_data": [cus_fname, cus_minitial, cus_lname, cus_contact_number, cus_sex],
+            return{"cus_data": [cus_fname, cus_minitial, cus_lname, cus_contact_number, cus_sex, cus_referred, cus_referrer_name],
                 "cus_app_data": [cus_app_date, cus_app_time, cus_service_availed, cus_employee_assigned]
                 }
             
@@ -224,8 +255,7 @@ class EditCustomer(QDialog):
         if services:
             for service in services:
                 self.cus_service_availed.addItem(service[1])
-        
-        
+              
     def set_up_employees(self, index):
         self.cus_employee_assigned.clear()
         selected_service = self.cus_service_availed.itemText(index) 

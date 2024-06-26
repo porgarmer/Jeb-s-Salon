@@ -159,7 +159,7 @@ class Database:
         if isinstance(connection, Exception):
             return connection
         
-        sql = "select emp_id, concat(emp_fname, ' ', emp_minitial, ' ', emp_lname) as name, emp_sex, emp_date_hired, emp_contact_num, emp_email_address, emp_address, emp_available from employee order by (emp_fname, emp_minitial, emp_lname) asc"
+        sql = "select emp_id, concat(emp_fname, ' ', emp_minitial, ' ', emp_lname) as name, emp_sex, emp_date_hired, emp_contact_num, emp_email_address, emp_address, emp_available from employee order by emp_date_hired desc"
 
         try:
             self.cursor.execute(sql)
@@ -579,7 +579,7 @@ class Database:
                         emp_available 
                 from employee 
                 where CAST(emp_available AS TEXT) ilike '%{availability}%'
-                order by (emp_fname, emp_minitial, emp_lname) desc    
+                order by emp_date_hired desc    
         """
 
         try:
@@ -597,7 +597,6 @@ class Database:
     def add_customer(self, cus_data, app_data):
         connection = self.connect_db()
         
-        print(cus_data, app_data)
         if isinstance(connection, Exception):
             return connection
         
@@ -610,14 +609,16 @@ class Database:
             self.cursor.execute(sql)
             emp_id_ser_id = self.cursor.fetchone()
             sql1 = f"""
-                insert into customer(cus_id, cus_fname, cus_minitial, cus_lname, cus_contact_num, cus_sex)
+                insert into customer(cus_id, cus_fname, cus_minitial, cus_lname, cus_contact_num, cus_sex, cus_referred, cus_referrer_name)
                 values(
                     '{cus_data[0]}',
                     '{cus_data[1]}',
                     '{cus_data[2]}',
                     '{cus_data[3]}',
                     '{cus_data[4]}',
-                    '{cus_data[5]}'
+                    '{cus_data[5]}',
+                    '{cus_data[6]}',
+                    '{cus_data[7]}'
                 );
             """
             sql2 = f"""
@@ -650,12 +651,14 @@ class Database:
                     customer.cus_contact_num,
                     service.ser_name,
                     concat(employee.emp_fname, ' ', emp_lname) "assigned employee",
+                    customer.cus_referred,
+                    customer.cus_referrer_name,
                     app_date_time
             from customer
             left join appointment on  customer.cus_id =  appointment.cus_id  
             left join employee on appointment.emp_id = employee.emp_id
             left join service on appointment.ser_id = service.ser_id   
-            order by (app_date_time) desc     
+            order by (app_date_time)    
         """
 
         try:
@@ -683,7 +686,9 @@ class Database:
                     service.ser_name,
                     customer.cus_contact_num,
                     appointment.app_date_time,
-                    concat(employee.emp_fname, ' ', employee.emp_lname)
+                    concat(employee.emp_fname, ' ', employee.emp_lname),
+                    customer.cus_referred,
+                    customer.cus_referrer_name
             from customer
             left join appointment on  customer.cus_id =  appointment.cus_id  
             left join employee on appointment.emp_id = employee.emp_id
@@ -740,7 +745,9 @@ class Database:
                                     cus_minitial = '{cus_data[1]}', 
                                     cus_lname = '{cus_data[2]}', 
                                     cus_contact_num = '{cus_data[3]}', 
-                                    cus_sex = '{cus_data[4]}' 
+                                    cus_sex = '{cus_data[4]}',
+                                    cus_referred = '{cus_data[5]}',
+                                    cus_referrer_name = '{cus_data[6]}'
                 where cus_id = '{cus_id}';
             """
             sql3 =  f"""
@@ -791,6 +798,8 @@ class Database:
                         th_cus_sex, 
                         ser_id, 
                         emp_id, 
+                        th_cus_referred,
+                        th_cus_referrer_name,
                         th_app_date_time)
 
                 select  customer.cus_fname, 
@@ -799,6 +808,8 @@ class Database:
                         customer.cus_sex, 
                         service.ser_id, 
                         employee.emp_id,
+                        customer.cus_referred,
+                        customer.cus_referrer_name,
                         appointment.app_date_time
                 from customer
                 inner join appointment on appointment.cus_id = appointment.cus_id
@@ -811,7 +822,6 @@ class Database:
             """
             self.cursor.execute(sql1+sql2)
             self.conn.commit()
-            print("added to transac history")
         except Exception as e:
             self.conn.rollback()
             return e
@@ -854,13 +864,15 @@ class Database:
                     customer.cus_contact_num,
                     service.ser_name,
                     concat(employee.emp_fname, ' ', emp_lname) "assigned employee",
+                    cus_referred,
+                    cus_referrer_name,
                     app_date_time
             from customer
             left join appointment on  customer.cus_id =  appointment.cus_id  
             left join employee on appointment.emp_id = employee.emp_id
             left join service on appointment.ser_id = service.ser_id   
             where app_date_time::date = '{datetime.today().date()}'
-            order by (customer.cus_fname, customer.cus_minitial, customer.cus_lname) asc     
+            order by  app_date_time::time asc     
         """
 
         try:
@@ -893,6 +905,8 @@ class Database:
                     customer.cus_contact_num,
                     service.ser_name,
                     concat(employee.emp_fname, ' ', emp_lname) "assigned employee",
+                    customer.cus_referred,
+                    customer.cus_referrer_name,
                     app_date_time
                 from customer
                 left join appointment on  customer.cus_id =  appointment.cus_id  
@@ -929,6 +943,8 @@ class Database:
                     customer.cus_contact_num,
                     service.ser_name,
                     concat(employee.emp_fname, ' ', emp_lname) "assigned employee",
+                    customer.cus_referred,
+                    customer.cus_referrer_name,
                     app_date_time
                 from customer
                 left join appointment on  customer.cus_id =  appointment.cus_id  
@@ -1032,7 +1048,10 @@ class Database:
                 alter table {old_service_name.replace(" ", "_")} rename to {service_name.replace(" ", "_")};       
         """
         try:
-            self.cursor.execute(sql+sql2+sql3)
+            if old_service_name == service_name:
+                 self.cursor.execute(sql)
+            else:
+                self.cursor.execute(sql+sql2+sql3)
             self.conn.commit()
         except Exception as e:
             self.conn.rollback()
@@ -1176,6 +1195,8 @@ class Database:
                     th_cus_sex, 
                     service.ser_name, 
                     concat(employee.emp_fname, ' ', employee.emp_lname) as "employee assigned",
+                    th_cus_referred,
+                    th_cus_referrer_name,
                     th_app_date_time
             from transaction_history
             left join service on transaction_history.ser_id = service.ser_id
@@ -1205,6 +1226,8 @@ class Database:
                     th_cus_sex, 
                     service.ser_name, 
                     concat(employee.emp_fname, ' ', employee.emp_lname) as "employee assigned",
+                    th_cus_referred,
+                    th_cus_referrer_name,
                     th_app_date_time
             from transaction_history
             left join service on transaction_history.ser_id = service.ser_id
@@ -1234,6 +1257,8 @@ class Database:
                     th_cus_sex, 
                     service.ser_name, 
                     concat(employee.emp_fname, ' ', employee.emp_lname) as "employee assigned",
+                    th_cus_referred,
+                    th_cus_referrer_name,
                     th_app_date_time
             from transaction_history
             left join service on transaction_history.ser_id = service.ser_id
@@ -1290,6 +1315,8 @@ class Database:
                     th_cus_sex, 
                     service.ser_name, 
                     concat(employee.emp_fname, ' ', employee.emp_lname) as "employee assigned",
+                    th_cus_referred,
+                    th_cus_referrer_name,
                     th_app_date_time
                 from transaction_history
                 left join service on transaction_history.ser_id = service.ser_id

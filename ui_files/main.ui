@@ -19,8 +19,8 @@
    <string>Jeb Salon</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../static/icons/resourcs.qrc">
-    <normaloff>:/barber-shop.svg</normaloff>:/barber-shop.svg</iconset>
+   <iconset>
+    <normaloff>../static/icons/services_dark.svg</normaloff>../static/icons/services_dark.svg</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -420,6 +420,9 @@ QPushButton:checked{
            <property name="text">
             <string>JEB SALON</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
@@ -755,7 +758,7 @@ QPushButton:checked{
            <number>50</number>
           </property>
           <item>
-           <widget class="QPushButton" name="pushButton_12">
+           <widget class="QPushButton" name="toggle_side_bar_btn">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
@@ -816,7 +819,7 @@ QPushButton:checked{
           <string notr="true">background-color: #20262E;</string>
          </property>
          <property name="currentIndex">
-          <number>4</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="dashboard_page">
           <layout class="QGridLayout" name="gridLayout_13">
@@ -1195,6 +1198,16 @@ QTableWidget::item{
                   <column>
                    <property name="text">
                     <string>ASSIGNED EMPLOYEE</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>REFERRED</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>REFERRED NAME</string>
                    </property>
                   </column>
                   <column>
@@ -1761,7 +1774,7 @@ QTableWidget::item{
          </widget>
          <widget class="QWidget" name="customers_page">
           <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
+           <cursorShape>ArrowCursor</cursorShape>
           </property>
           <layout class="QGridLayout" name="gridLayout_6">
            <property name="leftMargin">
@@ -1859,8 +1872,8 @@ QTableWidget::item:selected{
 QTableWidget::item{
 	color: #2C2C3B;
 	selection-color: #2C2C3B;  /* Text color for selected items */
-
 }
+
 </string>
                 </property>
                 <property name="frameShadow">
@@ -1884,11 +1897,17 @@ QTableWidget::item{
                 <property name="gridStyle">
                  <enum>Qt::NoPen</enum>
                 </property>
+                <property name="sortingEnabled">
+                 <bool>false</bool>
+                </property>
                 <attribute name="horizontalHeaderVisible">
                  <bool>true</bool>
                 </attribute>
                 <attribute name="horizontalHeaderCascadingSectionResizes">
                  <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderMinimumSectionSize">
+                 <number>50</number>
                 </attribute>
                 <attribute name="horizontalHeaderHighlightSections">
                  <bool>true</bool>
@@ -1944,6 +1963,16 @@ QTableWidget::item{
                 <column>
                  <property name="text">
                   <string>ASSIGNED EMPLOYEE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>REFERRED</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>REFERRER NAME</string>
                  </property>
                 </column>
                 <column>
@@ -3102,7 +3131,17 @@ QTableWidget::item{
                 </column>
                 <column>
                  <property name="text">
-                  <string>APPOINTMENT DATE AND TIME</string>
+                  <string>REFERRED</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>REFERRER NAME</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>DATE AND TIME</string>
                  </property>
                 </column>
                </widget>
@@ -3144,50 +3183,18 @@ QTableWidget::item{
  </resources>
  <connections>
   <connection>
-   <sender>pushButton_12</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>side_bar_icon_only</receiver>
-   <slot>setHidden(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>385</x>
-     <y>47</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>96</x>
-     <y>539</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_12</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>side_bar</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>385</x>
-     <y>47</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>288</x>
-     <y>633</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>transac_history_button_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>transac_history_button</receiver>
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>70</x>
-     <y>560</y>
+     <x>80</x>
+     <y>487</y>
     </hint>
     <hint type="destinationlabel">
-     <x>252</x>
-     <y>560</y>
+     <x>325</x>
+     <y>487</y>
     </hint>
    </hints>
   </connection>
@@ -3198,12 +3205,12 @@ QTableWidget::item{
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>77</x>
-     <y>459</y>
+     <x>87</x>
+     <y>407</y>
     </hint>
     <hint type="destinationlabel">
-     <x>253</x>
-     <y>480</y>
+     <x>325</x>
+     <y>407</y>
     </hint>
    </hints>
   </connection>
@@ -3214,12 +3221,12 @@ QTableWidget::item{
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>74</x>
-     <y>374</y>
+     <x>84</x>
+     <y>327</y>
     </hint>
     <hint type="destinationlabel">
-     <x>262</x>
-     <y>400</y>
+     <x>325</x>
+     <y>327</y>
     </hint>
    </hints>
   </connection>
@@ -3230,12 +3237,12 @@ QTableWidget::item{
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>69</x>
-     <y>292</y>
+     <x>79</x>
+     <y>247</y>
     </hint>
     <hint type="destinationlabel">
-     <x>259</x>
-     <y>320</y>
+     <x>325</x>
+     <y>247</y>
     </hint>
    </hints>
   </connection>
@@ -3246,12 +3253,12 @@ QTableWidget::item{
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>72</x>
-     <y>214</y>
+     <x>82</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
-     <x>258</x>
-     <y>240</y>
+     <x>325</x>
+     <y>167</y>
     </hint>
    </hints>
   </connection>
@@ -3262,12 +3269,12 @@ QTableWidget::item{
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>261</x>
-     <y>240</y>
+     <x>325</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
-     <x>95</x>
-     <y>240</y>
+     <x>99</x>
+     <y>167</y>
     </hint>
    </hints>
   </connection>
@@ -3278,12 +3285,12 @@ QTableWidget::item{
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>274</x>
-     <y>320</y>
+     <x>325</x>
+     <y>247</y>
     </hint>
     <hint type="destinationlabel">
-     <x>93</x>
-     <y>320</y>
+     <x>99</x>
+     <y>247</y>
     </hint>
    </hints>
   </connection>
@@ -3294,12 +3301,12 @@ QTableWidget::item{
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>255</x>
-     <y>400</y>
+     <x>325</x>
+     <y>327</y>
     </hint>
     <hint type="destinationlabel">
-     <x>98</x>
-     <y>400</y>
+     <x>99</x>
+     <y>327</y>
     </hint>
    </hints>
   </connection>
@@ -3310,12 +3317,12 @@ QTableWidget::item{
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>264</x>
-     <y>480</y>
+     <x>325</x>
+     <y>407</y>
     </hint>
     <hint type="destinationlabel">
-     <x>96</x>
-     <y>480</y>
+     <x>99</x>
+     <y>407</y>
     </hint>
    </hints>
   </connection>
@@ -3326,12 +3333,12 @@ QTableWidget::item{
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>264</x>
-     <y>560</y>
+     <x>325</x>
+     <y>487</y>
     </hint>
     <hint type="destinationlabel">
-     <x>90</x>
-     <y>560</y>
+     <x>99</x>
+     <y>487</y>
     </hint>
    </hints>
   </connection>

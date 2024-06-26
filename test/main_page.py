@@ -10,6 +10,8 @@ sys.path.append(parent_dir)
 
 from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QGraphicsDropShadowEffect, QMessageBox
 from PyQt6.uic import loadUi
+from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve
+
 from database.connect_db import Database
 import resourcs_rc
 
@@ -21,8 +23,12 @@ class MainPage(QMainWindow):
 
         self.db = Database()
         
-        self.side_bar_icon_only.setHidden(True)
-        
+        self.side_bar_icon_only.setMaximumWidth(0)  
+        self.side_bar.setMaximumWidth(217)  
+        self.animation = QPropertyAnimation(self.side_bar, b"maximumWidth")
+
+        self.toggle_side_bar_btn.clicked.connect(self.toggle_side_bar)  
+    
         self.dashboard_button.clicked.connect(self.switch_to_dashboard_page)
         self.dashboard_icon_button.clicked.connect(self.switch_to_dashboard_page)
         
@@ -40,6 +46,22 @@ class MainPage(QMainWindow):
         
         self.profile_button.clicked.connect(self.switch_to_profile_page)
         self.profile_icon_button.clicked.connect(self.switch_to_profile_page)
+
+    def toggle_side_bar(self):
+        if self.side_bar.maximumWidth() == 217:
+            self.animation.setDuration(250)
+            self.animation.setStartValue(217)
+            self.animation.setEndValue(60)
+            self.animation.setEasingCurve(QEasingCurve.Type.InOutQuart)
+            self.animation.start()
+
+        else:
+            self.animation.setDuration(250)
+            self.animation.setStartValue(60)
+            self.animation.setEndValue(217)
+            self.animation.setEasingCurve(QEasingCurve.Type.InOutQuart)
+            self.animation.start()
+
 
     def switch_to_dashboard_page(self):
         index = self.stackedWidget.indexOf(self.dashboard_page)

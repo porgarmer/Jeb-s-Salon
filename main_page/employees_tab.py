@@ -133,9 +133,9 @@ class AddEmployee(QDialog):
     def retrieve_emp_values(self):
         
         #employee information
-        emp_fname = self.emp_fname.text().strip().capitalize()
-        emp_lname = self.emp_lname.text().strip().capitalize()
-        emp_minitial = self.emp_minitial.text().capitalize()
+        emp_fname = self.emp_fname.text().strip().title()
+        emp_lname = self.emp_lname.text().strip().title()
+        emp_minitial = self.emp_minitial.text().title()
         emp_sex = self.emp_sex.currentText()
         emp_services = self.checked_services()
         emp_address = self.emp_address.text().strip()
@@ -479,9 +479,9 @@ class EditEmployee(QDialog):
         
         #employee information
         
-        emp_fname = self.emp_fname.text().strip().capitalize()
-        emp_lname = self.emp_lname.text().strip().capitalize()
-        emp_minitial = self.emp_minitial.text().strip().capitalize()
+        emp_fname = self.emp_fname.text().strip().title()
+        emp_lname = self.emp_lname.text().strip().title()
+        emp_minitial = self.emp_minitial.text().strip().title()
         emp_sex = self.emp_sex.currentText()
         emp_services = self.checked_services()
         emp_address = self.emp_address.text().strip()

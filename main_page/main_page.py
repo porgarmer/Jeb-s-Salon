@@ -10,8 +10,8 @@ parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 # Add the parent directory to the Python path
 sys.path.append(parent_dir)
 
-from PyQt6.QtCore import Qt, QDateTime, QTimer, QDate
-from PyQt6.QtWidgets import QMainWindow, QHeaderView, QGraphicsBlurEffect, QMessageBox, QPushButton, QWidget, QHBoxLayout, QGridLayout, QVBoxLayout, QTableWidgetItem
+from PyQt6.QtCore import Qt, QDateTime, QTimer, QDate, QPropertyAnimation, QEasingCurve
+from PyQt6.QtWidgets import QMainWindow, QHeaderView, QGraphicsBlurEffect, QMessageBox, QPushButton, QWidget, QHBoxLayout, QTableWidgetItem
 from PyQt6.QtGui import QIcon
 from PyQt6.uic import loadUi
 from main_page import resources
@@ -26,6 +26,11 @@ class MainPage(QMainWindow):
         self.db = Database()
         
         self.side_bar_icon_only.setHidden(True)
+        self.side_bar.setMaximumWidth(217)  
+        self.animation = QPropertyAnimation(self.side_bar, b"maximumWidth")
+
+        self.toggle_side_bar_btn.clicked.connect(self.toggle_side_bar)  
+        
         self.switch_to_dashboard_page()
         
         self.timer = QTimer(self)
@@ -43,7 +48,7 @@ class MainPage(QMainWindow):
         self.filter_emp_date.setDate(QDate.currentDate())
         self.filter_emp_date.userDateChanged.connect(self.filter_emp_by_date)
         self.filter_emp_available.currentIndexChanged.connect(self.filter_emp_by_available)
-        self.reset_emp_filters_btn.clicked.connect(self.resreset_emp_filters)
+        self.reset_emp_filters_btn.clicked.connect(self.reset_emp_filters)
         self.emp_search_bar.textChanged.connect(self.search_employee)
         self.delete_all_emp_button.clicked.connect(self.delete_all_employees)
         self.employees_button.clicked.connect(self.switch_to_employees_page)
@@ -100,30 +105,62 @@ class MainPage(QMainWindow):
         # Update the QLabel with the formatted time string
         self.current_date_time.setText(time_string)
 
+    def toggle_side_bar(self):
+        if self.side_bar.maximumWidth() == 217:
+            self.animation.setDuration(250)
+            self.animation.setStartValue(217)
+            self.animation.setEndValue(65)
+            self.animation.setEasingCurve(QEasingCurve.Type.InOutQuart)
+            self.animation.start()
+
+        else:
+            self.animation.setDuration(250)
+            self.animation.setStartValue(65)
+            self.animation.setEndValue(217)
+            self.animation.setEasingCurve(QEasingCurve.Type.InOutQuart)
+            self.animation.start()
+        
     ### tab switching functions ###
     def switch_to_dashboard_page(self):
         index = self.stackedWidget.indexOf(self.dashboard_page)
         self.stackedWidget.setCurrentIndex(index)
         header = self.app_today_table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents) 
+        header.setSectionResizeMode(6, QHeaderView.ResizeMode.ResizeToContents) 
+        header.setSectionResizeMode(8, QHeaderView.ResizeMode.ResizeToContents) 
+        header.setMinimumSectionSize(120)
+
     def switch_to_employees_page(self):
         index = self.stackedWidget.indexOf(self.employees_page)
         self.stackedWidget.setCurrentIndex(index)
         header = self.emp_table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-                
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents) 
+        header.setSectionResizeMode(5, QHeaderView.ResizeMode.ResizeToContents) 
+        header.setSectionResizeMode(6, QHeaderView.ResizeMode.ResizeToContents) 
+        header.setSectionResizeMode(8, QHeaderView.ResizeMode.Fixed)   
+        header.setMinimumSectionSize(150)
+
     def switch_to_customers_page(self):
         index = self.stackedWidget.indexOf(self.customers_page)
         self.stackedWidget.setCurrentIndex(index)
         header = self.cus_table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents) 
+        header.setSectionResizeMode(6, QHeaderView.ResizeMode.ResizeToContents)   
+        header.setSectionResizeMode(8, QHeaderView.ResizeMode.ResizeToContents)   
+        header.setSectionResizeMode(9, QHeaderView.ResizeMode.ResizeToContents)   
+        header.setSectionResizeMode(10, QHeaderView.ResizeMode.Fixed)   
+        header.setMinimumSectionSize(150)
         
     def switch_to_services_page(self):
         index = self.stackedWidget.indexOf(self.services_page)
         self.stackedWidget.setCurrentIndex(index)
         header = self.services_table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(3, QHeaderView.ResizeMode.Fixed) 
+        self.services_table.setColumnWidth(3, 120)
         header2 = self.available_employees_table.horizontalHeader()
         header2.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         
@@ -132,7 +169,13 @@ class MainPage(QMainWindow):
         self.stackedWidget.setCurrentIndex(index)
         header = self.transac_table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents) 
+        header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents) 
+        header.setSectionResizeMode(6, QHeaderView.ResizeMode.ResizeToContents) 
+        header.setSectionResizeMode(7, QHeaderView.ResizeMode.ResizeToContents) 
+
+        header.setMinimumSectionSize(150)
+
     def reset_blur_effect(self):
         blur_effect = QGraphicsBlurEffect()
         blur_effect.setBlurRadius(0)
@@ -160,8 +203,8 @@ class MainPage(QMainWindow):
                     if isinstance(cell_data, datetime):
                         cell_data = cell_data.strftime("%I:%M %p")
                     item = QTableWidgetItem(str(cell_data))
-            
-                        
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+    
                     self.app_today_table.setItem(row, col, item)
                 
     def set_num_emp_avail(self):
@@ -185,7 +228,8 @@ class MainPage(QMainWindow):
                     if isinstance(cell_data, date):
                         cell_data = cell_data.strftime("%B %d, %Y")
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.emp_table.setItem(row, col, item)
                 
                     #actions buttons
@@ -315,7 +359,8 @@ class MainPage(QMainWindow):
                     if isinstance(cell_data, date):
                         cell_data = cell_data.strftime("%B %d, %Y")
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.emp_table.setItem(row, col, item)
                 
                     #actions buttons
@@ -339,7 +384,8 @@ class MainPage(QMainWindow):
                     if isinstance(cell_data, date):
                         cell_data = cell_data.strftime("%B %d, %Y")
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.emp_table.setItem(row, col, item)
                 
                     #actions buttons
@@ -349,7 +395,7 @@ class MainPage(QMainWindow):
                 action_buttons.more_details_button.clicked.connect(self.more_emp_details)
                 self.emp_table.setCellWidget(row, 8, action_buttons)
     
-    def resreset_emp_filters(self):
+    def reset_emp_filters(self):
         self.filter_emp_date.setDate(QDate.currentDate())
         self.filter_emp_available.clear()
         self.filter_emp_available.setPlaceholderText("All")
@@ -370,7 +416,8 @@ class MainPage(QMainWindow):
                     if isinstance(cell_data, date):
                         cell_data = cell_data.strftime("%B %d, %Y")
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.emp_table.setItem(row, col, item)
                 
                     #actions buttons
@@ -393,9 +440,10 @@ class MainPage(QMainWindow):
                 for col, cell_data in enumerate(row_data):  
                     if isinstance(cell_data, datetime):
                         cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
+    
                     item = QTableWidgetItem(str(cell_data))
-            
-                        
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.cus_table.setItem(row, col, item)
                 
                 #actions buttons
@@ -403,8 +451,8 @@ class MainPage(QMainWindow):
                 action_buttons.edit_button.clicked.connect(self.show_edit_customer_dialog)
                 action_buttons.delete_button.clicked.connect(self.delete_customer)
                 action_buttons.appointment_done_button.clicked.connect(self.appointment_done)
-                self.cus_table.setCellWidget(row, 8, action_buttons)
-
+                self.cus_table.setCellWidget(row, 10, action_buttons)
+        
     def show_add_customer_dialog(self):
         from main_page.customers_tab import AddCustomer
         
@@ -429,7 +477,7 @@ class MainPage(QMainWindow):
         if button:
                 # Find the index of the button
             for row in range(self.cus_table.rowCount()):
-                widget = self.cus_table.cellWidget(row, 8)
+                widget = self.cus_table.cellWidget(row, 10)
                 if widget and widget.edit_button == button:
                     row_index = row
                     break
@@ -456,7 +504,7 @@ class MainPage(QMainWindow):
         if button:
                 # Find the index of the button
             for row in range(self.cus_table.rowCount()):
-                widget = self.cus_table.cellWidget(row, 8)
+                widget = self.cus_table.cellWidget(row, 10)
                 if widget and widget.delete_button == button:
                     break
                 
@@ -481,7 +529,7 @@ class MainPage(QMainWindow):
         if button:
                 # Find the index of the button
             for row in range(self.cus_table.rowCount()):
-                widget = self.cus_table.cellWidget(row, 8)
+                widget = self.cus_table.cellWidget(row, 10)
                 if widget and widget.appointment_done_button == button:
                     break
         cus_id = self.cus_table.item(row, 0).text()
@@ -529,8 +577,10 @@ class MainPage(QMainWindow):
                 for col, cell_data in enumerate(row_data):  
                     if isinstance(cell_data, datetime):
                         cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
+                        
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                         
                     self.cus_table.setItem(row, col, item)
                 
@@ -539,7 +589,7 @@ class MainPage(QMainWindow):
                 action_buttons.edit_button.clicked.connect(self.show_edit_customer_dialog)
                 action_buttons.delete_button.clicked.connect(self.delete_customer)
                 action_buttons.appointment_done_button.clicked.connect(self.appointment_done)
-                self.cus_table.setCellWidget(row, 8, action_buttons)
+                self.cus_table.setCellWidget(row, 10, action_buttons)
 
     def filter_app_by_date(self, date_param):
         result = self.db.filter_cus_by_date(date_param=(date_param.toString("yyyy-MM-dd"),))
@@ -553,8 +603,10 @@ class MainPage(QMainWindow):
                 for col, cell_data in enumerate(row_data):  
                     if isinstance(cell_data, datetime):
                         cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
+                        
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                         
                     self.cus_table.setItem(row, col, item)
                 
@@ -563,7 +615,7 @@ class MainPage(QMainWindow):
                 action_buttons.edit_button.clicked.connect(self.show_edit_customer_dialog)
                 action_buttons.delete_button.clicked.connect(self.delete_customer)
                 action_buttons.appointment_done_button.clicked.connect(self.appointment_done)
-                self.cus_table.setCellWidget(row, 8, action_buttons)
+                self.cus_table.setCellWidget(row, 10, action_buttons)
              
     def reset_app_filter(self):
         self.cust_search_bar.clear()
@@ -581,7 +633,8 @@ class MainPage(QMainWindow):
                 self.services_table.insertRow(row)
                 for col, cell_data in enumerate(row_data):
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.services_table.setItem(row, col, item)
                 
                 #actions buttons
@@ -627,10 +680,10 @@ class MainPage(QMainWindow):
 
         self.edit_service_dialog.finished.connect(self.reset_blur_effect) 
         self.edit_service_dialog.exec()
-
+        
+        self.populate_customers_table()
         self.populate_services_table()
         self.set_up_services()
-
     def delete_service(self):
         
         button = self.sender()
@@ -669,7 +722,8 @@ class MainPage(QMainWindow):
                 self.available_employees_table.insertRow(row)
                 for col, cell_data in enumerate(row_data):
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.available_employees_table.setItem(row, col, item)
         
     def filter_by_service(self):
@@ -689,7 +743,8 @@ class MainPage(QMainWindow):
                 self.services_table.insertRow(row)
                 for col, cell_data in enumerate(row_data):
                     item = QTableWidgetItem(str(cell_data))
-                
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.services_table.setItem(row, col, item)
                 
                 #actions buttons
@@ -711,7 +766,8 @@ class MainPage(QMainWindow):
                 self.available_employees_table.insertRow(row)
                 for col, cell_data in enumerate(row_data):
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.available_employees_table.setItem(row, col, item)
 
     def reset_service_filter(self):
@@ -741,8 +797,6 @@ class MainPage(QMainWindow):
             self.service_filter.clear()
             self.service_filter.setPlaceholderText("FILTER BY SERVICE")
 
-    
-        
         
 ######## Functions for the transactions tab#########
 
@@ -758,7 +812,8 @@ class MainPage(QMainWindow):
                     if isinstance(cell_data, datetime):
                         cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.transac_table.setItem(row, col, item)
                 
     def delete_all_transac(self):
@@ -783,7 +838,8 @@ class MainPage(QMainWindow):
                     if isinstance(cell_data, datetime):
                         cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.transac_table.setItem(row, col, item)
 
     def reset_transac_filter(self):
@@ -803,7 +859,8 @@ class MainPage(QMainWindow):
                     if isinstance(cell_data, datetime):
                         cell_data = cell_data.strftime("%B %d, %Y | %I:%M %p")
                     item = QTableWidgetItem(str(cell_data))
-            
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                     self.transac_table.setItem(row, col, item)
                 
         
@@ -1073,3 +1130,4 @@ QPushButton:pressed {
         
         layout.addWidget(self.edit_button)
         layout.addWidget(self.delete_button)
+

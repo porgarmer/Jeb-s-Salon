@@ -1112,7 +1112,138 @@ db = Database()
 
 # print(db.filter_cus_by_date(("2024-06-20",)))
 
-text = "Hello - World_ Python"
-pattern = r"[ \-_]"
-text = re.sub(pattern, "", text)
-print(text)
+# text = "Hello - World_ Python"
+# pattern = r"[ \-_]"
+# text = re.sub(pattern, "", text)
+# print(text)
+
+# import sys
+# from PyQt6 import QtCore
+# from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QFrame, QLabel, QHBoxLayout
+# from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve
+
+# class MainWindow(QMainWindow):
+#     def __init__(self):
+#         super().__init__()
+
+#         self.setWindowTitle("Smooth Sidebar Animation")
+#         self.setGeometry(100, 100, 800, 600)
+
+#         # Create main layout
+#         self.main_widget = QWidget()
+#         self.setCentralWidget(self.main_widget)
+#         self.main_layout = QHBoxLayout(self.main_widget)
+
+#         # Create sidebar
+#         self.sidebar = QFrame()
+#         self.sidebar.setFrameShape(QFrame.Shape.StyledPanel)
+#         self.sidebar.setMaximumWidth(200)
+#         self.sidebar_layout = QVBoxLayout(self.sidebar)
+#         self.sidebar_layout.addWidget(QLabel("Sidebar Content"))
+#         self.sidebar.setStyleSheet("background-color: #f0f0f0;")
+
+#         # Create central content
+#         self.central_content = QLabel("Central Content")
+#         self.central_content.setAlignment(Qt.AlignmentFlag.AlignCenter)
+#         self.central_content.setStyleSheet("background-color: #ffffff;")
+
+#         # Add widgets to the main layout
+#         self.main_layout.addWidget(self.sidebar)
+#         self.main_layout.addWidget(self.central_content)
+
+#         # Create button to toggle sidebar
+#         self.toggle_button = QPushButton("Toggle Sidebar")
+#         self.toggle_button.clicked.connect(self.toggle_sidebar)
+#         self.main_layout.addWidget(self.toggle_button)
+
+#         # Sidebar animation
+#         self.animation = QPropertyAnimation(self.sidebar, b"maximumWidth")
+
+#     def toggle_sidebar(self):
+#         if self.sidebar.maximumWidth() == 200:
+#             self.animation.setDuration(250)
+#             self.animation.setStartValue(200)
+#             self.animation.setEndValue(0)
+#             self.animation.setEasingCurve(QEasingCurve.Type.InOutQuart)
+#             self.animation.start()
+#         else:
+#             self.animation.setDuration(250)
+#             self.animation.setStartValue(0)
+#             self.animation.setEndValue(200)
+#             self.animation.setEasingCurve(QEasingCurve.Type.InOutQuart)
+#             self.animation.start()
+
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     window = MainWindow()
+#     window.show()
+#     sys.exit(app.exec())
+import sys
+from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QHeaderView, QWidget, QAbstractItemView
+from PyQt6.QtCore import Qt
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("QTableWidget with Sticky Column")
+        self.setGeometry(100, 100, 800, 400)
+
+        # Create the main table widget
+        self.main_table = QTableWidget(5, 3)
+        self.main_table.setHorizontalHeaderLabels(["Column 1", "Column 2", "Column 3"])
+
+        # Add data to the main table
+        for row in range(5):
+            for col in range(3):
+                item = QTableWidgetItem(f"Item {row+1},{col+1}")
+                self.main_table.setItem(row, col, item)
+
+        # Create the frozen column table widget
+        self.frozen_table = QTableWidget(5, 1)
+        self.frozen_table.setHorizontalHeaderLabels(["Frozen Column"])
+
+        # Add data to the frozen table
+        for row in range(5):
+            item = QTableWidgetItem(f"Frozen {row+1}")
+            self.frozen_table.setItem(row, 0, item)
+
+        # Hide the vertical headers
+        self.frozen_table.verticalHeader().hide()
+        self.main_table.verticalHeader().hide()
+
+        # Hide the horizontal header of the frozen table to avoid duplication
+        self.frozen_table.horizontalHeader().hide()
+
+        # Set properties to make the frozen column look like part of the main table
+        self.frozen_table.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.frozen_table.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.frozen_table.setHorizontalScrollMode(QAbstractItemView.ScrollMode.ScrollPerPixel)
+        self.frozen_table.setVerticalScrollMode(QAbstractItemView.ScrollMode.ScrollPerPixel)
+
+        # Synchronize the vertical scrolling of both tables
+        self.main_table.verticalScrollBar().valueChanged.connect(self.frozen_table.verticalScrollBar().setValue)
+        self.frozen_table.verticalScrollBar().valueChanged.connect(self.main_table.verticalScrollBar().setValue)
+
+        # Set up the layout
+        layout = QHBoxLayout()
+        layout.addWidget(self.frozen_table)
+        layout.addWidget(self.main_table)
+
+        container = QWidget()
+        container.setLayout(layout)
+        self.setCentralWidget(container)
+
+        # Adjust the frozen column width
+        self.frozen_table.setColumnWidth(0, 150)
+        self.frozen_table.setMaximumWidth(150)
+
+        # Adjust the initial main table column widths
+        self.main_table.setColumnWidth(0, 150)
+        self.main_table.setColumnWidth(1, 200)
+        self.main_table.setColumnWidth(2, 250)
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec())
