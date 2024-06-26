@@ -16,7 +16,7 @@ class Database:
         self._port = 5432
         self._user = "postgres"
         self._password = "givemeallyourdata112"
-        self._database = "jebs_salon"
+        self._database = "jeb_salon_db"
         self.conn = None
         self.cursor = None
         
